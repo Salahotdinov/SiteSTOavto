@@ -80,7 +80,7 @@ export default async function handler(req, res) {
 
                 // Текст оповещения
                 const mailOptions = {
-                    from: '"АвтоДок Робот" <YOUR_SYSTEM_EMAIL@mail.ru>', 
+                    from: '"АвтоДок Робот" <YOUR_SYSTEM_EMAIL@gmail.ru>', 
                     to: targetAdminEmail, // Отправляем на email администратора из Supabase
                     subject: `🚗 Новая заявка на СТО от клиента: ${bookingData.name}`,
                     html: `
