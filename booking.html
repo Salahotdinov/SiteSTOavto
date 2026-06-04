@@ -448,6 +448,38 @@
         alert(`🚗 Заявка принята!\n\nИмя: ${name}\nАвто: ${carModel}\nУслуга: ${service}\nДата и время: ${date} ${selectedTime}\n\nСкоро администратор свяжется с вами.`);
 
         // Здесь потом будет fetch на бэкенд
+        // Находим место отправки формы в booking.html и заменяем логику создания bookingData:
+reviewForm.addEventListener('submit', async (e) => { // Добавляем async
+    e.preventDefault();
+    // ... сбор полей из формы ...
+
+    if (!name || !phone || !carModel || !service || !date || !selectedTime) {
+        alert("❌ Пожалуйста, заполните все обязательные поля.");
+        return;
+    }
+
+    // Сохранение в Supabase
+    const { data, error } = await supabaseClient
+        .from('bookings')
+        .insert([
+            { 
+                name: name, 
+                phone: phone, 
+                email: email || "не указан", 
+                car_model: carModel, 
+                service: service, 
+                booking_date: date, 
+                booking_time: selectedTime 
+            }
+        ]);
+
+    if (error) {
+        alert("❌ Ошибка при отправке записи: " + error.message);
+    } else {
+        alert(`🚗 Заявка успешно принята! Администратор свяжется с вами в ближайшее время.`);
+        document.getElementById("bookingForm").reset();
+    }
+});
     });
 
     renderTimeButtons();
