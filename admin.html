@@ -38,303 +38,255 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            flex-wrap: wrap;
-            gap: 16px;
         }
         .logo h1 {
             color: white;
-            font-size: 1.8rem;
+            font-size: 1.5rem;
             font-weight: 700;
         }
         .logo span {
             color: #f4b23e;
         }
-        .logo p {
-            color: #a0c4d4;
-            font-size: 0.8rem;
-            margin-top: 4px;
-        }
-        .nav-links {
-            display: flex;
-            gap: 24px;
-            flex-wrap: wrap;
-        }
-        .nav-links a {
-            color: white;
-            text-decoration: none;
-            font-weight: 500;
-            transition: 0.2s;
-        }
-        .nav-links a:hover {
-            color: #f4b23e;
-        }
-
-        /* ========== ПЛАШКА ========== */
-        .update-banner {
-            background: linear-gradient(95deg, #e9f0f5 0%, #dce6ed 100%);
-            margin: 1.5rem auto 0.5rem auto;
-            max-width: 1300px;
-            padding: 0.9rem 2rem;
-            border-radius: 60px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            flex-wrap: wrap;
-            gap: 1rem;
+        .logout-btn {
+            background: transparent;
             border: 1px solid #cbdae3;
-        }
-        .banner-text {
-            font-weight: 600;
-            color: #1a4b6e;
-            font-size: 1rem;
-        }
-        .btn-update {
-            background: #1f6392;
-            border: none;
-            padding: 8px 22px;
-            border-radius: 40px;
-            color: white;
-            font-weight: bold;
+            color: #cbdae3;
+            padding: 8px 16px;
+            border-radius: 4px;
             cursor: pointer;
+            transition: 0.2s;
+            text-decoration: none;
+            font-size: 0.9rem;
         }
-        .btn-update:hover {
-            background: #0e4b70;
+        .logout-btn:hover {
+            background: #ffffff20;
+            color: white;
         }
 
-        /* ========== АДМИН-КОНТЕЙНЕР ========== */
-        .admin-container {
+        /* ========== ОСНОВНОЙ КОНТЕНТ ========== */
+        .admin-layout {
+            display: grid;
+            grid-template-columns: 260px 1fr;
+            gap: 30px;
+            margin-top: 30px;
             flex: 1;
-            max-width: 1300px;
-            margin: 1rem auto 2rem auto;
-            background: white;
-            border-radius: 28px;
-            box-shadow: 0 8px 20px rgba(0,0,0,0.05);
-            overflow: hidden;
+            align-items: start;
         }
 
-        .tabs {
-            display: flex;
-            background: #f1f5f9;
-            gap: 0.25rem;
-            padding: 0.75rem 1.5rem 0 1.5rem;
-            border-bottom: 1px solid #dce5ec;
-            flex-wrap: wrap;
+        /* Боковая панель */
+        .sidebar {
+            background: white;
+            border-radius: 12px;
+            padding: 20px 10px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
         }
         .tab-btn {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            width: 100%;
+            padding: 12px 16px;
             background: transparent;
             border: none;
-            padding: 0.9rem 1.8rem;
+            border-radius: 8px;
+            text-align: left;
             font-size: 1rem;
-            font-weight: 600;
-            color: #2c4e6e;
+            font-weight: 500;
+            color: #5a6e7c;
             cursor: pointer;
-            border-radius: 30px 30px 0 0;
             transition: 0.2s;
+            margin-bottom: 8px;
         }
-        .tab-btn i {
-            margin-right: 8px;
+        .tab-btn:hover {
+            background: #f4f7fc;
+            color: #0b2b40;
         }
         .tab-btn.active {
-            background: white;
-            color: #0f5b87;
-            border-bottom: 3px solid #ffaa33;
+            background: #0b2b40;
+            color: white;
         }
+
+        /* Рабочая область */
+        .content-area {
+            background: white;
+            border-radius: 12px;
+            padding: 30px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+            min-height: 500px;
+        }
+
         .tab-pane {
             display: none;
-            padding: 2rem 1.8rem;
         }
         .tab-pane.active-pane {
             display: block;
         }
 
-        .toolbar {
+        .pane-header {
             display: flex;
-            justify-content: flex-end;
-            margin-bottom: 1.8rem;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 24px;
+            padding-bottom: 12px;
+            border-bottom: 2px solid #f4f7fc;
         }
+        .pane-header h2 {
+            color: #0b2b40;
+            font-size: 1.4rem;
+        }
+
         .btn-add {
-            background: #1f8a4c;
+            background: #f4b23e;
+            color: #0b2b40;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 6px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+        .btn-add:hover {
+            background: #ffcd70;
+        }
+
+        /* Форма настроек Email */
+        .email-settings-form {
+            max-width: 500px;
+            background: #f8fafc;
+            padding: 24px;
+            border-radius: 8px;
+            border: 1px solid #e2e8f0;
+        }
+        .form-group {
+            margin-bottom: 20px;
+        }
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: #334155;
+            font-size: 0.95rem;
+        }
+        .form-group input {
+            width: 100%;
+            padding: 10px 14px;
+            border: 1px solid #cbd5e1;
+            border-radius: 6px;
+            font-size: 1rem;
+            outline: none;
+            transition: 0.2s;
+        }
+        .form-group input:focus {
+            border-color: #0b2b40;
+            box-shadow: 0 0 0 3px rgba(11, 43, 64, 0.1);
+        }
+        .form-desc {
+            font-size: 0.85rem;
+            color: #64748b;
+            margin-top: 6px;
+            line-height: 1.4;
+        }
+        .btn-save-settings {
+            background: #0b2b40;
             color: white;
             border: none;
             padding: 10px 24px;
-            border-radius: 40px;
-            font-weight: bold;
+            border-radius: 6px;
+            font-weight: 500;
             cursor: pointer;
+            transition: 0.2s;
         }
-        .btn-add i {
-            margin-right: 6px;
+        .btn-save-settings:hover {
+            background: #163e59;
         }
-        .btn-add:hover {
-            background: #126e3d;
+        .success-msg {
+            color: #10b981;
+            font-size: 0.9rem;
+            margin-top: 10px;
+            font-weight: 500;
         }
 
-        .services-grid, .portfolio-grid {
+        /* Списки */
+        .data-list {
             display: flex;
             flex-direction: column;
             gap: 12px;
         }
-        .service-card, .portfolio-card {
-            background: #ffffff;
-            border: 1px solid #e2edf2;
-            border-radius: 20px;
-            padding: 1rem 1.5rem;
+        .data-item {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            flex-wrap: wrap;
-            gap: 12px;
+            padding: 14px 20px;
+            background: #f8fafc;
+            border-radius: 8px;
+            border: 1px solid #e2e8f0;
         }
-        .service-info, .portfolio-info {
-            flex: 3;
+        .item-info h4 {
+            color: #1e293b;
+            margin-bottom: 4px;
         }
-        .service-name {
-            font-weight: 700;
-            font-size: 1.1rem;
-            color: #1a3e50;
-        }
-        .service-price {
-            color: #2c7a47;
-            font-weight: 600;
-            margin-left: 15px;
-            font-size: 0.9rem;
-        }
-        .service-desc {
+        .item-info p {
+            color: #64748b;
             font-size: 0.85rem;
-            color: #5a6e7a;
-            margin-top: 4px;
         }
-        .portfolio-title {
-            font-weight: 700;
-            font-size: 1rem;
-            color: #1a3e50;
-        }
-        .image-pair {
-            display: flex;
-            gap: 15px;
-            align-items: center;
-            margin-top: 8px;
-            flex-wrap: wrap;
-        }
-        .image-pair span {
-            font-size: 0.75rem;
-            font-weight: 600;
-            color: #f4b23e;
-        }
-        .portfolio-img {
-            width: 80px;
-            height: 60px;
-            border-radius: 10px;
-            object-fit: cover;
-            border: 1px solid #ddd;
-        }
-        .card-actions {
-            display: flex;
-            gap: 12px;
-        }
-        .edit-btn, .delete-btn {
-            background: none;
+        .item-actions button {
+            background: transparent;
             border: none;
-            font-size: 0.9rem;
+            color: #ef4444;
             cursor: pointer;
-            padding: 6px 14px;
-            border-radius: 30px;
-            font-weight: 500;
+            font-size: 1.1rem;
+            padding: 6px;
+            transition: 0.2s;
         }
-        .edit-btn {
-            color: #2c7da0;
-            background: #ecf5f9;
-        }
-        .edit-btn:hover {
-            background: #d4e9f2;
-        }
-        .delete-btn {
-            color: #c0392b;
-            background: #fee9e7;
-        }
-        .delete-btn:hover {
-            background: #fcdad6;
+        .item-actions button:hover {
+            color: #b91c1c;
         }
 
-        /* Модальное окно */
-        .modal {
-            display: none;
-            position: fixed;
-            top: 0; left: 0;
-            width: 100%; height: 100%;
-            background-color: rgba(0,0,0,0.5);
-            align-items: center;
-            justify-content: center;
-            z-index: 1000;
-        }
-        .modal-content {
-            background: white;
-            max-width: 550px;
-            width: 90%;
-            border-radius: 32px;
-            padding: 1.8rem;
-        }
-        .modal-content h3 {
-            margin-bottom: 1.5rem;
-            color: #0a2b3e;
-        }
-        .modal-content input, .modal-content textarea {
-            width: 100%;
-            padding: 12px 14px;
-            margin: 8px 0 18px;
-            border: 1px solid #ccc;
-            border-radius: 24px;
-            font-size: 0.9rem;
-        }
-        .image-row {
-            display: flex;
-            gap: 15px;
-            margin-bottom: 15px;
-        }
-        .image-row div {
-            flex: 1;
-        }
-        .image-row label {
-            font-size: 0.8rem;
-            font-weight: 600;
-            color: #2c4e6e;
-            display: block;
-            margin-bottom: 5px;
-        }
-        .modal-buttons {
-            display: flex;
-            justify-content: flex-end;
-            gap: 12px;
-            margin-top: 15px;
-        }
-        .modal-buttons button {
-            padding: 8px 18px;
-            border-radius: 40px;
-            border: none;
-            cursor: pointer;
-        }
-        .save-btn {
-            background: #1f6392;
-            color: white;
-        }
-        .cancel-btn {
-            background: #ddd;
-        }
-
-        /* Подвал */
+        /* ПОДВАЛ */
         footer {
             background: #0e293b;
             color: #cbdae3;
-            padding: 30px 0;
-            margin-top: 20px;
-        }
-        .copyright {
             text-align: center;
+            padding: 20px 0;
+            margin-top: 40px;
             font-size: 0.85rem;
         }
-        @media (max-width: 700px) {
-            .image-row { flex-direction: column; gap: 8px; }
-            .tab-btn { padding: 0.6rem 1rem; font-size: 0.85rem; }
-            .service-card, .portfolio-card { flex-direction: column; align-items: flex-start; }
+
+        /* МОДАЛЬНОЕ ОКНО */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.4);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+        }
+        .modal-content {
+            background: white;
+            padding: 30px;
+            border-radius: 12px;
+            width: 100%;
+            max-width: 500px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+        }
+        .modal-header h3 {
+            color: #0b2b40;
+            margin-bottom: 20px;
+        }
+        .modal-footer {
+            display: flex;
+            justify-content: flex-end;
+            gap: 12px;
+            margin-top: 24px;
+        }
+        .btn-cancel {
+            background: #e2e8f0;
+            color: #334155;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 6px;
+            cursor: pointer;
         }
     </style>
 </head>
@@ -343,389 +295,216 @@
 <header>
     <div class="container header-flex">
         <div class="logo">
-            <h1>Авто<span>Док</span></h1>
-            <p>Профессиональный регламентный ремонт</p>
+            <h1>Панель Администратора | СТО <span>АвтоДок</span></h1>
         </div>
-        <div class="nav-links">
-            <a href="index.html">Цены и каталог</a>
-            <a href="booking.html">Онлайн-запись</a>
-            <a href="portfolio.html">Портфолио</a>
-            <a href="reviews.html">Отзывы</a>
-            <a href="contacts.html">Контакты</a>
-        </div>
+        <a href="index.html" class="logout-btn"><i class="fas fa-sign-out-alt"></i> На сайт</a>
     </div>
 </header>
 
-<div class="update-banner">
-    <div class="banner-text">
-        <i class="fas fa-database"></i> Панель управления синхронизирована с БД Supabase
-    </div>
-    <button class="btn-update" id="refreshDatabaseBtn"><i class="fas fa-sync-alt"></i> Обновить списки</button>
-</div>
-
-<div class="admin-container">
-    <div class="tabs">
-        <button class="tab-btn active" data-tab="requests"><i class="fas fa-clipboard-list"></i> Заявки клиентов</button>
-        <button class="tab-btn" data-tab="services"><i class="fas fa-wrench"></i> Услуги и Цены</button>
-        <button class="tab-btn" data-tab="portfolio"><i class="fas fa-images"></i> Портфолио СТО</button>
-        <button class="tab-btn" data-tab="reviews"><i class="fas fa-star"></i> Отзывы</button>
+<div class="container admin-layout">
+    <div class="sidebar">
+        <button class="tab-btn active" data-tab="services">
+            <i class="fas fa-tools"></i> Каталог услуг
+        </button>
+        <button class="tab-btn" data-tab="portfolio">
+            <i class="fas fa-images"></i> Портфолио
+        </button>
+        <button class="tab-btn" data-tab="settings">
+            <i class="fas fa-envelope"></i> Почта оповещений
+        </button>
     </div>
 
-    <div id="requests" class="tab-pane active-pane">
-        <h3><i class="fas fa-tools"></i> Новые онлайн-заявки от клиентов</h3>
-        <p style="margin: 10px 0 20px; color:#5a6e7a;">Данные поступают в реальном времени из таблицы 'bookings'</p>
-        <div id="requestsListContainer" class="services-grid">
+    <div class="content-area">
+        <div class="tab-pane active-pane" id="services">
+            <div class="pane-header">
+                <h2>Управление каталогом услуг</h2>
+                <button class="btn-add" id="addServiceBtn"><i class="fas fa-plus"></i> Добавить услугу</button>
             </div>
-    </div>
-
-    <div id="services" class="tab-pane">
-        <div class="toolbar">
-            <button class="btn-add" id="addServiceBtn"><i class="fas fa-plus-circle"></i> Добавить новую услугу</button>
+            <div class="data-list" id="servicesList"></div>
         </div>
-        <div id="servicesListContainer" class="services-grid">
-            </div>
-    </div>
 
-    <div id="portfolio" class="tab-pane">
-        <div class="toolbar">
-            <button class="btn-add" id="addPortfolioBtn"><i class="fas fa-plus-circle"></i> Добавить работу в портфолио</button>
+        <div class="tab-pane" id="portfolio">
+            <div class="pane-header">
+                <h2>Примеры работ (Портфолио)</h2>
+                <button class="btn-add" id="addPortfolioBtn"><i class="fas fa-plus"></i> Добавить работу</button>
+            </div>
+            <div class="data-list" id="portfolioList"></div>
         </div>
-        <div id="portfolioListContainer" class="portfolio-grid">
-            </div>
-    </div>
 
-    <div id="reviews" class="tab-pane">
-        <h3><i class="fas fa-comment-dots"></i> Модерация отзывов с сайта</h3>
-        <p style="margin: 10px 0 20px; color:#5a6e7a;">Отзывы из таблицы 'reviews'</p>
-        <div id="reviewsListContainer" class="services-grid">
+        <div class="tab-pane" id="settings">
+            <div class="pane-header">
+                <h2>Настройки почты для новых заказов</h2>
             </div>
+            <div class="email-settings-form">
+                <div class="form-group">
+                    <label for="adminEmailInput">Email для уведомлений:</label>
+                    <input type="email" id="adminEmailInput" placeholder="example@mail.ru">
+                    <p class="form-desc">Укажите адрес почты. Сюда через бэкенд Vercel и базу Supabase будут перенаправляться новые заявки.</p>
+                </div>
+                <button class="btn-save-settings" id="saveEmailBtn">Сохранить в Supabase</button>
+                <div id="settingsMessage" class="success-msg"></div>
+            </div>
+        </div>
     </div>
 </div>
 
 <div class="modal" id="adminModal">
     <div class="modal-content">
-        <h3 id="modalTitle">Управление элементом</h3>
-        <form id="modalForm">
-            <div id="modalFormFields"></div>
-            
-            <div class="modal-buttons">
-                <button type="button" class="cancel-btn" id="modalCancelBtn">Отмена</button>
-                <button type="submit" class="save-btn" id="modalSaveBtn">Сохранить изменения</button>
+        <div class="modal-header"><h3 id="modalTitle">Добавить</h3></div>
+        <div class="modal-body">
+            <div class="form-group">
+                <label id="labelTitle">Название</label>
+                <input type="text" id="inputTitle">
             </div>
-        </form>
+            <div class="form-group">
+                <label id="labelExtra">Дополнительно</label>
+                <input type="text" id="inputExtra">
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button class="btn-cancel" id="modalCancelBtn">Отмена</button>
+            <button class="btn-add" id="modalSaveBtn">Сохранить</button>
+        </div>
     </div>
 </div>
 
 <footer>
-    <div class="container copyright">
-        <p>© 2026 СТО «АвтоДок». Система администрирования баз данных.</p>
+    <div class="container">
+        <p>© 2026 СТО «АвтоДок» — Безопасное управление данными через Supabase.</p>
     </div>
 </footer>
 
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-<script src="supabase-config.js"></script>
-
 <script>
-    let currentMode = ''; // 'addService', 'editService', 'addPortfolio', 'editPortfolio'
-    let currentEditId = null;
+    let services = [
+        { id: 1, name: "Компьютерная диагностика", price: "от 1 000 ₽" },
+        { id: 2, name: "Замена моторного масла и фильтра", price: "от 1 500 ₽" }
+    ];
+    let portfolio = [
+        { id: 1, title: "Капитальный ремонт двигателя V6", hours: "18 часов", price: "45 000 ₽" }
+    ];
 
-    // Ссылки на элементы DOM
+    const servicesList = document.getElementById('servicesList');
+    const portfolioList = document.getElementById('portfolioList');
     const modal = document.getElementById('adminModal');
     const modalTitle = document.getElementById('modalTitle');
-    const modalFormFields = document.getElementById('modalFormFields');
-    const modalForm = document.getElementById('modalForm');
+    const modalSaveBtn = document.getElementById('modalSaveBtn');
+    const modalCancelBtn = document.getElementById('modalCancelBtn');
+    const inputTitle = document.getElementById('inputTitle');
+    const inputExtra = document.getElementById('inputExtra');
+    const labelTitle = document.getElementById('labelTitle');
+    const labelExtra = document.getElementById('labelExtra');
 
-    // Настройка вкладок
+    const adminEmailInput = document.getElementById('adminEmailInput');
+    const saveEmailBtn = document.getElementById('saveEmailBtn');
+    const settingsMessage = document.getElementById('settingsMessage');
+    let currentModalType = '';
+
+    function renderServices() {
+        servicesList.innerHTML = services.map(s => `
+            <div class="data-item">
+                <div class="item-info"><h4>${s.name}</h4><p>Стоимость: ${s.price}</p></div>
+                <div class="item-actions"><button onclick="deleteService(${s.id})"><i class="fas fa-trash-alt"></i></button></div>
+            </div>
+        `).join('');
+    }
+
+    function renderPortfolio() {
+        portfolioList.innerHTML = portfolio.map(p => `
+            <div class="data-item">
+                <div class="item-info"><h4>${p.title}</h4><p>Срок: ${p.hours} | Бюджет: ${p.price}</p></div>
+                <div class="item-actions"><button onclick="deletePortfolio(${p.id})"><i class="fas fa-trash-alt"></i></button></div>
+            </div>
+        `).join('');
+    }
+
+    window.deleteService = function(id) { services = services.filter(s => s.id !== id); renderServices(); }
+    window.deletePortfolio = function(id) { portfolio = portfolio.filter(p => p.id !== id); renderPortfolio(); }
+
+    function openAddServiceModal() {
+        currentModalType = 'service'; modalTitle.textContent = 'Добавить услугу';
+        labelTitle.textContent = 'Название услуги'; labelExtra.textContent = 'Стоимость';
+        inputTitle.value = ''; inputExtra.value = ''; modal.style.display = 'flex';
+    }
+
+    function openAddPortfolioModal() {
+        currentModalType = 'portfolio'; modalTitle.textContent = 'Добавить в портфолио';
+        labelTitle.textContent = 'Описание работы'; labelExtra.textContent = 'Срок и цена';
+        inputTitle.value = ''; inputExtra.value = ''; modal.style.display = 'flex';
+    }
+
+    function closeModal() { modal.style.display = 'none'; }
+
+    function saveModalData() {
+        const title = inputTitle.value.trim(); const extra = inputExtra.value.trim();
+        if (!title || !extra) { alert('Заполните поля!'); return; }
+        if (currentModalType === 'service') { services.push({ id: Date.now(), name: title, price: extra }); renderServices(); }
+        else { portfolio.push({ id: Date.now(), title: title, hours: extra, price: '' }); renderPortfolio(); }
+        closeModal();
+    }
+
+    // ===============================================================
+    // ИНТЕГРАЦИЯ С БЭКЕНДОМ SUPABASE ДЛЯ ВКЛАДКИ ПОЧТЫ
+    // ===============================================================
+    async function loadAdminEmail() {
+        try {
+            const response = await fetch('/api/booking');
+            const data = await response.json();
+            if (data.adminEmail) {
+                adminEmailInput.value = data.adminEmail;
+            }
+        } catch (error) {
+            console.error('Ошибка чтения email из БД:', error);
+        }
+    }
+
+    saveEmailBtn.addEventListener('click', async () => {
+        const emailValue = adminEmailInput.value.trim();
+        if (!emailValue || !emailValue.includes('@')) {
+            alert('Введите корректную почту.');
+            return;
+        }
+
+        try {
+            const response = await fetch('/api/booking', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ action: 'saveSettings', emailValue: emailValue })
+            });
+            const data = await response.json();
+            if (data.success) {
+                settingsMessage.innerHTML = `<i class="fas fa-check-circle"></i> Успешно сохранено в Supabase! Адрес: <strong>${emailValue}</strong>`;
+                setTimeout(() => settingsMessage.innerHTML = '', 4000);
+            } else {
+                alert('Ошибка: ' + data.message);
+            }
+        } catch (error) {
+            alert('Ошибка при отправке запроса на бэкенд.');
+        }
+    });
+
+    // Управление табами
     const tabs = document.querySelectorAll('.tab-btn');
     const panes = document.querySelectorAll('.tab-pane');
     tabs.forEach(tab => {
         tab.addEventListener('click', () => {
             const targetId = tab.getAttribute('data-tab');
-            tabs.forEach(t => t.classList.remove('active'));
-            tab.classList.add('active');
+            tabs.forEach(t => t.classList.remove('active')); tab.classList.add('active');
             panes.forEach(pane => pane.classList.remove('active-pane'));
             document.getElementById(targetId).classList.add('active-pane');
-            
-            // Автоматическое обновление данных вкладки при открытии
-            if (targetId === 'requests') loadRequests();
-            if (targetId === 'services') loadServices();
-            if (targetId === 'portfolio') loadPortfolio();
-            if (targetId === 'reviews') loadReviews();
+            if (targetId === 'services') renderServices();
+            if (targetId === 'portfolio') renderPortfolio();
         });
     });
 
-    // Кнопка тотального обновления
-    document.getElementById('refreshDatabaseBtn').addEventListener('click', () => {
-        loadRequests();
-        loadServices();
-        loadPortfolio();
-        loadReviews();
-    });
-
-    // ==========================================
-    // 1. УПРАВЛЕНИЕ ЗАЯВКАМИ (BOOKINGS)
-    // ==========================================
-    async function loadRequests() {
-        const container = document.getElementById('requestsListContainer');
-        container.innerHTML = '<div>Загрузка заявок...</div>';
-        try {
-            const { data, error } = await supabaseClient.from('bookings').select('*').order('created_at', { ascending: false });
-            if (error) throw error;
-            if(!data || data.length === 0) {
-                container.innerHTML = '<div>Список заявок пуст.</div>';
-                return;
-            }
-            container.innerHTML = data.map(item => `
-                <div class="service-card">
-                    <div>
-                        <strong>Клиент:</strong> ${item.name} (${item.phone})<br>
-                        <strong>Авто:</strong> ${item.carModel} | <strong>Услуга:</strong> ${item.service}<br>
-                        <strong>Дата/Время записи:</strong> ${item.date} в ${item.time}
-                    </div>
-                    <div class="card-actions">
-                        <button class="delete-btn" onclick="deleteRequest('${item.id}')"><i class="fas fa-trash"></i> Удалить</button>
-                    </div>
-                </div>
-            `).join('');
-        } catch (err) {
-            container.innerHTML = `<div style="color:red">Ошибка: ${err.message}</div>`;
-        }
-    }
-
-    async function deleteRequest(id) {
-        if(!confirm('Удалить эту заявку из базы навсегда?')) return;
-        await supabaseClient.from('bookings').delete().eq('id', id);
-        loadRequests();
-    }
-
-    // ==========================================
-    // 2. УПРАВЛЕНИЕ УСЛУГАМИ (SERVICES)
-    // ==========================================
-    async function loadServices() {
-        const container = document.getElementById('servicesListContainer');
-        container.innerHTML = '<div>Загрузка каталога услуг...</div>';
-        try {
-            const { data, error } = await supabaseClient.from('services').select('*').order('name', { ascending: true });
-            if (error) throw error;
-            container.innerHTML = data.map(item => `
-                <div class="service-card">
-                    <div class="service-info">
-                        <span class="service-name">${item.name}</span>
-                        <span class="service-price">${item.price}</span>
-                        <div class="service-desc">Категория: <strong>${item.category}</strong> | Описание: ${item.description || 'нет'}</div>
-                    </div>
-                    <div class="card-actions">
-                        <button class="edit-btn" onclick="openEditServiceModal(${JSON.stringify(item).replace(/"/g, '&quot;')})"><i class="fas fa-edit"></i></button>
-                        <button class="delete-btn" onclick="deleteService('${item.id}')"><i class="fas fa-trash"></i></button>
-                    </div>
-                </div>
-            `).join('');
-        } catch (err) {
-            container.innerHTML = `<div style="color:red">Ошибка: ${err.message}</div>`;
-        }
-    }
-
-    document.getElementById('addServiceBtn').addEventListener('click', () => {
-        currentMode = 'addService';
-        modalTitle.textContent = 'Добавление новой услуги';
-        modalFormFields.innerHTML = `
-            <label>Название услуги</label><input type="text" id="field_name" required placeholder="Например: Замена тормозных колодок">
-            <label>Стоимость (текст)</label><input type="text" id="field_price" required placeholder="от 1 500 руб.">
-            <label>Категория (латиницей, как в index.html)</label><input type="text" id="field_category" required placeholder="tech / brake / engine / suspension">
-            <label>Краткое описание</label><textarea id="field_description" rows="3" placeholder="Что входит в стоимость..."></textarea>
-        `;
-        modal.style.display = 'flex';
-    });
-
-    function openEditServiceModal(item) {
-        currentMode = 'editService';
-        currentEditId = item.id;
-        modalTitle.textContent = 'Редактирование услуги';
-        modalFormFields.innerHTML = `
-            <label>Название услуги</label><input type="text" id="field_name" value="${item.name}" required>
-            <label>Стоимость (текст)</label><input type="text" id="field_price" value="${item.price}" required>
-            <label>Категория</label><input type="text" id="field_category" value="${item.category}" required>
-            <label>Краткое описание</label><textarea id="field_description" rows="3">${item.description || ''}</textarea>
-        `;
-        modal.style.display = 'flex';
-    }
-
-    async function deleteService(id) {
-        if(!confirm('Удалить эту услугу из прайс-листа?')) return;
-        await supabaseClient.from('services').delete().eq('id', id);
-        loadServices();
-    }
-
-    // ==========================================
-    // 3. УПРАВЛЕНИЕ ПОРТФОЛИО (PORTFOLIO)
-    // ==========================================
-    async function loadPortfolio() {
-        const container = document.getElementById('portfolioListContainer');
-        container.innerHTML = '<div>Загрузка галереи работ...</div>';
-        try {
-            const { data, error } = await supabaseClient.from('portfolio').select('*').order('created_at', { ascending: false });
-            if (error) throw error;
-            container.innerHTML = data.map(item => `
-                <div class="portfolio-card">
-                    <div class="portfolio-info">
-                        <span class="portfolio-title">${item.title}</span>
-                        <div style="font-size:0.85rem; color:#666; margin:4px 0;">🕒 Время: ${item.hours} | 💰 Цена: ${item.price}</div>
-                        <div class="image-pair">
-                            <div><span>ДО:</span><img src="${item.before_img}" class="portfolio-img"></div>
-                            <div><span>ПОСЛЕ:</span><img src="${item.after_img}" class="portfolio-img"></div>
-                        </div>
-                    </div>
-                    <div class="card-actions">
-                        <button class="edit-btn" onclick="openEditPortfolioModal(${JSON.stringify(item).replace(/"/g, '&quot;')})"><i class="fas fa-edit"></i></button>
-                        <button class="delete-btn" onclick="deletePortfolio('${item.id}')"><i class="fas fa-trash"></i></button>
-                    </div>
-                </div>
-            `).join('');
-        } catch (err) {
-            container.innerHTML = `<div style="color:red">Ошибка: ${err.message}</div>`;
-        }
-    }
-
-    document.getElementById('addPortfolioBtn').addEventListener('click', () => {
-        currentMode = 'addPortfolio';
-        modalTitle.textContent = 'Добавление работы в Портфолио';
-        modalFormFields.innerHTML = `
-            <label>Заголовок (Марка авто и вид ремонта)</label><input type="text" id="field_title" required placeholder="Полировка фар кузова Audi A4">
-            <label>Время выполнения</label><input type="text" id="field_hours" required placeholder="3 часа">
-            <label>Итоговая стоимость ремонта</label><input type="text" id="field_price" required placeholder="4 200 руб.">
-            <label>Ссылка на фото ДО ремонта</label><input type="url" id="field_before_img" required placeholder="https://site.ru/img/before.jpg">
-            <label>Ссылка на фото ПОСЛЕ ремонта</label><input type="url" id="field_after_img" required placeholder="https://site.ru/img/after.jpg">
-            <label>Детали ремонта (описание)</label><textarea id="field_description" rows="3" placeholder="Какие дефекты устранены..."></textarea>
-        `;
-        modal.style.display = 'flex';
-    });
-
-    function openEditPortfolioModal(item) {
-        currentMode = 'editPortfolio';
-        currentEditId = item.id;
-        modalTitle.textContent = 'Редактирование карточки Портфолио';
-        modalFormFields.innerHTML = `
-            <label>Заголовок работы</label><input type="text" id="field_title" value="${item.title}" required>
-            <label>Время выполнения</label><input type="text" id="field_hours" value="${item.hours}" required>
-            <label>Итоговая стоимость</label><input type="text" id="field_price" value="${item.price}" required>
-            <label>Ссылка на фото ДО</label><input type="url" id="field_before_img" value="${item.before_img}" required>
-            <label>Ссылка на фото ПОСЛЕ</label><input type="url" id="field_after_img" value="${item.after_img}" required>
-            <label>Детали ремонта</label><textarea id="field_description" rows="3">${item.description || ''}</textarea>
-        `;
-        modal.style.display = 'flex';
-    }
-
-    async function deletePortfolio(id) {
-        if(!confirm('Удалить эту работу из портфолио?')) return;
-        await supabaseClient.from('portfolio').delete().eq('id', id);
-        loadPortfolio();
-    }
-
-    // ==========================================
-    // 4. УПРАВЛЕНИЕ ОТЗЫВАМИ (REVIEWS)
-    // ==========================================
-    async function loadReviews() {
-        const container = document.getElementById('reviewsListContainer');
-        container.innerHTML = '<div>Загрузка отзывов клиентов...</div>';
-        try {
-            const { data, error } = await supabaseClient.from('reviews').select('*').order('created_at', { ascending: false });
-            if (error) throw error;
-            if(!data || data.length === 0) {
-                container.innerHTML = '<div>Отзывов пока нет.</div>';
-                return;
-            }
-            container.innerHTML = data.map(item => `
-                <div class="service-card">
-                    <div>
-                        <strong>Автор:</strong> ${item.name} | <strong>Авто:</strong> ${item.car}<br>
-                        <strong>Оценка:</strong> ${'★'.repeat(item.rating)}${'☆'.repeat(5-item.rating)}<br>
-                        <strong>Текст отзыва:</strong> "${item.text}"
-                    </div>
-                    <div class="card-actions">
-                        <button class="delete-btn" onclick="deleteReview('${item.id}')"><i class="fas fa-ban"></i> Удалить</button>
-                    </div>
-                </div>
-            `).join('');
-        } catch (err) {
-            container.innerHTML = `<div style="color:red">Ошибка: ${err.message}</div>`;
-        }
-    }
-
-    async function deleteReview(id) {
-        if(!confirm('Вы действительно хотите удалить этот отзыв с сайта?')) return;
-        await supabaseClient.from('reviews').delete().eq('id', id);
-        loadReviews();
-    }
-
-    // ==========================================
-    // СХЕМА ОБРАБОТКИ ОТПРАВКИ ФОРМЫ МОДАЛЬНОГО ОКНА
-    // ==========================================
-    modalForm.addEventListener('submit', async (e) => {
-        e.preventDefault();
-        
-        try {
-            if (currentMode === 'addService') {
-                const { error } = await supabaseClient.from('services').insert([{
-                    name: document.getElementById('field_name').value.trim(),
-                    price: document.getElementById('field_price').value.trim(),
-                    category: document.getElementById('field_category').value.trim(),
-                    description: document.getElementById('field_description').value.trim()
-                }]);
-                if (error) throw error;
-                loadServices();
-            } 
-            else if (currentMode === 'editService') {
-                const { error } = await supabaseClient.from('services').update({
-                    name: document.getElementById('field_name').value.trim(),
-                    price: document.getElementById('field_price').value.trim(),
-                    category: document.getElementById('field_category').value.trim(),
-                    description: document.getElementById('field_description').value.trim()
-                }).eq('id', currentEditId);
-                if (error) throw error;
-                loadServices();
-            } 
-            else if (currentMode === 'addPortfolio') {
-                const { error } = await supabaseClient.from('portfolio').insert([{
-                    title: document.getElementById('field_title').value.trim(),
-                    hours: document.getElementById('field_hours').value.trim(),
-                    price: document.getElementById('field_price').value.trim(),
-                    before_img: document.getElementById('field_before_img').value.trim(),
-                    after_img: document.getElementById('field_after_img').value.trim(),
-                    description: document.getElementById('field_description').value.trim()
-                }]);
-                if (error) throw error;
-                loadPortfolio();
-            } 
-            else if (currentMode === 'editPortfolio') {
-                const { error } = await supabaseClient.from('portfolio').update({
-                    title: document.getElementById('field_title').value.trim(),
-                    hours: document.getElementById('field_hours').value.trim(),
-                    price: document.getElementById('field_price').value.trim(),
-                    before_img: document.getElementById('field_before_img').value.trim(),
-                    after_img: document.getElementById('field_after_img').value.trim(),
-                    description: document.getElementById('field_description').value.trim()
-                }).eq('id', currentEditId);
-                if (error) throw error;
-                loadPortfolio();
-            }
-
-            closeModal();
-        } catch (err) {
-            alert('Ошибка выполнения операции в БД: ' + err.message);
-        }
-    });
-
-    // Функции закрытия модалки
-    function closeModal() {
-        modal.style.display = 'none';
-        modalFormFields.innerHTML = '';
-        currentEditId = null;
-    }
-    document.getElementById('modalCancelBtn').addEventListener('click', closeModal);
+    document.getElementById('addServiceBtn')?.addEventListener('click', openAddServiceModal);
+    document.getElementById('addPortfolioBtn')?.addEventListener('click', openAddPortfolioModal);
+    modalSaveBtn.addEventListener('click', saveModalData);
+    modalCancelBtn.addEventListener('click', closeModal);
     window.addEventListener('click', (e) => { if (e.target === modal) closeModal(); });
 
-    // Первичный запуск при открытии страницы
-    loadRequests();
+    // Инициализация
+    renderServices();
+    loadAdminEmail();
 </script>
 </body>
 </html>
