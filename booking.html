@@ -27,7 +27,7 @@
             padding: 0 24px;
         }
 
-        /* ========== СИНХРОНИЗИРОВАННАЯ ШАПКА ========== */
+        /* ========== ШАПКА (ТОЧНО КАК НА INDEX.HTML) ========== */
         header {
             background: #0b2b40;
             padding: 16px 0;
@@ -123,7 +123,7 @@
             transition: 0.2s;
         }
 
-        /* ========== ФОРМА ЗАПИСИ ========== */
+        /* ========== КОНТЕНТ СТРАНИЦЫ ЗАПИСИ ========== */
         main {
             flex: 1;
             display: flex;
@@ -208,7 +208,7 @@
             cursor: not-allowed;
         }
 
-        /* ========== ПОДВАЛ ========== */
+        /* ========== ПОДВАЛ (ТОЧНО КАК НА INDEX.HTML) ========== */
         footer {
             background: #0f172a;
             color: #94a3b8;
@@ -221,15 +221,48 @@
             gap: 40px;
             margin-bottom: 40px;
         }
-        .footer-logo h2 { color: white; font-size: 24px; margin-bottom: 16px; }
-        .footer-logo span { color: #e25c1d; }
-        .footer-col h3 { color: white; font-size: 16px; font-weight: 600; margin-bottom: 20px; }
-        .footer-col ul { list-style: none; }
-        .footer-col ul li { margin-bottom: 12px; }
-        .footer-col ul li a { color: #94a3b8; text-decoration: none; transition: color 0.2s; }
-        .footer-col ul li a:hover { color: white; }
-        .footer-bottom { border-top: 1px solid #334155; padding-top: 24px; text-align: center; font-size: 14px; }
+        .footer-col h3 {
+            color: white;
+            font-size: 16px;
+            font-weight: 600;
+            margin-bottom: 20px;
+        }
+        .footer-col ul {
+            list-style: none;
+        }
+        .footer-col ul li {
+            margin-bottom: 12px;
+        }
+        .footer-col ul li a {
+            color: #94a3b8;
+            text-decoration: none;
+            transition: color 0.2s;
+            font-size: 15px;
+        }
+        .footer-col ul li a:hover {
+            color: white;
+        }
+        .footer-logo h2 {
+            color: white;
+            font-size: 24px;
+            margin-bottom: 16px;
+            font-weight: 700;
+        }
+        .footer-logo span {
+            color: #e25c1d;
+        }
+        .footer-logo p {
+            font-size: 14px;
+            line-height: 1.6;
+        }
+        .footer-bottom {
+            border-top: 1px solid #334155;
+            padding-top: 24px;
+            text-align: center;
+            font-size: 14px;
+        }
 
+        /* Адаптивность для мобильных устройств */
         @media (max-width: 900px) {
             .menu-toggle { display: flex; }
             nav { display: none; width: 100%; flex-direction: column; gap: 12px; padding-top: 16px; }
@@ -343,9 +376,9 @@
             </div>
             <div class="footer-col">
                 <h3>Контакты</h3>
-                <p style="margin-bottom: 12px;">📍 Свердловская обл., п. Сарапулка, ул. Совхозная, д. 8</p>
-                <p style="margin-bottom: 12px;">📞 +7 (495) 123-45-67</p>
-                <p>✉️ info@autodok.ru</p>
+                <p style="margin-bottom: 12px; font-size: 15px;">📍 Свердловская обл., п. Сарапулка, ул. Совхозная, д. 8</p>
+                <p style="margin-bottom: 12px; font-size: 15px;">📞 +7 (495) 123-45-67</p>
+                <p style="font-size: 15px;">✉️ info@autodok.ru</p>
             </div>
         </div>
         <div class="container footer-bottom">
@@ -362,7 +395,7 @@
         const navMenu = document.getElementById("navMenu");
         menuToggle.addEventListener("click", () => { navMenu.classList.toggle("open"); });
 
-        // 2. Слоты времени
+        // 2. Генерация временных слотов
         const timeSlotsContainer = document.getElementById("timeSlotsContainer");
         const selectedTimeInput = document.getElementById("selectedTime");
         const availableTimes = ["09:00", "10:30", "12:00", "13:30", "15:00", "16:30", "18:00", "19:30"];
@@ -379,7 +412,7 @@
             timeSlotsContainer.appendChild(slot);
         });
 
-        // 3. Загрузка данных из таблицы public.services
+        // 3. Динамическая загрузка услуг из базы данных Supabase
         const serviceSelect = document.getElementById("serviceSelect");
 
         async function fetchServicesFromDB() {
@@ -410,7 +443,7 @@
 
         document.addEventListener("DOMContentLoaded", fetchServicesFromDB);
 
-        // 4. Отправка записи на Vercel API
+        // 4. Отправка заполненной формы записи на API Vercel
         const bookingForm = document.getElementById("bookingForm");
         const submitBtn = document.getElementById("submitBtn");
 
