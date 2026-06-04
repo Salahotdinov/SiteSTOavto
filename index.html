@@ -94,265 +94,241 @@
             transform: scale(1.02);
         }
 
-        /* ========== ГЕРОЙ (слева текст + справа преимущества) ========== */
+        /* ========== ГЕРОЙ-БАННЕР ========== */
         .hero {
-            background: linear-gradient(135deg, #0f3b4f 0%, #0a2a38 100%);
+            background: linear-gradient(135deg, #0b2b40 0%, #184e6b 100%);
             color: white;
-            padding: 60px 0;
+            padding: 80px 0;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
         }
-        .hero-grid {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 48px;
-            justify-content: space-between;
-            align-items: flex-start;
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            max-width: 800px;
+            margin: 0 auto;
         }
-        .hero-left {
-            flex: 1.2;
-            min-width: 280px;
+        .hero h2 {
+            font-size: 3rem;
+            font-weight: 800;
+            margin-bottom: 24px;
+            line-height: 1.2;
         }
-        .hero-left h2 {
-            font-size: 2.8rem;
-            font-weight: 700;
-            margin-bottom: 12px;
-        }
-        .hero-left h3 {
-            font-size: 1.6rem;
-            font-weight: 500;
-            margin-bottom: 20px;
+        .hero h2 span {
             color: #f4b23e;
         }
-        .hero-desc {
-            font-size: 1.1rem;
-            max-width: 550px;
-            margin-bottom: 30px;
-            opacity: 0.9;
-        }
-        .hero-buttons {
-            display: flex;
-            gap: 20px;
-            flex-wrap: wrap;
+        .hero p {
+            font-size: 1.2rem;
+            color: #cbdae3;
             margin-bottom: 40px;
+        }
+        .hero-btns {
+            display: flex;
+            gap: 16px;
+            justify-content: center;
+            flex-wrap: wrap;
         }
         .btn-primary {
             background: #f4b23e;
             color: #0b2b40;
-            padding: 12px 28px;
             border: none;
-            border-radius: 40px;
+            padding: 14px 32px;
+            border-radius: 50px;
+            font-size: 1.1rem;
             font-weight: bold;
-            font-size: 1rem;
             cursor: pointer;
+            transition: 0.2s;
         }
-        .btn-outline-light {
+        .btn-primary:hover {
+            background: #ffcd70;
+            transform: translateY(-2px);
+        }
+        .btn-secondary {
             background: transparent;
-            border: 2px solid #f4b23e;
-            color: #f4b23e;
-            padding: 10px 26px;
-            border-radius: 40px;
+            color: white;
+            border: 2px solid #ffffff;
+            padding: 12px 32px;
+            border-radius: 50px;
+            font-size: 1.1rem;
             font-weight: bold;
             cursor: pointer;
+            transition: 0.2s;
         }
-        .stats {
-            display: flex;
-            gap: 48px;
-            flex-wrap: wrap;
-            margin-top: 20px;
-        }
-        .stat-item {
-            text-align: center;
-        }
-        .stat-number {
-            font-size: 2.2rem;
-            font-weight: 800;
-            color: #f4b23e;
-        }
-        .stat-label {
-            font-size: 0.9rem;
-            opacity: 0.85;
-        }
-
-        /* Правый блок с преимуществами */
-        .hero-right {
-            flex: 1;
-            min-width: 280px;
-            background: rgba(255,255,255,0.05);
-            backdrop-filter: blur(2px);
-            border-radius: 32px;
-            padding: 28px 24px;
-            border: 1px solid rgba(244,178,62,0.3);
-        }
-        .hero-right h4 {
-            font-size: 1.5rem;
-            margin-bottom: 24px;
-            color: #f4b23e;
-            text-align: center;
-        }
-        .advantage-item {
-            display: flex;
-            gap: 14px;
-            margin-bottom: 20px;
-            align-items: flex-start;
-        }
-        .advantage-marker {
-            font-size: 1.3rem;
-            min-width: 30px;
-        }
-        .advantage-text strong {
-            font-size: 1rem;
-            display: block;
-            margin-bottom: 4px;
-        }
-        .advantage-text p {
-            font-size: 0.85rem;
-            opacity: 0.9;
-            line-height: 1.3;
-        }
-        .sub-badges {
-            display: flex;
-            gap: 12px;
-            flex-wrap: wrap;
-            margin-top: 12px;
-            padding-left: 44px;
-        }
-        .sub-badge {
-            background: rgba(244,178,62,0.2);
-            padding: 4px 14px;
-            border-radius: 30px;
-            font-size: 0.8rem;
-            color: #f4b23e;
+        .btn-secondary:hover {
+            background: rgba(255, 255, 255, 0.1);
+            transform: translateY(-2px);
         }
 
         /* ========== КАТАЛОГ УСЛУГ ========== */
-        .catalog {
-            padding: 60px 0;
+        .catalog-section {
+            padding: 80px 0;
+            background: #f8fafc;
         }
         .section-title {
-            font-size: 2rem;
             text-align: center;
-            margin-bottom: 16px;
-        }
-        .filter-bar {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-            gap: 12px;
             margin-bottom: 48px;
         }
+        .section-title h2 {
+            font-size: 2.2rem;
+            color: #0b2b40;
+            margin-bottom: 12px;
+        }
+        .section-title p {
+            color: #5a6e7c;
+            font-size: 1.1rem;
+        }
+
+        /* Табы-фильтры */
+        .filter-tabs {
+            display: flex;
+            justify-content: center;
+            gap: 12px;
+            margin-bottom: 40px;
+            flex-wrap: wrap;
+        }
         .filter-btn {
-            background: #eef2f7;
-            border: none;
-            padding: 10px 24px;
+            background: white;
+            border: 1px solid #dce4ec;
+            padding: 12px 24px;
             border-radius: 40px;
-            font-weight: 500;
+            font-size: 1rem;
+            font-weight: 600;
+            color: #4a5b6e;
             cursor: pointer;
             transition: 0.2s;
-            font-size: 0.9rem;
+        }
+        .filter-btn:hover {
+            border-color: #f4b23e;
+            color: #0b2b40;
         }
         .filter-btn.active {
             background: #0b2b40;
             color: white;
+            border-color: #0b2b40;
         }
-        .services-grid {
+
+        /* Сетка карточек */
+        .catalog-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
-            gap: 28px;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 32px;
         }
         .service-card {
             background: white;
             border-radius: 24px;
-            box-shadow: 0 8px 20px rgba(0,0,0,0.05);
-            padding: 20px;
-            transition: 0.2s;
-            border: 1px solid #eef2f7;
+            padding: 32px;
+            border: 1px solid #edf2f7;
+            box-shadow: 0 10px 25px -5px rgba(0,0,0,0.02);
+            display: flex;
+            flex-direction: column;
+            transition: 0.3s;
         }
         .service-card:hover {
-            transform: translateY(-4px);
-            box-shadow: 0 15px 30px rgba(0,0,0,0.1);
+            transform: translateY(-5px);
+            box-shadow: 0 20px 30px -10px rgba(11,43,64,0.1);
         }
-        .service-category {
-            display: inline-block;
-            background: #f4b23e20;
-            color: #b16200;
-            font-size: 0.7rem;
-            font-weight: bold;
-            padding: 4px 10px;
-            border-radius: 20px;
+        .service-icon {
+            width: 56px;
+            height: 56px;
+            background: #f0f7fa;
+            color: #0b2b40;
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            margin-bottom: 24px;
+        }
+        .service-title {
+            font-size: 1.25rem;
+            color: #0b2b40;
             margin-bottom: 12px;
-        }
-        .service-card h3 {
-            font-size: 1.4rem;
-            margin-bottom: 10px;
+            font-weight: 700;
         }
         .service-desc {
-            color: #4a5b6e;
-            font-size: 0.9rem;
-            line-height: 1.4;
-            margin-bottom: 16px;
+            color: #5a6e7c;
+            font-size: 0.95rem;
+            margin-bottom: 24px;
+            flex-grow: 1;
         }
         .service-price {
-            font-size: 1.5rem;
+            font-size: 1.4rem;
             font-weight: 800;
             color: #0b2b40;
-            margin-bottom: 16px;
+            margin-bottom: 20px;
+            border-top: 1px dashed #edf2f7;
+            padding-top: 16px;
         }
         .btn-order {
-            background: #0b2b40;
-            color: white;
-            border: none;
-            padding: 10px 20px;
-            border-radius: 40px;
-            font-weight: bold;
-            cursor: pointer;
+            background: #f8fafc;
+            color: #0b2b40;
+            border: 1px solid #dce4ec;
             width: 100%;
+            padding: 12px;
+            border-radius: 50px;
+            font-weight: bold;
+            font-size: 0.95rem;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+        .service-card:hover .btn-order {
+            background: #f4b23e;
+            border-color: #f4b23e;
+        }
+        .btn-order:hover {
+            background: #ffcd70 !important;
         }
 
         /* ========== ПОДВАЛ ========== */
         footer {
             background: #0e293b;
             color: #cbdae3;
-            padding: 48px 0 24px;
-            margin-top: 20px;
+            padding: 60px 0 30px;
         }
         .footer-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
             gap: 40px;
             margin-bottom: 40px;
         }
         .footer-col h4 {
             color: #f4b23e;
-            margin-bottom: 20px;
+            margin-bottom: 24px;
             font-size: 1.1rem;
+            font-weight: 700;
         }
         .footer-col a, .footer-col p {
             display: block;
             color: #cbdae3;
             text-decoration: none;
-            margin-bottom: 12px;
+            margin-bottom: 14px;
+            font-size: 0.95rem;
+        }
+        .footer-col a:hover {
+            color: white;
         }
         .footer-phone {
-            font-size: 1.3rem;
-            font-weight: bold;
-            color: white;
+            font-size: 1.4rem;
+            font-weight: 700;
+            color: white !important;
         }
         .copyright {
             text-align: center;
-            padding-top: 24px;
+            padding-top: 30px;
             border-top: 1px solid #2c4b5e;
-            font-size: 0.8rem;
+            font-size: 0.85rem;
+            color: #8aa4b5;
         }
 
-        @media (max-width: 900px) {
-            .hero-grid {
-                flex-direction: column;
-            }
-            .hero-left h2 { font-size: 2rem; }
-            .section-title { font-size: 1.6rem; }
-            .stats { gap: 24px; }
+        @media (max-width: 768px) {
             .header-flex { flex-direction: column; align-items: flex-start; }
+            .hero h2 { font-size: 2rem; }
+            .hero p { font-size: 1rem; }
+            .catalog-grid { grid-template-columns: 1fr; }
         }
     </style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 <body>
 
@@ -364,171 +340,174 @@
         </div>
         <div class="nav-links">
             <a href="index.html">Цены и каталог</a>
-            <a href="booking.html" >Онлайн-запись</a>
+            <a href="booking.html">Онлайн-запись</a>
             <a href="portfolio.html">Портфолио</a>
             <a href="reviews.html">Отзывы</a>
             <a href="contacts.html">Контакты</a>
         </div>
         <div class="header-actions">
             <a href="tel:+74951234567" class="phone">+7 (495) 123-45-67</a>
-            <button class="btn-record" id="openRecordAlert">Онлайн-запись</button>
+            <button class="btn-record" id="openRecordAlert">Online-запись</button>
         </div>
     </div>
 </header>
 
-<!-- ГЕРОЙ: СЛЕВА ТЕКСТ, СПРАВА ПРЕИМУЩЕСТВА -->
 <section class="hero">
-    <div class="container hero-grid">
-        <!-- левая часть -->
-        <div class="hero-left">
-            <h2>Профессиональный автосервис</h2>
-            <h3>АвтоДок — С заботой о Вашем авто</h3>
-            <p class="hero-desc">Выполняем полный комплекс ремонтных работ и регламентного технического обслуживания легковых автомобилей и внедорожников любых марок. Диагностика ходовой — всего за 800 рублей!</p>
-            <div class="hero-buttons">
-                <button class="btn-primary" id="heroRecordBtn">Онлайн-запись на сервис</button>
-                <button class="btn-outline-light" id="scrollToCatalog">Посмотреть услуги и цены</button>
-            </div>
-            <div class="stats">
-                <div class="stat-item"><div class="stat-number">20+</div><div class="stat-label">ЛЕТ НА РЫНКЕ</div></div>
-                <div class="stat-item"><div class="stat-number">3500+</div><div class="stat-label">ОБСЛУЖЕННЫХ АВТО</div></div>
-                <div class="stat-item"><div class="stat-number">100%</div><div class="stat-label">ГАРАНТИЯ КАЧЕСТВА</div></div>
-            </div>
-        </div>
-
-        <!-- правая часть: Почему выбирают АвтоДок -->
-        <div class="hero-right">
-            <h4>Почему автовладельцы выбирают АвтоДок</h4>
-            <div class="advantage-item">
-                <div class="advantage-marker">✔️</div>
-                <div class="advantage-text">
-                    <strong>Гарантия на работы 1 год</strong>
-                    <p>Письменная гарантия на все ремонтные работы и запчасти.</p>
-                </div>
-            </div>
-            <div class="advantage-item">
-                <div class="advantage-marker">💰</div>
-                <div class="advantage-text">
-                    <strong>Честное ценообразование</strong>
-                    <p>Никаких скрытых платежей. Все строго по смете.</p>
-                </div>
-            </div>
-            <div class="advantage-item">
-                <div class="advantage-marker">🔧</div>
-                <div class="advantage-text">
-                    <strong>Опытные мастера-механики</strong>
-                    <p>Стаж более 7 лет, сертификация автоконцернов.</p>
-                </div>
-            </div>
-            <div class="sub-badges">
-                <span class="sub-badge">Сертифицированные масла</span>
-                <span class="sub-badge">Оригинальные запчасти</span>
-            </div>
+    <div class="hero-content">
+        <h2>Честный автосервис с <span>гарантией</span> результата</h2>
+        <p>Выполняем плановое ТО, диагностику электронных блоков, ремонт подвески и агрегатов в строгом соответствии с заводскими регламентами вашего автомобиля.</p>
+        <div class="hero-btns">
+            <button class="btn-primary" id="heroRecordBtn">Записаться на ремонт</button>
+            <button class="btn-secondary" id="scrollToCatalog">Посмотреть прайс-лист</button>
         </div>
     </div>
 </section>
 
-<!-- КАТАЛОГ УСЛУГ И ЦЕНЫ -->
-<section class="catalog" id="catalogSection">
+<section class="catalog-section" id="catalogSection">
     <div class="container">
-        <div class="section-title">Каталог услуг и стоимости работ</div>
-        <p style="text-align: center; margin-bottom: 20px;">Выберите необходимую услугу. Все цены указаны за работу без учета стоимости запасных частей.</p>
-        
-        <div class="filter-bar" id="filterBar">
-            <button class="filter-btn active" data-cat="all">Все</button>
-            <button class="filter-btn" data-cat="Кондиционер">Кондиционер</button>
-            <button class="filter-btn" data-cat="ТО и фильтры">ТО и фильтры</button>
-            <button class="filter-btn" data-cat="Тормозная">Тормозная</button>
-            <button class="filter-btn" data-cat="Двигатель">Двигатель</button>
-            <button class="filter-btn" data-cat="Электрика">Электрика</button>
-            <button class="filter-btn" data-cat="Ходовая">Ходовая</button>
+        <div class="section-title">
+            <h2>Каталог услуг и стоимость работ</h2>
+            <p>Выберите интересующую категорию. Окончательная стоимость зависит от марки авто и выбранных комплектующих.</p>
         </div>
 
-        <div class="services-grid" id="servicesGrid"></div>
+        <div class="filter-tabs">
+            <button class="filter-btn active" data-cat="all">Все услуги</button>
+            <button class="filter-btn" data-cat="engine">🔧 Двигатель</button>
+            <button class="filter-btn" data-cat="chassis">🛞 Ходовая и подвеска</button>
+            <button class="filter-btn" data-cat="electrics">⚡ Электрика</button>
+            <button class="filter-btn" data-cat="to">🛢️ Регламентное ТО</button>
+        </div>
+
+        <div class="catalog-grid" id="catalogGrid">
+            </div>
     </div>
 </section>
 
-<!-- ПОДВАЛ -->
 <footer>
     <div class="container">
         <div class="footer-grid">
             <div class="footer-col">
                 <h4>БЫСТРЫЕ РАЗДЕЛЫ</h4>
-                <a href="#">Цены и каталог</a>
-                <a href="#">Онлайн-запись 24/7</a>
-                <a href="#">Примеры до/после</a>
+                <a href="index.html">Цены и каталог</a>
+                <a href="booking.html">Онлайн-запись 24/7</a>
+                <a href="portfolio.html">Примеры до/после</a>
+                <a href="reviews.html">Отзывы клиентов</a>
             </div>
             <div class="footer-col">
                 <h4>АДРЕС И РЕЖИМ</h4>
                 <p>📍 г. Москва, ул. Космонавтов, д. 18, стр. 2</p>
                 <p>🕒 Ежедневно с 09:00 до 21:00</p>
+                <a href="contacts.html" style="color: #f4b23e; font-weight: 600;">Посмотреть на карте →</a>
             </div>
             <div class="footer-col">
                 <h4>ПРИЕМНАЯ АВТОДОК</h4>
-                <p class="footer-phone">📞 +7 (495) 123-45-67</p>
-                <p>Потребовалась срочная консультация дежурного механика? Звоните круглосуточно.</p>
+                <a href="tel:+74951234567" class="footer-phone">📞 +7 (495) 123-45-67</a>
+                <p>Потребовалась срочная консультация дежурного механика? Звоните в рабочее время без стеснения.</p>
             </div>
         </div>
         <div class="copyright">
-            <p>© 2026 СТО «АвтоДок». Все права защищены законом. [ Управление СТО ]</p>
+            <p>© 2026 СТО «АвтоДок». Все права защищены законом. <a href="admin.html" style="display:inline; color:#8aa4b5; text-decoration:underline;">[ Управление СТО ]</a></p>
         </div>
     </div>
 </footer>
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
-    <script src="supabase-config.js"></script>
-    
+<script src="supabase-config.js"></script>
+
 <script>
-    // Заменяем старый статический массив и функцию renderServices
-let currentCategory = "all";
+    let currentCategory = "all";
 
-async function renderServices() {
-    const catalogGrid = document.getElementById("catalogGrid");
-    catalogGrid.innerHTML = '<div style="grid-column: 1/-1; text-align:center; padding:20px;">Загрузка услуг...</div>';
-
-    // Запрос данных из Supabase
-    let query = supabaseClient.from('services').select('*');
-    if (currentCategory !== 'all') {
-        query = query.eq('category', currentCategory);
+    // Функция генерации иконок в зависимости от категории
+    function getIconClass(category) {
+        switch(category) {
+            case 'engine': return 'fa-car-battery';
+            case 'chassis': return 'fa-gears';
+            case 'electrics': return 'fa-bolt-lightning';
+            case 'to': return 'fa-oil-can';
+            default: return 'fa-screwdriver-wrench';
+        }
     }
 
-    const { data: services, error } = await query;
+    // АСИНХРОННАЯ ФУНКЦИЯ ПОЛУЧЕНИЯ ДАННЫХ ИЗ SUPABASE
+    async function renderServices() {
+        const catalogGrid = document.getElementById("catalogGrid");
+        catalogGrid.innerHTML = '<div style="grid-column: 1/-1; text-align: center; padding: 40px; font-weight: 600; color: #5a6e7c;">Загрузка актуального прайс-листа...</div>';
 
-    if (error) {
-        catalogGrid.innerHTML = `<div style="grid-column: 1/-1; text-align:center; color:red;">Ошибка загрузки: ${error.message}</div>`;
-        return;
+        try {
+            // Формируем базовый запрос к таблице 'services'
+            let query = supabaseClient.from('services').select('*');
+            
+            // Если выбрана конкретная категория — фильтруем по ней
+            if (currentCategory !== "all") {
+                query = query.eq('category', currentCategory);
+            }
+
+            // Выполняем запрос
+            const { data: services, error } = await query;
+
+            if (error) {
+                console.error("Ошибка Supabase:", error);
+                catalogGrid.innerHTML = `<div style="grid-column: 1/-1; text-align: center; color: #e63946; padding: 40px;">❌ Ошибка загрузки данных: ${error.message}</div>`;
+                return;
+            }
+
+            if (!services || services.length === 0) {
+                catalogGrid.innerHTML = '<div style="grid-column: 1/-1; text-align: center; padding: 40px; color: #5a6e7c;">В данной категории пока нет добавленных услуг.</div>';
+                return;
+            }
+
+            // Отрисовываем полученные из БД строки
+            catalogGrid.innerHTML = services.map(service => `
+                <div class="service-card">
+                    <div class="service-icon"><i class="fa-solid ${getIconClass(service.category)}"></i></div>
+                    <h3 class="service-title">${service.name}</h3>
+                    <p class="service-desc">${service.description || 'Регламентная процедура обслуживания автомобиля по стандартам производителя.'}</p>
+                    <div class="service-price">${service.price}</div>
+                    <button class="btn-order" data-service-name="${service.name}">Записаться</button>
+                </div>
+            `).join('');
+
+            // Навешиваем обработчик клика на кнопки "Записаться"
+            document.querySelectorAll('.btn-order').forEach(btn => {
+                btn.addEventListener('click', () => {
+                    const serviceName = btn.getAttribute('data-service-name');
+                    // Перенаправляем на booking.html с GET-параметром выбранной услуги
+                    window.location.href = `booking.html?service=${encodeURIComponent(serviceName)}`;
+                });
+            });
+
+        } catch (err) {
+            console.error("Критическая ошибка fetch:", err);
+            catalogGrid.innerHTML = '<div style="grid-column: 1/-1; text-align: center; color: #e63946; padding: 40px;">❌ Не удалось подключиться к серверу БД.</div>';
+        }
     }
 
-    if (services.length === 0) {
-        catalogGrid.innerHTML = '<div style="grid-column: 1/-1; text-align:center; padding:20px;">Услуг в данной категории пока нет.</div>';
-        return;
-    }
-
-    catalogGrid.innerHTML = services.map(service => `
-        <div class="service-card">
-            <div class="service-icon"><i class="fas ${getIconForCategory(service.category)}"></i></div>
-            <h3 class="service-title">${service.name}</h3>
-            <p class="service-desc">${service.description || ''}</p>
-            <div class="service-price">${service.price}</div>
-            <button class="btn-order" data-service-name="${service.name}">Записаться</button>
-        </div>
-    `).join('');
-
-    // Навешиваем события клика (перенаправление на страницу записи)
-    document.querySelectorAll('.btn-order').forEach(btn => {
-        btn.addEventListener('click', () => {
-            const serviceName = btn.getAttribute('data-service-name');
-            window.location.href = `booking.html?service=${encodeURIComponent(serviceName)}`;
+    // Обработчики для кнопок фильтрации
+    const filterBtns = document.querySelectorAll(".filter-btn");
+    filterBtns.forEach(btn => {
+        btn.addEventListener("click", () => {
+            filterBtns.forEach(b => b.classList.remove("active"));
+            btn.classList.add("active");
+            currentCategory = btn.getAttribute("data-cat");
+            renderServices(); // Перезапрашиваем данные из БД при смене вкладки
         });
     });
-}
 
-function getIconForCategory(cat) {
-    if(cat === 'engine') return 'fa-engine-warning';
-    if(cat === 'chassis') return 'fa-car-side';
-    if(cat === 'electrics') return 'fa-bolt';
-    return 'fa-tools';
-}
+    // Плавный скролл к каталогу
+    document.getElementById("scrollToCatalog").addEventListener("click", () => {
+        document.getElementById("catalogSection").scrollIntoView({ behavior: "smooth" });
+    });
+
+    // Переходы на страницу онлайн-записи для верхних кнопок
+    function redirectToBooking() {
+        window.location.href = 'booking.html';
+    }
+    document.getElementById("openRecordAlert").addEventListener("click", redirectToBooking);
+    document.getElementById("heroRecordBtn").addEventListener("click", redirectToBooking);
+
+    // Первичный вызов при загрузке страницы
+    renderServices();
 </script>
 </body>
 </html>
