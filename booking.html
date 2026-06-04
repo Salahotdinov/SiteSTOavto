@@ -27,7 +27,7 @@
             padding: 0 24px;
         }
 
-        /* ========== ШАПКА (ТОЧНО КАК НА INDEX.HTML) ========== */
+       /* ========== ШАПКА ========== */
         header {
             background: #0b2b40;
             padding: 16px 0;
@@ -42,87 +42,60 @@
             flex-wrap: wrap;
             gap: 16px;
         }
-        .logo-link {
-            text-decoration: none;
-        }
         .logo h1 {
             color: white;
-            font-size: 24px;
+            font-size: 1.8rem;
             font-weight: 700;
-            letter-spacing: -0.5px;
-            margin: 0;
         }
         .logo span {
-            color: #e25c1d;
+            color: #f4b23e;
         }
-        nav {
+        .logo p {
+            color: #a0c4d4;
+            font-size: 0.8rem;
+            margin-top: 4px;
+        }
+        .nav-links {
             display: flex;
             gap: 24px;
+            flex-wrap: wrap;
         }
-        nav a {
-            color: #cbd5e1;
+        .nav-links a {
+            color: white;
             text-decoration: none;
-            font-size: 15px;
             font-weight: 500;
-            transition: color 0.2s ease;
-        }
-        nav a:hover {
-            color: white;
-        }
-        nav a.active {
-            color: #e25c1d;
-            font-weight: 600;
-        }
-        .header-contact {
-            display: flex;
-            align-items: center;
-            gap: 20px;
-        }
-        .phone-num {
-            color: white;
-            font-weight: 600;
-            text-decoration: none;
-            font-size: 16px;
-            transition: color 0.2s;
-        }
-        .phone-num:hover {
-            color: #cbd5e1;
-        }
-        .record-btn {
-            background: #e25c1d;
-            color: white;
-            padding: 10px 20px;
-            border-radius: 6px;
-            font-weight: 600;
-            text-decoration: none;
-            font-size: 14px;
-            transition: background 0.2s ease, transform 0.1s ease;
-            border: none;
-            cursor: pointer;
-        }
-        .record-btn:hover {
-            background: #d44d13;
-        }
-        .record-btn:active {
-            transform: scale(0.98);
-        }
-        .menu-toggle {
-            display: none;
-            flex-direction: column;
-            gap: 6px;
-            background: none;
-            border: none;
-            cursor: pointer;
-            padding: 4px;
-        }
-        .menu-toggle span {
-            display: block;
-            width: 24px;
-            height: 2px;
-            background: white;
             transition: 0.2s;
         }
-
+        .nav-links a:hover {
+            color: #f4b23e;
+        }
+        .header-actions {
+            display: flex;
+            align-items: center;
+            gap: 24px;
+            flex-wrap: wrap;
+        }
+        .phone {
+            font-size: 1.3rem;
+            font-weight: 600;
+            color: white;
+            text-decoration: none;
+        }
+        .btn-record {
+            background: #f4b23e;
+            border: none;
+            padding: 10px 24px;
+            border-radius: 40px;
+            font-weight: bold;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: 0.2s;
+            color: #0b2b40;
+        }
+        .btn-record:hover {
+            background: #ffcd70;
+            transform: scale(1.02);
+        }
         /* ========== КОНТЕНТ СТРАНИЦЫ ЗАПИСИ ========== */
         main {
             flex: 1;
