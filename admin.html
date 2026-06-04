@@ -4,7 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Панель администратора СТО | Управление</title>
-    <!-- Font Awesome 6 -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
         * {
@@ -68,32 +67,6 @@
         }
         .nav-links a:hover {
             color: #f4b23e;
-        }
-        .header-actions {
-            display: flex;
-            align-items: center;
-            gap: 24px;
-            flex-wrap: wrap;
-        }
-        .phone {
-            font-size: 1.3rem;
-            font-weight: 600;
-            color: white;
-            text-decoration: none;
-        }
-        .btn-record {
-            background: #f4b23e;
-            border: none;
-            padding: 10px 24px;
-            border-radius: 40px;
-            font-weight: bold;
-            font-size: 1rem;
-            cursor: pointer;
-            transition: 0.2s;
-            color: #0b2b40;
-        }
-        .btn-record:hover {
-            background: #ffcd70;
         }
 
         /* ========== ПЛАШКА ========== */
@@ -347,80 +320,16 @@
             background: #ddd;
         }
 
-        /* Email настройки */
-        .email-settings {
-            background: #eef2fa;
-            border-radius: 24px;
-            padding: 1.5rem;
-            margin-bottom: 1.5rem;
-        }
-        .email-settings label {
-            font-weight: 600;
-            display: block;
-            margin-bottom: 8px;
-            color: #1a4b6e;
-        }
-        .email-input-group {
-            display: flex;
-            gap: 12px;
-            flex-wrap: wrap;
-        }
-        .email-input-group input {
-            flex: 2;
-            padding: 12px 16px;
-            border: 1px solid #cbdae3;
-            border-radius: 40px;
-            font-size: 1rem;
-        }
-        .email-input-group button {
-            background: #1f6392;
-            color: white;
-            border: none;
-            padding: 12px 24px;
-            border-radius: 40px;
-            cursor: pointer;
-            font-weight: bold;
-        }
-        .current-email {
-            margin-top: 12px;
-            font-size: 0.85rem;
-            color: #2c7da0;
-        }
-
         /* Подвал */
         footer {
             background: #0e293b;
             color: #cbdae3;
-            padding: 48px 0 24px;
+            padding: 30px 0;
             margin-top: 20px;
-        }
-        .footer-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 40px;
-            margin-bottom: 40px;
-        }
-        .footer-col h4 {
-            color: #f4b23e;
-            margin-bottom: 20px;
-            font-size: 1.1rem;
-        }
-        .footer-col a, .footer-col p {
-            display: block;
-            color: #cbdae3;
-            text-decoration: none;
-            margin-bottom: 12px;
-        }
-        .footer-phone {
-            font-size: 1.3rem;
-            font-weight: bold;
-            color: white;
         }
         .copyright {
             text-align: center;
-            padding-top: 24px;
-            border-top: 1px solid #2c4b5e;
-            font-size: 0.8rem;
+            font-size: 0.85rem;
         }
         @media (max-width: 700px) {
             .image-row { flex-direction: column; gap: 8px; }
@@ -431,7 +340,6 @@
 </head>
 <body>
 
-<!-- ШАПКА -->
 <header>
     <div class="container header-flex">
         <div class="logo">
@@ -445,417 +353,89 @@
             <a href="reviews.html">Отзывы</a>
             <a href="contacts.html">Контакты</a>
         </div>
-        <div class="header-actions">
-            <a href="tel:+74951234567" class="phone">+7 (495) 123-45-67</a>
-            <button class="btn-record" id="openRecordAlert">Онлайн-запись</button>
-        </div>
     </div>
 </header>
 
-<!-- ПЛАШКА -->
 <div class="update-banner">
     <div class="banner-text">
-        <i class="fas fa-database"></i> База данных актуальна на 04.06.2026
+        <i class="fas fa-database"></i> Панель управления синхронизирована с БД Supabase
     </div>
-    <button class="btn-update" id="refreshDatabaseBtn"><i class="fas fa-sync-alt"></i> Обновить базу</button>
+    <button class="btn-update" id="refreshDatabaseBtn"><i class="fas fa-sync-alt"></i> Обновить списки</button>
 </div>
 
-<!-- АДМИН-ПАНЕЛЬ -->
 <div class="admin-container">
     <div class="tabs">
-        <button class="tab-btn active" data-tab="requests"><i class="fas fa-clipboard-list"></i> Заявки</button>
-        <button class="tab-btn" data-tab="services"><i class="fas fa-wrench"></i> Услуги</button>
-        <button class="tab-btn" data-tab="portfolio"><i class="fas fa-images"></i> Портфолио</button>
+        <button class="tab-btn active" data-tab="requests"><i class="fas fa-clipboard-list"></i> Заявки клиентов</button>
+        <button class="tab-btn" data-tab="services"><i class="fas fa-wrench"></i> Услуги и Цены</button>
+        <button class="tab-btn" data-tab="portfolio"><i class="fas fa-images"></i> Портфолио СТО</button>
         <button class="tab-btn" data-tab="reviews"><i class="fas fa-star"></i> Отзывы</button>
-        <button class="tab-btn" data-tab="notify"><i class="fas fa-envelope"></i> E-mail админа</button>
     </div>
 
-    <!-- ЗАЯВКИ -->
     <div id="requests" class="tab-pane active-pane">
-        <h3><i class="fas fa-tools"></i> Управление заявками на ремонт</h3>
-        <p style="margin: 15px 0 10px;">Список активных заявок (демо-режим)</p>
-        <div class="services-grid">
-            <div class="service-card"><div><strong>Заявка №231</strong> — Замена масла, BMW X5</div><span style="color:green;">В работе</span></div>
-            <div class="service-card"><div><strong>Заявка №232</strong> — Ремонт подвески, KIA Sportage</div><span style="color:orange;">Ожидает детали</span></div>
-            <div class="service-card"><div><strong>Заявка №233</strong> — Диагностика двигателя, Ford Focus</div><span style="color:blue;">Назначен мастер</span></div>
-        </div>
-        <div class="toolbar" style="justify-content: flex-start; margin-top: 20px;">
-            <button class="btn-update" style="background:#3a6b92;" id="simulateMailBtn"><i class="fas fa-envelope-open-text"></i> Симулятор отправки заявок админу</button>
-        </div>
-        <div id="emailSimulatorMsg" style="margin-top: 12px; background:#e8f0fe; padding: 8px 16px; border-radius: 20px;"></div>
+        <h3><i class="fas fa-tools"></i> Новые онлайн-заявки от клиентов</h3>
+        <p style="margin: 10px 0 20px; color:#5a6e7a;">Данные поступают в реальном времени из таблицы 'bookings'</p>
+        <div id="requestsListContainer" class="services-grid">
+            </div>
     </div>
 
-    <!-- УСЛУГИ -->
     <div id="services" class="tab-pane">
         <div class="toolbar">
-            <button class="btn-add" id="addServiceBtn"><i class="fas fa-plus-circle"></i> Добавить услугу</button>
+            <button class="btn-add" id="addServiceBtn"><i class="fas fa-plus-circle"></i> Добавить новую услугу</button>
         </div>
-        <div id="servicesListContainer" class="services-grid"></div>
+        <div id="servicesListContainer" class="services-grid">
+            </div>
     </div>
 
-    <!-- ПОРТФОЛИО -->
     <div id="portfolio" class="tab-pane">
         <div class="toolbar">
-            <button class="btn-add" id="addPortfolioBtn"><i class="fas fa-plus-circle"></i> Добавить работу (до/после)</button>
+            <button class="btn-add" id="addPortfolioBtn"><i class="fas fa-plus-circle"></i> Добавить работу в портфолио</button>
         </div>
-        <div id="portfolioListContainer" class="portfolio-grid"></div>
+        <div id="portfolioListContainer" class="portfolio-grid">
+            </div>
     </div>
 
-    <!-- ОТЗЫВЫ -->
     <div id="reviews" class="tab-pane">
-        <h3><i class="fas fa-comment-dots"></i> Модерация отзывов</h3>
-        <div class="services-grid" style="margin-top: 20px;">
-            <div class="service-card"><div><strong>Алексей:</strong> "Отличное СТО, быстро починили ходовую"</div><button class="btn-update" style="background:#1f8a4c; padding:4px 12px;">Одобрить</button></div>
-            <div class="service-card"><div><strong>Мария:</strong> "Записался вовремя, все четко"</div><button class="btn-update" style="background:#1f8a4c; padding:4px 12px;">Одобрить</button></div>
-            <div class="service-card"><div><strong>Ожидает:</strong> "Спасибо мастерам, рекомендую"</div><button class="btn-update" style="background:#c0392b; padding:4px 12px;">Отклонить</button></div>
-        </div>
-    </div>
-
-    <!-- НАСТРОЙКА EMAIL АДМИНИСТРАТОРА -->
-    <div id="notify" class="tab-pane">
-        <h3><i class="fas fa-envelope"></i> Куда отправлять заявки от клиентов</h3>
-        <div class="email-settings">
-            <label>E-mail администратора для получения заявок:</label>
-            <div class="email-input-group">
-                <input type="email" id="adminEmailInput" placeholder="admin@automaster.ru">
-                <button id="saveEmailBtn">Сохранить</button>
+        <h3><i class="fas fa-comment-dots"></i> Модерация отзывов с сайта</h3>
+        <p style="margin: 10px 0 20px; color:#5a6e7a;">Отзывы из таблицы 'reviews'</p>
+        <div id="reviewsListContainer" class="services-grid">
             </div>
-            <div class="current-email" id="currentEmailDisplay">
-                <i class="fas fa-info-circle"></i> Текущий email: <strong id="currentEmailValue">admin@automaster.ru</strong>
-            </div>
-            <p style="margin-top: 15px; font-size: 0.8rem; color:#5a6e7a;">
-                <i class="fas fa-question-circle"></i> На этот адрес будут приходить уведомления о новых заявках от пользователей.
-            </p>
-        </div>
-        <div class="toolbar" style="justify-content: flex-start; margin-top: 10px;">
-            <button class="btn-update" style="background:#3a6b92;" id="testEmailBtn"><i class="fas fa-paper-plane"></i> Отправить тестовое письмо</button>
-        </div>
-        <div id="testEmailMsg" style="margin-top: 12px; background:#e8f0fe; padding: 8px 16px; border-radius: 20px;"></div>
     </div>
 </div>
 
-<!-- ПОДВАЛ -->
+<div class="modal" id="adminModal">
+    <div class="modal-content">
+        <h3 id="modalTitle">Управление элементом</h3>
+        <form id="modalForm">
+            <div id="modalFormFields"></div>
+            
+            <div class="modal-buttons">
+                <button type="button" class="cancel-btn" id="modalCancelBtn">Отмена</button>
+                <button type="submit" class="save-btn" id="modalSaveBtn">Сохранить изменения</button>
+            </div>
+        </form>
+    </div>
+</div>
+
 <footer>
-    <div class="container">
-        <div class="footer-grid">
-            <div class="footer-col">
-                <h4>БЫСТРЫЕ РАЗДЕЛЫ</h4>
-                <a href="#">Цены и каталог</a>
-                <a href="#">Онлайн-запись 24/7</a>
-                <a href="#">Примеры до/после</a>
-            </div>
-            <div class="footer-col">
-                <h4>АДРЕС И РЕЖИМ</h4>
-                <p>📍 г. Москва, ул. Космонавтов, д. 18, стр. 2</p>
-                <p>🕒 Ежедневно с 09:00 до 21:00</p>
-            </div>
-            <div class="footer-col">
-                <h4>ПРИЕМНАЯ АВТОДОК</h4>
-                <p class="footer-phone">📞 +7 (495) 123-45-67</p>
-                <p>Потребовалась срочная консультация? Звоните круглосуточно.</p>
-            </div>
-        </div>
-        <div class="copyright">
-            <p>© 2026 СТО «АвтоДок». Все права защищены. [ Панель управления ]</p>
-        </div>
+    <div class="container copyright">
+        <p>© 2026 СТО «АвтоДок». Система администрирования баз данных.</p>
     </div>
 </footer>
 
-<!-- МОДАЛЬНОЕ ОКНО (универсальное) -->
-<div id="genericModal" class="modal">
-    <div class="modal-content">
-        <h3 id="modalTitle">Заголовок</h3>
-        <input type="text" id="modalName" placeholder="Название">
-        <textarea id="modalDesc" rows="2" placeholder="Описание"></textarea>
-        <div id="extraFieldsContainer"></div>
-        <div class="modal-buttons">
-            <button id="modalSaveBtn" class="save-btn">Сохранить</button>
-            <button id="modalCancelBtn" class="cancel-btn">Отмена</button>
-        </div>
-    </div>
-</div>
-
-    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-
-    <script src="supabase-config.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="supabase-config.js"></script>
 
 <script>
-    // ---------- ДАННЫЕ ----------
-    let services = [
-        { id: 1, name: "Замена масла", description: "Моторное масло + фильтр", price: "2500 ₽" },
-        { id: 2, name: "Ремонт тормозной системы", description: "Колодки, диски, замена жидкости", price: "4800 ₽" },
-        { id: 3, name: "Компьютерная диагностика", description: "Полная проверка электронных систем", price: "1500 ₽" }
-    ];
-
-    let portfolioItems = [
-        { id: 1, title: "Ремонт двигателя Mercedes", description: "Капитальный ремонт, замена поршневой", beforeImg: "https://via.placeholder.com/100x70?text=ДО", afterImg: "https://via.placeholder.com/100x70?text=ПОСЛЕ" },
-        { id: 2, title: "Замена подвески BMW", description: "Сайлентблоки, амортизаторы", beforeImg: "https://via.placeholder.com/100x70?text=BMW+ДО", afterImg: "https://via.placeholder.com/100x70?text=BMW+ПОСЛЕ" }
-    ];
-
-    let nextServiceId = 4;
-    let nextPortfolioId = 3;
-
-    // Email администратора
-    let adminEmail = localStorage.getItem('adminEmail') || 'admin@automaster.ru';
-    document.getElementById('currentEmailValue').innerText = adminEmail;
-    document.getElementById('adminEmailInput').value = adminEmail;
-
-    // DOM элементы
-    const servicesContainer = document.getElementById('servicesListContainer');
-    const portfolioContainer = document.getElementById('portfolioListContainer');
-    const modal = document.getElementById('genericModal');
-    const modalTitle = document.getElementById('modalTitle');
-    const modalName = document.getElementById('modalName');
-    const modalDesc = document.getElementById('modalDesc');
-    const extraFieldsContainer = document.getElementById('extraFieldsContainer');
-    const modalSaveBtn = document.getElementById('modalSaveBtn');
-    const modalCancelBtn = document.getElementById('modalCancelBtn');
-
-    let currentModalType = null;
+    let currentMode = ''; // 'addService', 'editService', 'addPortfolio', 'editPortfolio'
     let currentEditId = null;
 
-    // Отрисовка услуг
-    function renderServices() {
-        if (!servicesContainer) return;
-        if (services.length === 0) {
-            servicesContainer.innerHTML = '<div class="service-card">Услуг пока нет. Добавьте первую!</div>';
-            return;
-        }
-        servicesContainer.innerHTML = '';
-        services.forEach(service => {
-            const card = document.createElement('div');
-            card.className = 'service-card';
-            card.innerHTML = `
-                <div class="service-info">
-                    <div><span class="service-name">${escapeHtml(service.name)}</span> <span class="service-price">${escapeHtml(service.price)}</span></div>
-                    <div class="service-desc">${escapeHtml(service.description)}</div>
-                </div>
-                <div class="card-actions">
-                    <button class="edit-btn" data-id="${service.id}" data-type="service"><i class="fas fa-edit"></i> Ред.</button>
-                    <button class="delete-btn" data-id="${service.id}" data-type="service"><i class="fas fa-trash-alt"></i> Удалить</button>
-                </div>
-            `;
-            servicesContainer.appendChild(card);
-        });
-        attachServiceEvents();
-    }
+    // Ссылки на элементы DOM
+    const modal = document.getElementById('adminModal');
+    const modalTitle = document.getElementById('modalTitle');
+    const modalFormFields = document.getElementById('modalFormFields');
+    const modalForm = document.getElementById('modalForm');
 
-    function attachServiceEvents() {
-        document.querySelectorAll('.edit-btn[data-type="service"]').forEach(btn => {
-            btn.addEventListener('click', () => openEditServiceModal(parseInt(btn.dataset.id)));
-        });
-        document.querySelectorAll('.delete-btn[data-type="service"]').forEach(btn => {
-            btn.addEventListener('click', () => {
-                if (confirm('Удалить услугу?')) {
-                    services = services.filter(s => s.id !== parseInt(btn.dataset.id));
-                    renderServices();
-                    showToast('Услуга удалена');
-                }
-            });
-        });
-    }
-
-    // Отрисовка портфолио
-    function renderPortfolio() {
-        if (!portfolioContainer) return;
-        if (portfolioItems.length === 0) {
-            portfolioContainer.innerHTML = '<div class="portfolio-card">Портфолио пусто. Добавьте работы с фото ДО/ПОСЛЕ</div>';
-            return;
-        }
-        portfolioContainer.innerHTML = '';
-        portfolioItems.forEach(item => {
-            const card = document.createElement('div');
-            card.className = 'portfolio-card';
-            card.innerHTML = `
-                <div style="flex:1;">
-                    <div class="portfolio-title">${escapeHtml(item.title)}</div>
-                    <div class="service-desc">${escapeHtml(item.description)}</div>
-                    <div class="image-pair">
-                        <span>🔴 ДО:</span>
-                        <img src="${escapeHtml(item.beforeImg)}" class="portfolio-img" onerror="this.src='https://via.placeholder.com/80x60?text=ошибка'">
-                        <span>🟢 ПОСЛЕ:</span>
-                        <img src="${escapeHtml(item.afterImg)}" class="portfolio-img" onerror="this.src='https://via.placeholder.com/80x60?text=ошибка'">
-                    </div>
-                </div>
-                <div class="card-actions">
-                    <button class="edit-btn" data-id="${item.id}" data-type="portfolio"><i class="fas fa-edit"></i> Ред.</button>
-                    <button class="delete-btn" data-id="${item.id}" data-type="portfolio"><i class="fas fa-trash-alt"></i> Удалить</button>
-                </div>
-            `;
-            portfolioContainer.appendChild(card);
-        });
-        attachPortfolioEvents();
-    }
-
-    function attachPortfolioEvents() {
-        document.querySelectorAll('.edit-btn[data-type="portfolio"]').forEach(btn => {
-            btn.addEventListener('click', () => openEditPortfolioModal(parseInt(btn.dataset.id)));
-        });
-        document.querySelectorAll('.delete-btn[data-type="portfolio"]').forEach(btn => {
-            btn.addEventListener('click', () => {
-                if (confirm('Удалить работу из портфолио?')) {
-                    portfolioItems = portfolioItems.filter(p => p.id !== parseInt(btn.dataset.id));
-                    renderPortfolio();
-                    showToast('Работа удалена');
-                }
-            });
-        });
-    }
-
-    // Модальные окна
-    function openAddServiceModal() {
-        currentModalType = 'service';
-        currentEditId = null;
-        modalTitle.innerText = 'Добавление услуги';
-        modalName.value = '';
-        modalDesc.value = '';
-        extraFieldsContainer.innerHTML = `
-            <input type="text" id="servicePrice" placeholder="Цена (например: 3500 ₽)">
-        `;
-        modal.style.display = 'flex';
-    }
-
-    function openEditServiceModal(id) {
-        const service = services.find(s => s.id === id);
-        if (!service) return;
-        currentModalType = 'service';
-        currentEditId = id;
-        modalTitle.innerText = 'Редактировать услугу';
-        modalName.value = service.name;
-        modalDesc.value = service.description;
-        extraFieldsContainer.innerHTML = `
-            <input type="text" id="servicePrice" placeholder="Цена" value="${escapeHtml(service.price)}">
-        `;
-        modal.style.display = 'flex';
-    }
-
-    function openAddPortfolioModal() {
-        currentModalType = 'portfolio';
-        currentEditId = null;
-        modalTitle.innerText = 'Добавить работу (ДО / ПОСЛЕ)';
-        modalName.value = '';
-        modalDesc.value = '';
-        extraFieldsContainer.innerHTML = `
-            <div class="image-row">
-                <div>
-                    <label>🔴 Фото ДО (URL)</label>
-                    <input type="text" id="beforeImg" placeholder="https://...">
-                </div>
-                <div>
-                    <label>🟢 Фото ПОСЛЕ (URL)</label>
-                    <input type="text" id="afterImg" placeholder="https://...">
-                </div>
-            </div>
-        `;
-        modal.style.display = 'flex';
-    }
-
-    function openEditPortfolioModal(id) {
-        const item = portfolioItems.find(p => p.id === id);
-        if (!item) return;
-        currentModalType = 'portfolio';
-        currentEditId = id;
-        modalTitle.innerText = 'Редактировать работу';
-        modalName.value = item.title;
-        modalDesc.value = item.description;
-        extraFieldsContainer.innerHTML = `
-            <div class="image-row">
-                <div>
-                    <label>🔴 Фото ДО (URL)</label>
-                    <input type="text" id="beforeImg" placeholder="https://..." value="${escapeHtml(item.beforeImg)}">
-                </div>
-                <div>
-                    <label>🟢 Фото ПОСЛЕ (URL)</label>
-                    <input type="text" id="afterImg" placeholder="https://..." value="${escapeHtml(item.afterImg)}">
-                </div>
-            </div>
-        `;
-        modal.style.display = 'flex';
-    }
-
-    function saveModalData() {
-        if (currentModalType === 'service') {
-            const nameVal = modalName.value.trim();
-            const descVal = modalDesc.value.trim();
-            const priceVal = document.getElementById('servicePrice')?.value.trim() || "0 ₽";
-            if (!nameVal) { alert('Укажите название услуги'); return; }
-            if (currentEditId !== null) {
-                const idx = services.findIndex(s => s.id === currentEditId);
-                if (idx !== -1) services[idx] = { ...services[idx], name: nameVal, description: descVal, price: priceVal };
-            } else {
-                services.push({ id: nextServiceId++, name: nameVal, description: descVal, price: priceVal });
-            }
-            renderServices();
-            showToast('Услуги обновлены');
-        } 
-        else if (currentModalType === 'portfolio') {
-            const titleVal = modalName.value.trim();
-            const descVal = modalDesc.value.trim();
-            const beforeVal = document.getElementById('beforeImg')?.value.trim() || 'https://via.placeholder.com/100x70?text=ДО';
-            const afterVal = document.getElementById('afterImg')?.value.trim() || 'https://via.placeholder.com/100x70?text=ПОСЛЕ';
-            if (!titleVal) { alert('Введите заголовок работы'); return; }
-            if (currentEditId !== null) {
-                const idx = portfolioItems.findIndex(p => p.id === currentEditId);
-                if (idx !== -1) portfolioItems[idx] = { ...portfolioItems[idx], title: titleVal, description: descVal, beforeImg: beforeVal, afterImg: afterVal };
-            } else {
-                portfolioItems.push({ id: nextPortfolioId++, title: titleVal, description: descVal, beforeImg: beforeVal, afterImg: afterVal });
-            }
-            renderPortfolio();
-            showToast('Портфолио обновлено');
-        }
-        closeModal();
-    }
-
-    function closeModal() {
-        modal.style.display = 'none';
-        currentModalType = null;
-        currentEditId = null;
-    }
-
-    function showToast(msg) {
-        const toast = document.createElement('div');
-        toast.innerText = msg;
-        toast.style.cssText = 'position:fixed; bottom:20px; right:20px; background:#1f6392; color:white; padding:10px 20px; border-radius:40px; z-index:9999; font-weight:bold;';
-        document.body.appendChild(toast);
-        setTimeout(() => toast.remove(), 2000);
-    }
-
-    function escapeHtml(str) {
-        if (!str) return '';
-        return str.replace(/[&<>]/g, m => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;' }[m]));
-    }
-
-    // ---------- СОБЫТИЯ ----------
-    document.getElementById('refreshDatabaseBtn')?.addEventListener('click', () => {
-        showToast('База данных успешно синхронизирована!');
-    });
-
-    document.getElementById('simulateMailBtn')?.addEventListener('click', () => {
-        const msgDiv = document.getElementById('emailSimulatorMsg');
-        msgDiv.innerHTML = `<i class="fas fa-check-circle"></i> ✅ Симуляция: отправлены уведомления на ${adminEmail} о 3 новых заявках`;
-        setTimeout(() => msgDiv.innerHTML = '', 4000);
-    });
-
-    document.getElementById('saveEmailBtn')?.addEventListener('click', () => {
-        const newEmail = document.getElementById('adminEmailInput').value.trim();
-        if (!newEmail) { alert('Введите email'); return; }
-        adminEmail = newEmail;
-        localStorage.setItem('adminEmail', adminEmail);
-        document.getElementById('currentEmailValue').innerText = adminEmail;
-        showToast('Email администратора сохранён');
-    });
-
-    document.getElementById('testEmailBtn')?.addEventListener('click', () => {
-        const msgDiv = document.getElementById('testEmailMsg');
-        msgDiv.innerHTML = `<i class="fas fa-paper-plane"></i> 📧 Тестовое письмо отправлено на ${adminEmail}`;
-        setTimeout(() => msgDiv.innerHTML = '', 3000);
-    });
-
-    document.getElementById('openRecordAlert')?.addEventListener('click', () => {
-        alert('Форма онлайн-записи (демо). Заявка придёт на email: ' + adminEmail);
-    });
-
-    // Переключение вкладок
+    // Настройка вкладок
     const tabs = document.querySelectorAll('.tab-btn');
     const panes = document.querySelectorAll('.tab-pane');
     tabs.forEach(tab => {
@@ -864,22 +444,288 @@
             tabs.forEach(t => t.classList.remove('active'));
             tab.classList.add('active');
             panes.forEach(pane => pane.classList.remove('active-pane'));
-            const activePane = document.getElementById(targetId);
-            if (activePane) activePane.classList.add('active-pane');
-            if (targetId === 'services') renderServices();
-            if (targetId === 'portfolio') renderPortfolio();
+            document.getElementById(targetId).classList.add('active-pane');
+            
+            // Автоматическое обновление данных вкладки при открытии
+            if (targetId === 'requests') loadRequests();
+            if (targetId === 'services') loadServices();
+            if (targetId === 'portfolio') loadPortfolio();
+            if (targetId === 'reviews') loadReviews();
         });
     });
 
-    document.getElementById('addServiceBtn')?.addEventListener('click', openAddServiceModal);
-    document.getElementById('addPortfolioBtn')?.addEventListener('click', openAddPortfolioModal);
-    modalSaveBtn.addEventListener('click', saveModalData);
-    modalCancelBtn.addEventListener('click', closeModal);
+    // Кнопка тотального обновления
+    document.getElementById('refreshDatabaseBtn').addEventListener('click', () => {
+        loadRequests();
+        loadServices();
+        loadPortfolio();
+        loadReviews();
+    });
+
+    // ==========================================
+    // 1. УПРАВЛЕНИЕ ЗАЯВКАМИ (BOOKINGS)
+    // ==========================================
+    async function loadRequests() {
+        const container = document.getElementById('requestsListContainer');
+        container.innerHTML = '<div>Загрузка заявок...</div>';
+        try {
+            const { data, error } = await supabaseClient.from('bookings').select('*').order('created_at', { ascending: false });
+            if (error) throw error;
+            if(!data || data.length === 0) {
+                container.innerHTML = '<div>Список заявок пуст.</div>';
+                return;
+            }
+            container.innerHTML = data.map(item => `
+                <div class="service-card">
+                    <div>
+                        <strong>Клиент:</strong> ${item.name} (${item.phone})<br>
+                        <strong>Авто:</strong> ${item.carModel} | <strong>Услуга:</strong> ${item.service}<br>
+                        <strong>Дата/Время записи:</strong> ${item.date} в ${item.time}
+                    </div>
+                    <div class="card-actions">
+                        <button class="delete-btn" onclick="deleteRequest('${item.id}')"><i class="fas fa-trash"></i> Удалить</button>
+                    </div>
+                </div>
+            `).join('');
+        } catch (err) {
+            container.innerHTML = `<div style="color:red">Ошибка: ${err.message}</div>`;
+        }
+    }
+
+    async function deleteRequest(id) {
+        if(!confirm('Удалить эту заявку из базы навсегда?')) return;
+        await supabaseClient.from('bookings').delete().eq('id', id);
+        loadRequests();
+    }
+
+    // ==========================================
+    // 2. УПРАВЛЕНИЕ УСЛУГАМИ (SERVICES)
+    // ==========================================
+    async function loadServices() {
+        const container = document.getElementById('servicesListContainer');
+        container.innerHTML = '<div>Загрузка каталога услуг...</div>';
+        try {
+            const { data, error } = await supabaseClient.from('services').select('*').order('name', { ascending: true });
+            if (error) throw error;
+            container.innerHTML = data.map(item => `
+                <div class="service-card">
+                    <div class="service-info">
+                        <span class="service-name">${item.name}</span>
+                        <span class="service-price">${item.price}</span>
+                        <div class="service-desc">Категория: <strong>${item.category}</strong> | Описание: ${item.description || 'нет'}</div>
+                    </div>
+                    <div class="card-actions">
+                        <button class="edit-btn" onclick="openEditServiceModal(${JSON.stringify(item).replace(/"/g, '&quot;')})"><i class="fas fa-edit"></i></button>
+                        <button class="delete-btn" onclick="deleteService('${item.id}')"><i class="fas fa-trash"></i></button>
+                    </div>
+                </div>
+            `).join('');
+        } catch (err) {
+            container.innerHTML = `<div style="color:red">Ошибка: ${err.message}</div>`;
+        }
+    }
+
+    document.getElementById('addServiceBtn').addEventListener('click', () => {
+        currentMode = 'addService';
+        modalTitle.textContent = 'Добавление новой услуги';
+        modalFormFields.innerHTML = `
+            <label>Название услуги</label><input type="text" id="field_name" required placeholder="Например: Замена тормозных колодок">
+            <label>Стоимость (текст)</label><input type="text" id="field_price" required placeholder="от 1 500 руб.">
+            <label>Категория (латиницей, как в index.html)</label><input type="text" id="field_category" required placeholder="tech / brake / engine / suspension">
+            <label>Краткое описание</label><textarea id="field_description" rows="3" placeholder="Что входит в стоимость..."></textarea>
+        `;
+        modal.style.display = 'flex';
+    });
+
+    function openEditServiceModal(item) {
+        currentMode = 'editService';
+        currentEditId = item.id;
+        modalTitle.textContent = 'Редактирование услуги';
+        modalFormFields.innerHTML = `
+            <label>Название услуги</label><input type="text" id="field_name" value="${item.name}" required>
+            <label>Стоимость (текст)</label><input type="text" id="field_price" value="${item.price}" required>
+            <label>Категория</label><input type="text" id="field_category" value="${item.category}" required>
+            <label>Краткое описание</label><textarea id="field_description" rows="3">${item.description || ''}</textarea>
+        `;
+        modal.style.display = 'flex';
+    }
+
+    async function deleteService(id) {
+        if(!confirm('Удалить эту услугу из прайс-листа?')) return;
+        await supabaseClient.from('services').delete().eq('id', id);
+        loadServices();
+    }
+
+    // ==========================================
+    // 3. УПРАВЛЕНИЕ ПОРТФОЛИО (PORTFOLIO)
+    // ==========================================
+    async function loadPortfolio() {
+        const container = document.getElementById('portfolioListContainer');
+        container.innerHTML = '<div>Загрузка галереи работ...</div>';
+        try {
+            const { data, error } = await supabaseClient.from('portfolio').select('*').order('created_at', { ascending: false });
+            if (error) throw error;
+            container.innerHTML = data.map(item => `
+                <div class="portfolio-card">
+                    <div class="portfolio-info">
+                        <span class="portfolio-title">${item.title}</span>
+                        <div style="font-size:0.85rem; color:#666; margin:4px 0;">🕒 Время: ${item.hours} | 💰 Цена: ${item.price}</div>
+                        <div class="image-pair">
+                            <div><span>ДО:</span><img src="${item.before_img}" class="portfolio-img"></div>
+                            <div><span>ПОСЛЕ:</span><img src="${item.after_img}" class="portfolio-img"></div>
+                        </div>
+                    </div>
+                    <div class="card-actions">
+                        <button class="edit-btn" onclick="openEditPortfolioModal(${JSON.stringify(item).replace(/"/g, '&quot;')})"><i class="fas fa-edit"></i></button>
+                        <button class="delete-btn" onclick="deletePortfolio('${item.id}')"><i class="fas fa-trash"></i></button>
+                    </div>
+                </div>
+            `).join('');
+        } catch (err) {
+            container.innerHTML = `<div style="color:red">Ошибка: ${err.message}</div>`;
+        }
+    }
+
+    document.getElementById('addPortfolioBtn').addEventListener('click', () => {
+        currentMode = 'addPortfolio';
+        modalTitle.textContent = 'Добавление работы в Портфолио';
+        modalFormFields.innerHTML = `
+            <label>Заголовок (Марка авто и вид ремонта)</label><input type="text" id="field_title" required placeholder="Полировка фар кузова Audi A4">
+            <label>Время выполнения</label><input type="text" id="field_hours" required placeholder="3 часа">
+            <label>Итоговая стоимость ремонта</label><input type="text" id="field_price" required placeholder="4 200 руб.">
+            <label>Ссылка на фото ДО ремонта</label><input type="url" id="field_before_img" required placeholder="https://site.ru/img/before.jpg">
+            <label>Ссылка на фото ПОСЛЕ ремонта</label><input type="url" id="field_after_img" required placeholder="https://site.ru/img/after.jpg">
+            <label>Детали ремонта (описание)</label><textarea id="field_description" rows="3" placeholder="Какие дефекты устранены..."></textarea>
+        `;
+        modal.style.display = 'flex';
+    });
+
+    function openEditPortfolioModal(item) {
+        currentMode = 'editPortfolio';
+        currentEditId = item.id;
+        modalTitle.textContent = 'Редактирование карточки Портфолио';
+        modalFormFields.innerHTML = `
+            <label>Заголовок работы</label><input type="text" id="field_title" value="${item.title}" required>
+            <label>Время выполнения</label><input type="text" id="field_hours" value="${item.hours}" required>
+            <label>Итоговая стоимость</label><input type="text" id="field_price" value="${item.price}" required>
+            <label>Ссылка на фото ДО</label><input type="url" id="field_before_img" value="${item.before_img}" required>
+            <label>Ссылка на фото ПОСЛЕ</label><input type="url" id="field_after_img" value="${item.after_img}" required>
+            <label>Детали ремонта</label><textarea id="field_description" rows="3">${item.description || ''}</textarea>
+        `;
+        modal.style.display = 'flex';
+    }
+
+    async function deletePortfolio(id) {
+        if(!confirm('Удалить эту работу из портфолио?')) return;
+        await supabaseClient.from('portfolio').delete().eq('id', id);
+        loadPortfolio();
+    }
+
+    // ==========================================
+    // 4. УПРАВЛЕНИЕ ОТЗЫВАМИ (REVIEWS)
+    // ==========================================
+    async function loadReviews() {
+        const container = document.getElementById('reviewsListContainer');
+        container.innerHTML = '<div>Загрузка отзывов клиентов...</div>';
+        try {
+            const { data, error } = await supabaseClient.from('reviews').select('*').order('created_at', { ascending: false });
+            if (error) throw error;
+            if(!data || data.length === 0) {
+                container.innerHTML = '<div>Отзывов пока нет.</div>';
+                return;
+            }
+            container.innerHTML = data.map(item => `
+                <div class="service-card">
+                    <div>
+                        <strong>Автор:</strong> ${item.name} | <strong>Авто:</strong> ${item.car}<br>
+                        <strong>Оценка:</strong> ${'★'.repeat(item.rating)}${'☆'.repeat(5-item.rating)}<br>
+                        <strong>Текст отзыва:</strong> "${item.text}"
+                    </div>
+                    <div class="card-actions">
+                        <button class="delete-btn" onclick="deleteReview('${item.id}')"><i class="fas fa-ban"></i> Удалить</button>
+                    </div>
+                </div>
+            `).join('');
+        } catch (err) {
+            container.innerHTML = `<div style="color:red">Ошибка: ${err.message}</div>`;
+        }
+    }
+
+    async function deleteReview(id) {
+        if(!confirm('Вы действительно хотите удалить этот отзыв с сайта?')) return;
+        await supabaseClient.from('reviews').delete().eq('id', id);
+        loadReviews();
+    }
+
+    // ==========================================
+    // СХЕМА ОБРАБОТКИ ОТПРАВКИ ФОРМЫ МОДАЛЬНОГО ОКНА
+    // ==========================================
+    modalForm.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        
+        try {
+            if (currentMode === 'addService') {
+                const { error } = await supabaseClient.from('services').insert([{
+                    name: document.getElementById('field_name').value.trim(),
+                    price: document.getElementById('field_price').value.trim(),
+                    category: document.getElementById('field_category').value.trim(),
+                    description: document.getElementById('field_description').value.trim()
+                }]);
+                if (error) throw error;
+                loadServices();
+            } 
+            else if (currentMode === 'editService') {
+                const { error } = await supabaseClient.from('services').update({
+                    name: document.getElementById('field_name').value.trim(),
+                    price: document.getElementById('field_price').value.trim(),
+                    category: document.getElementById('field_category').value.trim(),
+                    description: document.getElementById('field_description').value.trim()
+                }).eq('id', currentEditId);
+                if (error) throw error;
+                loadServices();
+            } 
+            else if (currentMode === 'addPortfolio') {
+                const { error } = await supabaseClient.from('portfolio').insert([{
+                    title: document.getElementById('field_title').value.trim(),
+                    hours: document.getElementById('field_hours').value.trim(),
+                    price: document.getElementById('field_price').value.trim(),
+                    before_img: document.getElementById('field_before_img').value.trim(),
+                    after_img: document.getElementById('field_after_img').value.trim(),
+                    description: document.getElementById('field_description').value.trim()
+                }]);
+                if (error) throw error;
+                loadPortfolio();
+            } 
+            else if (currentMode === 'editPortfolio') {
+                const { error } = await supabaseClient.from('portfolio').update({
+                    title: document.getElementById('field_title').value.trim(),
+                    hours: document.getElementById('field_hours').value.trim(),
+                    price: document.getElementById('field_price').value.trim(),
+                    before_img: document.getElementById('field_before_img').value.trim(),
+                    after_img: document.getElementById('field_after_img').value.trim(),
+                    description: document.getElementById('field_description').value.trim()
+                }).eq('id', currentEditId);
+                if (error) throw error;
+                loadPortfolio();
+            }
+
+            closeModal();
+        } catch (err) {
+            alert('Ошибка выполнения операции в БД: ' + err.message);
+        }
+    });
+
+    // Функции закрытия модалки
+    function closeModal() {
+        modal.style.display = 'none';
+        modalFormFields.innerHTML = '';
+        currentEditId = null;
+    }
+    document.getElementById('modalCancelBtn').addEventListener('click', closeModal);
     window.addEventListener('click', (e) => { if (e.target === modal) closeModal(); });
 
-    // Запуск
-    renderServices();
-    renderPortfolio();
+    // Первичный запуск при открытии страницы
+    loadRequests();
 </script>
 </body>
 </html>
