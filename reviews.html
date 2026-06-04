@@ -237,6 +237,46 @@
             white-space: pre-line;
         }
 
+        footer {
+            background: #0e293b;
+            color: #cbdae3;
+            padding: 60px 0 30px;
+        }
+        .footer-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+        .footer-col h4 {
+            color: #f4b23e;
+            margin-bottom: 24px;
+            font-size: 1.1rem;
+            font-weight: 700;
+        }
+        .footer-col a, .footer-col p {
+            display: block;
+            color: #cbdae3;
+            text-decoration: none;
+            margin-bottom: 14px;
+            font-size: 0.95rem;
+        }
+        .footer-col a:hover {
+            color: white;
+        }
+        .footer-phone {
+            font-size: 1.4rem;
+            font-weight: 700;
+            color: white !important;
+        }
+        .copyright {
+            text-align: center;
+            padding-top: 30px;
+            border-top: 1px solid #2c4b5e;
+            font-size: 0.85rem;
+            color: #8aa4b5;
+        }
+
         @media (max-width: 992px) {
             .reviews-layout { grid-template-columns: 1fr; gap: 40px; }
             .form-card { position: static; }
