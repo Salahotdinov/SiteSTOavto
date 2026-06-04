@@ -45,7 +45,7 @@
             font-weight: 700;
         }
         .logo span {
-            color: #f4b23e;
+            color: #e25c1d;
         }
         .logout-btn {
             background: transparent;
@@ -136,8 +136,8 @@
         }
 
         .btn-add {
-            background: #f4b23e;
-            color: #0b2b40;
+            background: #e25c1d;
+            color: white;
             border: none;
             padding: 10px 20px;
             border-radius: 6px;
@@ -146,7 +146,7 @@
             transition: 0.2s;
         }
         .btn-add:hover {
-            background: #ffcd70;
+            background: #d44d13;
         }
 
         /* Форма настроек Email */
@@ -158,16 +158,16 @@
             border: 1px solid #e2e8f0;
         }
         .form-group {
-            margin-bottom: 20px;
+            margin-bottom: 15px;
         }
         .form-group label {
             display: block;
-            margin-bottom: 8px;
+            margin-bottom: 6px;
             font-weight: 600;
             color: #334155;
             font-size: 0.95rem;
         }
-        .form-group input {
+        .form-group input, .form-group textarea, .form-group select {
             width: 100%;
             padding: 10px 14px;
             border: 1px solid #cbd5e1;
@@ -176,9 +176,12 @@
             outline: none;
             transition: 0.2s;
         }
-        .form-group input:focus {
+        .form-group textarea {
+            resize: vertical;
+            height: 80px;
+        }
+        .form-group input:focus, .form-group textarea:focus, .form-group select:focus {
             border-color: #0b2b40;
-            box-shadow: 0 0 0 3px rgba(11, 43, 64, 0.1);
         }
         .form-desc {
             font-size: 0.85rem;
@@ -228,23 +231,36 @@
         .item-info p {
             color: #64748b;
             font-size: 0.85rem;
+            margin-bottom: 2px;
+        }
+        .item-actions {
+            display: flex;
+            gap: 10px;
         }
         .item-actions button {
             background: transparent;
             border: none;
-            color: #ef4444;
             cursor: pointer;
             font-size: 1.1rem;
             padding: 6px;
             transition: 0.2s;
         }
-        .item-actions button:hover {
+        .btn-delete {
+            color: #ef4444;
+        }
+        .btn-delete:hover {
             color: #b91c1c;
+        }
+        .btn-approve {
+            color: #10b981;
+        }
+        .btn-approve:hover {
+            color: #059669;
         }
 
         /* ПОДВАЛ */
         footer {
-            background: #0e293b;
+            background: #0b2b40;
             color: #cbdae3;
             text-align: center;
             padding: 20px 0;
@@ -252,7 +268,7 @@
             font-size: 0.85rem;
         }
 
-        /* МОДАЛЬНОЕ ОКНО */
+        /* МОДАЛЬНЫЕ ОКНА */
         .modal {
             display: none;
             position: fixed;
@@ -273,6 +289,11 @@
         .modal-header h3 {
             color: #0b2b40;
             margin-bottom: 20px;
+        }
+        .modal-body {
+            max-height: 450px;
+            overflow-y: auto;
+            padding-right: 5px;
         }
         .modal-footer {
             display: flex;
@@ -306,8 +327,14 @@
         <button class="tab-btn active" data-tab="services">
             <i class="fas fa-tools"></i> Каталог услуг
         </button>
+        <button class="tab-btn" data-tab="bookings">
+            <i class="fas fa-calendar-check"></i> Заявки на запись
+        </button>
         <button class="tab-btn" data-tab="portfolio">
             <i class="fas fa-images"></i> Портфолио
+        </button>
+        <button class="tab-btn" data-tab="reviews">
+            <i class="fas fa-comment-dots"></i> Отзывы клиентов
         </button>
         <button class="tab-btn" data-tab="settings">
             <i class="fas fa-envelope"></i> Почта оповещений
@@ -315,6 +342,7 @@
     </div>
 
     <div class="content-area">
+        <!-- 1. Каталог услуг -->
         <div class="tab-pane active-pane" id="services">
             <div class="pane-header">
                 <h2>Управление каталогом услуг</h2>
@@ -323,6 +351,15 @@
             <div class="data-list" id="servicesList"></div>
         </div>
 
+        <!-- 2. Заявки на онлайн-запись -->
+        <div class="tab-pane" id="bookings">
+            <div class="pane-header">
+                <h2>Поступившие заявки на ремонт</h2>
+            </div>
+            <div class="data-list" id="bookingsList"></div>
+        </div>
+
+        <!-- 3. Портфолио -->
         <div class="tab-pane" id="portfolio">
             <div class="pane-header">
                 <h2>Примеры работ (Портфолио)</h2>
@@ -331,6 +368,15 @@
             <div class="data-list" id="portfolioList"></div>
         </div>
 
+        <!-- 4. Отзывы -->
+        <div class="tab-pane" id="reviews">
+            <div class="pane-header">
+                <h2>Модерация отзывов</h2>
+            </div>
+            <div class="data-list" id="reviewsList"></div>
+        </div>
+
+        <!-- 5. Настройки почты -->
         <div class="tab-pane" id="settings">
             <div class="pane-header">
                 <h2>Настройки почты для новых заказов</h2>
@@ -339,28 +385,20 @@
                 <div class="form-group">
                     <label for="adminEmailInput">Email для уведомлений:</label>
                     <input type="email" id="adminEmailInput" placeholder="example@mail.ru">
-                    <p class="form-desc">Укажите адрес почты. Сюда через бэкенд Vercel и базу Supabase будут перенаправляться новые заявки.</p>
+                    <p class="form-desc">Укажите адрес почты. Сюда через бэкенд будут перенаправляться новые онлайн-заявки клиентов.</p>
                 </div>
-                <button class="btn-save-settings" id="saveEmailBtn">Сохранить в Supabase</button>
+                <button class="btn-save-settings" id="saveEmailBtn">Сохранить в базу</button>
                 <div id="settingsMessage" class="success-msg"></div>
             </div>
         </div>
     </div>
 </div>
 
+<!-- ДИНАМИЧЕСКОЕ МОДАЛЬНОЕ ОКНО -->
 <div class="modal" id="adminModal">
     <div class="modal-content">
-        <div class="modal-header"><h3 id="modalTitle">Добавить</h3></div>
-        <div class="modal-body">
-            <div class="form-group">
-                <label id="labelTitle">Название</label>
-                <input type="text" id="inputTitle">
-            </div>
-            <div class="form-group">
-                <label id="labelExtra">Дополнительно</label>
-                <input type="text" id="inputExtra">
-            </div>
-        </div>
+        <div class="modal-header"><h3 id="modalTitle">Добавить элемент</h3></div>
+        <div class="modal-body" id="modalBodyContainer"></div>
         <div class="modal-footer">
             <button class="btn-cancel" id="modalCancelBtn">Отмена</button>
             <button class="btn-add" id="modalSaveBtn">Сохранить</button>
@@ -370,119 +408,235 @@
 
 <footer>
     <div class="container">
-        <p>© 2026 СТО «АвтоДок» — Безопасное управление данными через Supabase.</p>
+        <p>© 2026 СТО «АвтоДок» — Система администрирования БД Supabase.</p>
     </div>
 </footer>
 
-<script>
-    let services = [
-        { id: 1, name: "Компьютерная диагностика", price: "от 1 000 ₽" },
-        { id: 2, name: "Замена моторного масла и фильтра", price: "от 1 500 ₽" }
-    ];
-    let portfolio = [
-        { id: 1, title: "Капитальный ремонт двигателя V6", hours: "18 часов", price: "45 000 ₽" }
-    ];
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="supabase-config.js"></script>
 
-    const servicesList = document.getElementById('servicesList');
-    const portfolioList = document.getElementById('portfolioList');
+<script>
     const modal = document.getElementById('adminModal');
     const modalTitle = document.getElementById('modalTitle');
+    const modalBodyContainer = document.getElementById('modalBodyContainer');
     const modalSaveBtn = document.getElementById('modalSaveBtn');
     const modalCancelBtn = document.getElementById('modalCancelBtn');
-    const inputTitle = document.getElementById('inputTitle');
-    const inputExtra = document.getElementById('inputExtra');
-    const labelTitle = document.getElementById('labelTitle');
-    const labelExtra = document.getElementById('labelExtra');
 
     const adminEmailInput = document.getElementById('adminEmailInput');
     const saveEmailBtn = document.getElementById('saveEmailBtn');
     const settingsMessage = document.getElementById('settingsMessage');
+
     let currentModalType = '';
 
-    function renderServices() {
-        servicesList.innerHTML = services.map(s => `
-            <div class="data-item">
-                <div class="item-info"><h4>${s.name}</h4><p>Стоимость: ${s.price}</p></div>
-                <div class="item-actions"><button onclick="deleteService(${s.id})"><i class="fas fa-trash-alt"></i></button></div>
-            </div>
-        `).join('');
+    // Перевод категорий для красивого отображения
+    const catMap = { 'engine': 'Двигатель', 'chassis': 'Ходовая часть', 'electrics': 'Электрика', 'to': 'Тех. обслуживание' };
+
+    // ==========================================
+    // 1. ЗАГРУЗКА И ВЫВОД ДАННЫХ ИЗ ТАБЛИЦ
+    // ==========================================
+
+    async function renderServices() {
+        const listEl = document.getElementById('servicesList');
+        listEl.innerHTML = 'Загрузка услуг...';
+        try {
+            const { data, error } = await supabaseClient.from('services').select('*').order('id', { ascending: false });
+            if (error) throw error;
+            listEl.innerHTML = data.map(s => `
+                <div class="data-item">
+                    <div class="item-info">
+                        <h4>${s.name} <span style="font-size:0.8rem; background:#cbd5e1; padding:2px 6px; border-radius:4px; margin-left:10px;">${catMap[s.category] || s.category}</span></h4>
+                        <p><strong>Описание:</strong> ${s.description || '—'}</p>
+                        <p style="color:#e25c1d; font-weight:600;"><strong>Цена:</strong> ${s.price}</p>
+                    </div>
+                    <div class="item-actions"><button class="btn-delete" onclick="deleteItem('services', ${s.id})"><i class="fas fa-trash-alt"></i></button></div>
+                </div>
+            `).join('') || 'Список услуг пуст.';
+        } catch (e) { listEl.innerHTML = 'Ошибка: ' + e.message; }
     }
 
-    function renderPortfolio() {
-        portfolioList.innerHTML = portfolio.map(p => `
-            <div class="data-item">
-                <div class="item-info"><h4>${p.title}</h4><p>Срок: ${p.hours} | Бюджет: ${p.price}</p></div>
-                <div class="item-actions"><button onclick="deletePortfolio(${p.id})"><i class="fas fa-trash-alt"></i></button></div>
-            </div>
-        `).join('');
+    async function renderPortfolio() {
+        const listEl = document.getElementById('portfolioList');
+        listEl.innerHTML = 'Загрузка портфолио...';
+        try {
+            const { data, error } = await supabaseClient.from('portfolio').select('*').order('id', { ascending: false });
+            if (error) throw error;
+            listEl.innerHTML = data.map(p => `
+                <div class="data-item">
+                    <div class="item-info">
+                        <h4>${p.title}</h4>
+                        <p><strong>Описание работ:</strong> ${p.description}</p>
+                        <p><strong>Время:</strong> ${p.hours} | <strong>Стоимость:</strong> ${p.price}</p>
+                        <p style="font-size:0.8rem; color:#64748b;">
+                            <a href="${p.before_img}" target="_blank">Фото ДО</a> | <a href="${p.after_img}" target="_blank">Фото ПОСЛЕ</a>
+                        </p>
+                    </div>
+                    <div class="item-actions"><button class="btn-delete" onclick="deleteItem('portfolio', ${p.id})"><i class="fas fa-trash-alt"></i></button></div>
+                </div>
+            `).join('') || 'Портфолио пусто.';
+        } catch (e) { listEl.innerHTML = 'Ошибка: ' + e.message; }
     }
 
-    window.deleteService = function(id) { services = services.filter(s => s.id !== id); renderServices(); }
-    window.deletePortfolio = function(id) { portfolio = portfolio.filter(p => p.id !== id); renderPortfolio(); }
-
-    function openAddServiceModal() {
-        currentModalType = 'service'; modalTitle.textContent = 'Добавить услугу';
-        labelTitle.textContent = 'Название услуги'; labelExtra.textContent = 'Стоимость';
-        inputTitle.value = ''; inputExtra.value = ''; modal.style.display = 'flex';
+    async function renderBookings() {
+        const listEl = document.getElementById('bookingsList');
+        listEl.innerHTML = 'Загрузка заявок...';
+        try {
+            const { data, error } = await supabaseClient.from('bookings').select('*').order('id', { ascending: false });
+            if (error) throw error;
+            listEl.innerHTML = data.map(b => `
+                <div class="data-item">
+                    <div class="item-info">
+                        <h4>Клиент: ${b.name} (${b.phone})</h4>
+                        <p><strong>Автомобиль:</strong> ${b.car_model} | <strong>Email:</strong> ${b.email}</p>
+                        <p><strong>Услуга:</strong> ${b.service} | <strong>Статус:</strong> <span style="font-weight:600;">${b.status}</span></p>
+                        <p style="color:#0b2b40; font-weight:600;">📅 Дата/Время визита: ${b.booking_date} в ${b.booking_time}</p>
+                    </div>
+                    <div class="item-actions"><button class="btn-delete" onclick="deleteItem('bookings', ${b.id})"><i class="fas fa-trash-alt"></i></button></div>
+                </div>
+            `).join('') || 'Новых заявок не найдено.';
+        } catch (e) { listEl.innerHTML = 'Ошибка: ' + e.message; }
     }
 
-    function openAddPortfolioModal() {
-        currentModalType = 'portfolio'; modalTitle.textContent = 'Добавить в портфолио';
-        labelTitle.textContent = 'Описание работы'; labelExtra.textContent = 'Срок и цена';
-        inputTitle.value = ''; inputExtra.value = ''; modal.style.display = 'flex';
+    async function renderReviews() {
+        const listEl = document.getElementById('reviewsList');
+        listEl.innerHTML = 'Загрузка отзывов...';
+        try {
+            const { data, error } = await supabaseClient.from('reviews').select('*').order('id', { ascending: false });
+            if (error) throw error;
+            listEl.innerHTML = data.map(r => `
+                <div class="data-item">
+                    <div class="item-info">
+                        <h4>${r.name} (${r.car}) — <span style="color:#f59e0b;">${'★'.repeat(r.rating)}</span></h4>
+                        <p style="font-style:italic;">"${r.text}"</p>
+                        <p><strong>Статус:</strong> ${r.is_approved ? '<span style="color:green;">Одобрен</span>' : '<span style="color:red;">На модерации</span>'}</p>
+                    </div>
+                    <div class="item-actions">
+                        ${!r.is_approved ? `<button class="btn-approve" onclick="approveReview(${r.id})" title="Одобрить для публикации"><i class="fas fa-check"></i></button>` : ''}
+                        <button class="btn-delete" onclick="deleteItem('reviews', ${r.id})"><i class="fas fa-trash-alt"></i></button>
+                    </div>
+                </div>
+            `).join('') || 'Отзывов нет.';
+        } catch (e) { listEl.innerHTML = 'Ошибка: ' + e.message; }
     }
 
+    // Одобрение отзыва (апдейт статуса)
+    window.approveReview = async function(id) {
+        try {
+            const { error } = await supabaseClient.from('reviews').update({ is_approved: true }).eq('id', id);
+            if (error) throw error;
+            renderReviews();
+        } catch(e) { alert('Ошибка апдейта: ' + e.message); }
+    }
+
+    // Универсальное удаление
+    window.deleteItem = async function(table, id) {
+        if (!confirm('Удалить эту запись безвозвратно?')) return;
+        try {
+            const { error } = await supabaseClient.from(table).delete().eq('id', id);
+            if (error) throw error;
+            if (table === 'services') renderServices();
+            if (table === 'portfolio') renderPortfolio();
+            if (table === 'bookings') renderBookings();
+            if (table === 'reviews') renderReviews();
+        } catch (e) { alert('Ошибка при удалении: ' + e.message); }
+    }
+
+    // ==========================================
+    // 2. ОТКРЫТИЕ И СОХРАНЕНИЕ МОДАЛЬНЫХ ФОРМ
+    // ==========================================
     function closeModal() { modal.style.display = 'none'; }
 
-    function saveModalData() {
-        const title = inputTitle.value.trim(); const extra = inputExtra.value.trim();
-        if (!title || !extra) { alert('Заполните поля!'); return; }
-        if (currentModalType === 'service') { services.push({ id: Date.now(), name: title, price: extra }); renderServices(); }
-        else { portfolio.push({ id: Date.now(), title: title, hours: extra, price: '' }); renderPortfolio(); }
-        closeModal();
-    }
+    // Окно добавления услуги
+    document.getElementById('addServiceBtn').addEventListener('click', () => {
+        currentModalType = 'service';
+        modalTitle.textContent = 'Добавить новую услугу';
+        modalBodyContainer.innerHTML = `
+            <div class="form-group">
+                <label>Категория услуги *</label>
+                <select id="srvCategory" required>
+                    <option value="to">Тех. обслуживание (TO)</option>
+                    <option value="chassis">Ремонт ходовой части</option>
+                    <option value="engine">Ремонт двигателя</option>
+                    <option value="electrics">Электрика и диагностика</option>
+                </select>
+            </div>
+            <div class="form-group"><label>Название услуги *</label><input type="text" id="srvName" required placeholder="Замена тормозных колодок"></div>
+            <div class="form-group"><label>Стоимость *</label><input type="text" id="srvPrice" required placeholder="от 1 500 ₽"></div>
+            <div class="form-group"><label>Подробное описание</label><textarea id="srvDesc" placeholder="Что входит в стоимость работы..."></textarea></div>
+        `;
+        modal.style.display = 'flex';
+    });
 
-    // ===============================================================
-    // ИНТЕГРАЦИЯ С БЭКЕНДОМ SUPABASE ДЛЯ ВКЛАДКИ ПОЧТЫ
-    // ===============================================================
+    // Окно добавления портфолио
+    document.getElementById('addPortfolioBtn').addEventListener('click', () => {
+        currentModalType = 'portfolio';
+        modalTitle.textContent = 'Добавить работу в портфолио';
+        modalBodyContainer.innerHTML = `
+            <div class="form-group"><label>Название работы *</label><input type="text" id="portTitle" required placeholder="Капитальный ремонт двигателя Kia Rio"></div>
+            <div class="form-group"><label>Время выполнения *</label><input type="text" id="portHours" required placeholder="2 дня"></div>
+            <div class="form-group"><label>Стоимость работы *</label><input type="text" id="portPrice" required placeholder="45 000 ₽"></div>
+            <div class="form-group"><label>Описание выполненных работ *</label><textarea id="portDesc" required placeholder="Устранили задиры, заменили поршни..."></textarea></div>
+            <div class="form-group"><label>Ссылка на фото ДО *</label><input type="url" id="portBeforeImg" required placeholder="https://example.com/before.jpg"></div>
+            <div class="form-group"><label>Ссылка на фото ПОСЛЕ *</label><input type="url" id="portAfterImg" required placeholder="https://example.com/after.jpg"></div>
+        `;
+        modal.style.display = 'flex';
+    });
+
+    // Сохранение из модалки
+    modalSaveBtn.addEventListener('click', async () => {
+        if (currentModalType === 'service') {
+            const category = document.getElementById('srvCategory').value;
+            const name = document.getElementById('srvName').value.trim();
+            const price = document.getElementById('srvPrice').value.trim();
+            const description = document.getElementById('srvDesc').value.trim();
+
+            if (!name || !price) { alert('Заполните обязательные поля!'); return; }
+
+            const { error } = await supabaseClient.from('services').insert([{ category, name, price, description }]);
+            if (error) alert('Ошибка БД: ' + error.message); else { closeModal(); renderServices(); }
+        } 
+        
+        else if (currentModalType === 'portfolio') {
+            const title = document.getElementById('portTitle').value.trim();
+            const hours = document.getElementById('portHours').value.trim();
+            const price = document.getElementById('portPrice').value.trim();
+            const description = document.getElementById('portDesc').value.trim();
+            const before_img = document.getElementById('portBeforeImg').value.trim();
+            const after_img = document.getElementById('portAfterImg').value.trim();
+
+            if (!title || !hours || !price || !description || !before_img || !after_img) { 
+                alert('Все поля портфолио обязательны к заполнению!'); 
+                return; 
+            }
+
+            const { error } = await supabaseClient.from('portfolio').insert([{ title, hours, price, description, before_img, after_img }]);
+            if (error) alert('Ошибка БД: ' + error.message); else { closeModal(); renderPortfolio(); }
+        }
+    });
+
+    // ==========================================
+    // 3. СИНХРОНИЗАЦИЯ НАСТРОЕК EMAIL (SETTINGS)
+    // ==========================================
     async function loadAdminEmail() {
         try {
-            const response = await fetch('/api/booking');
-            const data = await response.json();
-            if (data.adminEmail) {
-                adminEmailInput.value = data.adminEmail;
-            }
-        } catch (error) {
-            console.error('Ошибка чтения email из БД:', error);
-        }
+            const { data, error } = await supabaseClient.from('settings').select('value').eq('key', 'admin_email').single();
+            if (error) throw error;
+            if (data) adminEmailInput.value = data.value;
+        } catch (error) { console.error('Ошибка загрузки email:', error.message); }
     }
 
     saveEmailBtn.addEventListener('click', async () => {
         const emailValue = adminEmailInput.value.trim();
-        if (!emailValue || !emailValue.includes('@')) {
-            alert('Введите корректную почту.');
-            return;
-        }
+        if (!emailValue || !emailValue.includes('@')) { alert('Укажите корректную почту.'); return; }
 
         try {
-            const response = await fetch('/api/booking', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ action: 'saveSettings', emailValue: emailValue })
-            });
-            const data = await response.json();
-            if (data.success) {
-                settingsMessage.innerHTML = `<i class="fas fa-check-circle"></i> Успешно сохранено в Supabase! Адрес: <strong>${emailValue}</strong>`;
-                setTimeout(() => settingsMessage.innerHTML = '', 4000);
-            } else {
-                alert('Ошибка: ' + data.message);
-            }
-        } catch (error) {
-            alert('Ошибка при отправке запроса на бэкенд.');
-        }
+            const { error } = await supabaseClient.from('settings').upsert({ key: 'admin_email', value: emailValue });
+            if (error) throw error;
+            settingsMessage.innerHTML = `<i class="fas fa-check-circle"></i> Настройки сохранены!`;
+            setTimeout(() => settingsMessage.innerHTML = '', 3000);
+        } catch (error) { alert('Не удалось сохранить в БД: ' + error.message); }
     });
 
-    // Управление табами
+    // Переключение боковых вкладок
     const tabs = document.querySelectorAll('.tab-btn');
     const panes = document.querySelectorAll('.tab-pane');
     tabs.forEach(tab => {
@@ -491,18 +645,18 @@
             tabs.forEach(t => t.classList.remove('active')); tab.classList.add('active');
             panes.forEach(pane => pane.classList.remove('active-pane'));
             document.getElementById(targetId).classList.add('active-pane');
+            
             if (targetId === 'services') renderServices();
+            if (targetId === 'bookings') renderBookings();
             if (targetId === 'portfolio') renderPortfolio();
+            if (targetId === 'reviews') renderReviews();
         });
     });
 
-    document.getElementById('addServiceBtn')?.addEventListener('click', openAddServiceModal);
-    document.getElementById('addPortfolioBtn')?.addEventListener('click', openAddPortfolioModal);
-    modalSaveBtn.addEventListener('click', saveModalData);
     modalCancelBtn.addEventListener('click', closeModal);
     window.addEventListener('click', (e) => { if (e.target === modal) closeModal(); });
 
-    // Инициализация
+    // Первичный запуск
     renderServices();
     loadAdminEmail();
 </script>
