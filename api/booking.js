@@ -1,5 +1,5 @@
 import { createClient } from '@supabase/supabase-js';
-const nodemailer = require('nodemailer');
+import nodemailer from 'nodemailer'; // Исправлено: теперь используется import вместо require
 
 // Инициализируем защищенный клиент Supabase
 const supabaseUrl = process.env.SUPABASE_URL;
@@ -24,7 +24,7 @@ export default async function handler(req, res) {
                 .eq('key', 'admin_email')
                 .single();
 
-            if (error && error.code !== 'PGRST116') throw error; // PGRST116 означает, что строка не найдена
+            if (error && error.code !== 'PGRST116') throw error; 
 
             return res.status(200).json({ adminEmail: data ? data.value : 'info@autodok.ru' });
         } catch (error) {
@@ -56,6 +56,11 @@ export default async function handler(req, res) {
         // Б) Создание заявки онлайн-записи (вызывается со страницы клиента)
         if (action === 'createBooking') {
             try {
+                // Защита от падения, если клиент прислал пустые данные
+                if (!bookingData) {
+                    return res.status(400).json({ success: false, message: 'Данные заявки (bookingData) отсутствуют' });
+                }
+
                 // Достаем актуальный email администратора напрямую из Supabase
                 const { data } = await supabase
                     .from('settings')
@@ -65,34 +70,32 @@ export default async function handler(req, res) {
 
                 const targetAdminEmail = data ? data.value : 'info@autodok.ru';
 
-                // ===============================================================
-                // НАСТРОЙКА ВАШЕЙ ПОЧТЫ ДЛЯ ОТПРАВКИ (Замените данные на свои)
-                // ===============================================================
+                // Конфигурация SMTP-транспорта для Gmail
                 const transporter = nodemailer.createTransport({
-                    host: 'smtp.gmail.com', // Если Яндекс: smtp.yandex.ru, если Gmail: smtp.gmail.com
+                    host: 'smtp.gmail.com',
                     port: 465,
-                    secure: true,
+                    secure: true, // true для порта 465
                     auth: {
-                        user: 'irazijp@gmail.com', // Email-робот, с которого будут уходить письма
-                        pass: 'qnjl zila vmoi yzmi'    // Специальный пароль приложения (НЕ от аккаунта!)
+                        user: 'irazijp@gmail.com', // Ваша рабочая почта-робот
+                        pass: 'qnjl zila vmoi yzmi'    // Ваш 16-значный пароль приложения
                     }
                 });
 
                 // Текст оповещения
                 const mailOptions = {
-                    from: '"АвтоДок Робот" <YOUR_SYSTEM_EMAIL@gmail.ru>', 
-                    to: targetAdminEmail, // Отправляем на email администратора из Supabase
-                    subject: `🚗 Новая заявка на СТО от клиента: ${bookingData.name}`,
+                    from: '"АвтоДок Робот" <irazijp@gmail.com>', // Исправлено: адрес совпадает с логином auth.user
+                    to: targetAdminEmail, 
+                    subject: `🚗 Новая заявка на СТО от клиента: ${bookingData.name || 'Без имени'}`,
                     html: `
                         <div style="font-family: Arial, sans-serif; padding: 20px; border: 1px solid #e2e8f0; border-radius: 8px;">
                             <h2 style="color: #0b2b40;">Новая онлайн-запись на обслуживание</h2>
-                            <p><strong>Имя клиента:</strong> ${bookingData.name}</p>
-                            <p><strong>Телефон:</strong> ${bookingData.phone}</p>
-                            <p><strong>Email клиента:</strong> ${bookingData.email}</p>
-                            <p><strong>Марка и модель авто:</strong> ${bookingData.carModel}</p>
-                            <p><strong>Выбранная услуга:</strong> ${bookingData.service}</p>
-                            <p><strong>Дата визита:</strong> ${bookingData.date}</p>
-                            <p><strong>Время визита:</strong> ${bookingData.time}</p>
+                            <p><strong>Имя клиента:</strong> ${bookingData.name || '—'}</p>
+                            <p><strong>Телефон:</strong> ${bookingData.phone || '—'}</p>
+                            <p><strong>Email клиента:</strong> ${bookingData.email || '—'}</p>
+                            <p><strong>Марка и модель авто:</strong> ${bookingData.carModel || '—'}</p>
+                            <p><strong>Выбранная услуга:</strong> ${bookingData.service || '—'}</p>
+                            <p><strong>Дата визита:</strong> ${bookingData.date || '—'}</p>
+                            <p><strong>Время визита:</strong> ${bookingData.time || '—'}</p>
                             <hr style="border: none; border-top: 1px solid #cbd5e1; margin: 20px 0;">
                             <p style="font-size: 12px; color: #64748b;"><i>Сообщение сгенерировано автоматически. Конфигурация бэкенда: Vercel Serverless + Supabase PostgreSQL.</i></p>
                         </div>
