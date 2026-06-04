@@ -247,35 +247,24 @@
 <body>
 
     <header>
-        <div class="container header-flex">
-            <a href="index.html" class="logo-link">
-                <div class="logo">
-                    <h1>Авто<span>Док</span></h1>
-                </div>
-            </a>
-            
-            <button class="menu-toggle" id="menuToggle" aria-label="Открыть меню">
-                <span></span>
-                <span></span>
-                <span></span>
-            </button>
-
-            <nav id="navMenu">
-                <a href="index.html">Главная</a>
-                <a href="index.html#services">Услуги</a>
-                <a href="index.html#portfolio">Наши работы</a>
-                <a href="index.html#reviews">Отзывы</a>
-                <a href="index.html#contacts">Контакты</a>
-                <a href="booking.html" class="active">Онлайн-запись</a>
-            </nav>
-
-            <div class="header-contact">
-                <a href="tel:+74951234567" class="phone-num">+7 (495) 123-45-67</a>
-                <button class="record-btn" onclick="window.location.href='booking.html'">Записаться</button>
-            </div>
+    <div class="container header-flex">
+        <div class="logo">
+            <h1>Авто<span>Док</span></h1>
+            <p>Профессиональный регламентный ремонт</p>
         </div>
-    </header>
-
+        <div class="nav-links">
+            <a href="index.html">Цены и каталог</a>
+            <a href="booking.html">Онлайн-запись</a>
+            <a href="portfolio.html">Портфолио</a>
+            <a href="reviews.html">Отзывы</a>
+            <a href="contacts.html">Контакты</a>
+        </div>
+        <div class="header-actions">
+            <a href="tel:+74951234567" class="phone">+7 (495) 123-45-67</a>
+            <button class="btn-record" id="openRecordAlert">Online-запись</button>
+        </div>
+    </div>
+</header>
     <main>
         <div class="booking-box">
             <h2>Онлайн-запись</h2>
