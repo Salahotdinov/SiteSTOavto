@@ -474,72 +474,61 @@
     </div>
 </footer>
 
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+    <script src="supabase-config.js"></script>
+    
 <script>
-    const servicesData = [
-        { name: "Аппаратная заправка автокондиционера", desc: "Откачка старого хладагента, вакуумирование системы для удаления влаги, проверка на герметичность, заправка точного объема фреона.", price: "2 000 ₽", category: "Кондиционер" },
-        { name: "Замена моторного масла и фильтра", desc: "Полная замена моторного масла класса премиум, масляного фильтра и уплотнительной медной шайбы сливной пробки. Проверка уровней.", price: "1 500 ₽", category: "ТО и фильтры" },
-        { name: "Замена передних тормозных колодок", desc: "Снятие старых колодок, очистка скоб суппорта, нанесение противоскрипной смазки на торцы новых колодок, смазка направляющих.", price: "1 800 ₽", category: "Тормозная" },
-        { name: "Замена свечей зажигания (4 шт.)", desc: "Демонтаж катушек зажигания, аккуратное выкручивание старых свечей, контроль состояния свечных колодок, установка новых качественных свечей.", price: "1 200 ₽", category: "Двигатель" },
-        { name: "Компьютерная диагностика ЭБУ", desc: "Сканирование кодов неисправностей всех электронных систем автомобиля (двигатель, АКПП, ABS, SRS и др.) профессиональным сканером.", price: "1 200 ₽", category: "Электрика" },
-        { name: "Регулировка сход-развала 3D", desc: "Проверка и высокоточная регулировка углов установки колес передней и задней осей на современном 3D-стенде с оптическими мишенями.", price: "2 500 ₽", category: "Ходовая" }
-    ];
+    // Заменяем старый статический массив и функцию renderServices
+let currentCategory = "all";
 
-    const servicesGrid = document.getElementById("servicesGrid");
-    const filterBtns = document.querySelectorAll(".filter-btn");
-    let currentCategory = "all";
+async function renderServices() {
+    const catalogGrid = document.getElementById("catalogGrid");
+    catalogGrid.innerHTML = '<div style="grid-column: 1/-1; text-align:center; padding:20px;">Загрузка услуг...</div>';
 
-    function renderServices() {
-        const filtered = currentCategory === "all" 
-            ? servicesData 
-            : servicesData.filter(s => s.category === currentCategory);
-        
-        if (filtered.length === 0) {
-            servicesGrid.innerHTML = `<div style="grid-column:1/-1; text-align:center; padding:40px;">Услуг в этой категории пока нет</div>`;
-            return;
-        }
-
-        servicesGrid.innerHTML = filtered.map(service => `
-            <div class="service-card">
-                <div class="service-category">${service.category}</div>
-                <h3>${service.name}</h3>
-                <div class="service-desc">${service.desc}</div>
-                <div class="service-price">${service.price}</div>
-                <button class="btn-order" data-service-name="${service.name}">Записаться</button>
-            </div>
-        `).join('');
-
-        document.querySelectorAll('.btn-order').forEach(btn => {
-            btn.addEventListener('click', (e) => {
-                const serviceName = btn.getAttribute('data-service-name');
-                alert(`🚗 Вы выбрали услугу: "${serviceName}".\nСкоро менеджер свяжется с вами для подтверждения записи.`);
-            });
-        });
+    // Запрос данных из Supabase
+    let query = supabaseClient.from('services').select('*');
+    if (currentCategory !== 'all') {
+        query = query.eq('category', currentCategory);
     }
 
-    filterBtns.forEach(btn => {
-        btn.addEventListener("click", () => {
-            filterBtns.forEach(b => b.classList.remove("active"));
-            btn.classList.add("active");
-            currentCategory = btn.getAttribute("data-cat");
-            renderServices();
+    const { data: services, error } = await query;
+
+    if (error) {
+        catalogGrid.innerHTML = `<div style="grid-column: 1/-1; text-align:center; color:red;">Ошибка загрузки: ${error.message}</div>`;
+        return;
+    }
+
+    if (services.length === 0) {
+        catalogGrid.innerHTML = '<div style="grid-column: 1/-1; text-align:center; padding:20px;">Услуг в данной категории пока нет.</div>';
+        return;
+    }
+
+    catalogGrid.innerHTML = services.map(service => `
+        <div class="service-card">
+            <div class="service-icon"><i class="fas ${getIconForCategory(service.category)}"></i></div>
+            <h3 class="service-title">${service.name}</h3>
+            <p class="service-desc">${service.description || ''}</p>
+            <div class="service-price">${service.price}</div>
+            <button class="btn-order" data-service-name="${service.name}">Записаться</button>
+        </div>
+    `).join('');
+
+    // Навешиваем события клика (перенаправление на страницу записи)
+    document.querySelectorAll('.btn-order').forEach(btn => {
+        btn.addEventListener('click', () => {
+            const serviceName = btn.getAttribute('data-service-name');
+            window.location.href = `booking.html?service=${encodeURIComponent(serviceName)}`;
         });
     });
+}
 
-    document.getElementById("scrollToCatalog").addEventListener("click", () => {
-        document.getElementById("catalogSection").scrollIntoView({ behavior: "smooth" });
-    });
-
-    function handleRecordClick() {
-        alert("📅 Онлайн-запись будет доступна на отдельной странице.");
-    }
-    document.getElementById("openRecordAlert").addEventListener("click", handleRecordClick);
-    document.getElementById("heroRecordBtn").addEventListener("click", handleRecordClick);
-    document.getElementById("fakeOnlineRecord").addEventListener("click", (e) => {
-        e.preventDefault();
-        handleRecordClick();
-    });
-
-    renderServices();
+function getIconForCategory(cat) {
+    if(cat === 'engine') return 'fa-engine-warning';
+    if(cat === 'chassis') return 'fa-car-side';
+    if(cat === 'electrics') return 'fa-bolt';
+    return 'fa-tools';
+}
 </script>
 </body>
 </html>
