@@ -95,217 +95,199 @@
         }
 
         /* ========== ПОРТФОЛИО ========== */
-        .portfolio-header {
-            text-align: center;
-            margin: 48px 0 32px;
+        .portfolio-section {
+            padding: 60px 0;
         }
-        .portfolio-header h1 {
+        .section-title {
+            text-align: center;
+            margin-bottom: 48px;
+        }
+        .section-title h2 {
             font-size: 2.2rem;
             color: #0b2b40;
             margin-bottom: 12px;
         }
-        .portfolio-header p {
+        .section-title p {
             color: #5a6e7c;
-            font-size: 1rem;
-            max-width: 700px;
-            margin: 0 auto;
+            font-size: 1.1rem;
         }
 
-        /* Сетка карточек — минимум 2 в ряд */
         .portfolio-grid {
             display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 30px;
-            margin: 40px 0 60px;
+            grid-template-columns: repeat(auto-fill, minmax(360px, 1fr));
+            gap: 32px;
         }
 
-        /* Карточка портфолио */
         .portfolio-card {
             background: white;
             border-radius: 24px;
             overflow: hidden;
-            box-shadow: 0 8px 20px rgba(0,0,0,0.06);
+            border: 1px solid #edf2f7;
+            box-shadow: 0 10px 25px -5px rgba(0,0,0,0.02);
             transition: 0.3s;
             display: flex;
             flex-direction: column;
         }
         .portfolio-card:hover {
             transform: translateY(-4px);
-            box-shadow: 0 15px 30px rgba(0,0,0,0.1);
+            box-shadow: 0 20px 30px -10px rgba(11,43,64,0.08);
         }
 
-        /* Слайдер */
-        .slider-container {
+        /* Слайдер ДО / ПОСЛЕ */
+        .image-slider-container {
             position: relative;
             width: 100%;
-            background: #e0e4e8;
+            padding-top: 65%; /* Соотношение сторон картинок */
             overflow: hidden;
-            aspect-ratio: 16 / 10;
+            background: #e2e8f0;
         }
-        .compare-slider {
-            position: relative;
+        .image-slider {
+            position: absolute;
+            top: 0;
+            left: 0;
             width: 100%;
             height: 100%;
-            cursor: ew-resize;
         }
-        .compare-img {
-            display: block;
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
-        .img-before {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
-        .img-after {
+        .image-slider img {
             position: absolute;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
             object-fit: cover;
-            overflow: hidden;
+            user-select: none;
+            pointer-events: none;
+        }
+        .before-image {
+            z-index: 2;
         }
         .slider-handle {
             position: absolute;
             top: 0;
             bottom: 0;
-            width: 3px;
+            width: 4px;
             background: white;
-            box-shadow: 0 0 6px rgba(0,0,0,0.5);
             cursor: ew-resize;
-            z-index: 10;
+            z-index: 3;
+            box-shadow: 0 0 10px rgba(0,0,0,0.3);
         }
-        .slider-handle:before {
-            content: "◀ ▶";
+        .slider-handle::after {
+            content: '↔';
             position: absolute;
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
-            background: #f4b23e;
+            width: 36px;
+            height: 36px;
+            background: white;
             color: #0b2b40;
-            padding: 4px 10px;
-            border-radius: 30px;
-            font-size: 11px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
             font-weight: bold;
-            white-space: nowrap;
             box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+            font-size: 1.1rem;
         }
         .slider-badge {
             position: absolute;
-            bottom: 12px;
-            left: 12px;
-            background: rgba(0,0,0,0.7);
+            top: 16px;
+            padding: 4px 12px;
+            background: rgba(11,43,64,0.8);
             color: white;
-            padding: 3px 10px;
-            border-radius: 20px;
-            font-size: 0.7rem;
-            font-weight: 600;
-            z-index: 5;
+            font-size: 0.8rem;
+            font-weight: bold;
+            border-radius: 4px;
+            z-index: 4;
+            letter-spacing: 1px;
         }
-        .slider-badge.right {
-            left: auto;
-            right: 12px;
-            background: #f4b23e;
-            color: #0b2b40;
-        }
+        .slider-badge.left { left: 16px; }
+        .slider-badge.right { right: 16px; background: rgba(244,178,62,0.9); color: #0b2b40; }
 
-        /* Инфо о работе */
+        /* Информация о работе */
         .work-info {
-            padding: 18px 20px 20px;
+            padding: 24px;
+            display: flex;
+            flex-direction: column;
+            flex-grow: 1;
         }
         .work-title h3 {
-            font-size: 1.2rem;
+            font-size: 1.25rem;
             color: #0b2b40;
-            margin-bottom: 8px;
-            line-height: 1.3;
+            margin-bottom: 12px;
+            font-weight: 700;
         }
         .work-details {
             display: flex;
             gap: 16px;
-            margin-bottom: 12px;
-            font-size: 0.85rem;
+            margin-bottom: 16px;
+            font-size: 0.9rem;
             font-weight: 600;
+            color: #4a5b6e;
         }
         .work-details span {
-            background: #fef3e0;
-            padding: 3px 12px;
+            background: #f0f4f8;
+            padding: 4px 12px;
             border-radius: 30px;
-            color: #b16200;
         }
         .work-description {
-            color: #4a5b6e;
-            font-size: 0.85rem;
-            line-height: 1.45;
-            margin-bottom: 10px;
-            display: -webkit-box;
-            -webkit-line-clamp: 3;
-            -webkit-box-orient: vertical;
-            overflow: hidden;
+            color: #5a6e7c;
+            font-size: 0.95rem;
+            line-height: 1.5;
+            margin-bottom: 20px;
+            flex-grow: 1;
         }
         .work-guarantee {
-            color: #0b2b40;
-            font-weight: 600;
-            font-size: 0.75rem;
-            border-top: 1px solid #eef2f7;
-            padding-top: 10px;
+            font-size: 0.85rem;
+            font-weight: bold;
+            color: #2e7d32;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            border-top: 1px dashed #edf2f7;
+            padding-top: 14px;
         }
 
         /* ========== ПОДВАЛ ========== */
         footer {
             background: #0e293b;
             color: #cbdae3;
-            padding: 48px 0 24px;
-            margin-top: 20px;
+            padding: 60px 0 30px;
+            margin-top: 60px;
         }
         .footer-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
             gap: 40px;
             margin-bottom: 40px;
         }
         .footer-col h4 {
             color: #f4b23e;
-            margin-bottom: 20px;
+            margin-bottom: 24px;
             font-size: 1.1rem;
+            font-weight: 700;
         }
         .footer-col a, .footer-col p {
             display: block;
             color: #cbdae3;
             text-decoration: none;
-            margin-bottom: 12px;
+            margin-bottom: 14px;
+            font-size: 0.95rem;
         }
-        .footer-phone {
-            font-size: 1.3rem;
-            font-weight: bold;
-            color: white;
-        }
+        .footer-col a:hover { color: white; }
+        .footer-phone { font-size: 1.4rem; font-weight: 700; color: white !important; }
         .copyright {
             text-align: center;
-            padding-top: 24px;
+            padding-top: 30px;
             border-top: 1px solid #2c4b5e;
-            font-size: 0.8rem;
+            font-size: 0.85rem;
+            color: #8aa4b5;
         }
 
-        @media (max-width: 900px) {
-            .portfolio-grid {
-                grid-template-columns: repeat(2, 1fr);
-                gap: 20px;
-            }
-        }
-        @media (max-width: 640px) {
-            .portfolio-grid {
-                grid-template-columns: 1fr;
-                gap: 24px;
-            }
-            .portfolio-header h1 { font-size: 1.6rem; }
-            .work-info { padding: 14px 16px; }
-            .work-title h3 { font-size: 1.1rem; }
-        }
         @media (max-width: 768px) {
             .header-flex { flex-direction: column; align-items: flex-start; }
+            .portfolio-grid { grid-template-columns: 1fr; }
+            .section-title h2 { font-size: 1.8rem; }
         }
     </style>
 </head>
@@ -326,19 +308,22 @@
         </div>
         <div class="header-actions">
             <a href="tel:+74951234567" class="phone">+7 (495) 123-45-67</a>
-            <button class="btn-record" onclick="window.location.href='booking.html'">Онлайн-запись</button>
+            <button class="btn-record" onclick="window.location.href='booking.html'">Online-запись</button>
         </div>
     </div>
 </header>
 
-<div class="container">
-    <div class="portfolio-header">
-        <h1>Портфолио выполненных работ</h1>
-        <p>Реальные примеры «До» и «После» восстановительного ремонта в Автодок</p>
-    </div>
+<section class="portfolio-section">
+    <div class="container">
+        <div class="section-title">
+            <h2>Портфолио выполненных работ</h2>
+            <p>Реальные примеры обслуживания автомобилей в нашем СТО. Используйте ползунок на изображениях, чтобы сравнить результат «ДО» и «ПОСЛЕ» ремонта.</p>
+        </div>
 
-    <div class="portfolio-grid" id="portfolioGrid"></div>
-</div>
+        <div class="portfolio-grid" id="portfolioGrid">
+            </div>
+    </div>
+</section>
 
 <footer>
     <div class="container">
@@ -348,6 +333,7 @@
                 <a href="index.html">Цены и каталог</a>
                 <a href="booking.html">Онлайн-запись 24/7</a>
                 <a href="portfolio.html">Примеры до/после</a>
+                <a href="reviews.html">Отзывы клиентов</a>
             </div>
             <div class="footer-col">
                 <h4>АДРЕС И РЕЖИМ</h4>
@@ -356,8 +342,8 @@
             </div>
             <div class="footer-col">
                 <h4>ПРИЕМНАЯ АВТОДОК</h4>
-                <p class="footer-phone">📞 +7 (495) 123-45-67</p>
-                <p>Потребовалась срочная консультация дежурного механика? Звоните круглосуточно.</p>
+                <a href="tel:+74951234567" class="footer-phone">📞 +7 (495) 123-45-67</a>
+                <p>Остались вопросы по стоимости ремонта вашего авто? Звоните нам прямо сейчас.</p>
             </div>
         </div>
         <div class="copyright">
@@ -366,143 +352,119 @@
     </div>
 </footer>
 
-    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
-    <script src="supabase-config.js"></script>
+<script src="supabase-config.js"></script>
 
 <script>
-    const portfolioData = [
-        {
-            id: 1,
-            title: "Полировка фар",
-            beforeImg: "https://placehold.co/600x400/2c3e50/white?text=ДО:+Мутные+фары",
-            afterImg: "https://placehold.co/600x400/f39c12/white?text=ПОСЛЕ:+Прозрачные",
-            hours: "2.5 ч",
-            price: "3 500 ₽",
-            description: "Устранили мутность, желтизну и царапины на фарах Kia Rio. Увеличили яркость света на 45%."
-        },
-        {
-            id: 2,
-            title: "Очистка подкапотного",
-            beforeImg: "https://placehold.co/600x400/7f8c8d/white?text=ДО:+Грязь+и+масло",
-            afterImg: "https://placehold.co/600x400/27ae60/white?text=ПОСЛЕ:+Чистота",
-            hours: "4 ч",
-            price: "6 000 ₽",
-            description: "Очистка двигателя Audi Q5 от масляных отложений и грязи. Пар+гель, гидрофобная обработка пластика."
-        },
-        {
-            id: 3,
-            title: "Полировка кузова",
-            beforeImg: "https://placehold.co/600x400/e74c3c/white?text=ДО:+Царапины",
-            afterImg: "https://placehold.co/600x400/3498db/white?text=ПОСЛЕ:+Блеск",
-            hours: "6 ч",
-            price: "8 500 ₽",
-            description: "Полировка BMW X5, удаление глубоких царапин, керамическое покрытие на 12 месяцев."
-        },
-        {
-            id: 4,
-            title: "Ремонт дисков",
-            beforeImg: "https://placehold.co/600x400/95a5a6/white?text=ДО:+Сколы",
-            afterImg: "https://placehold.co/600x400/e67e22/white?text=ПОСЛЕ:+Новый+вид",
-            hours: "2 ч",
-            price: "2 900 ₽",
-            description: "Восстановление литых дисков Mercedes, удаление коррозии и сколов, покраска."
-        }
-    ];
-
-    const portfolioGrid = document.getElementById("portfolioGrid");
-
-    function initSlider(cardId, beforeSrc, afterSrc) {
-        const container = document.getElementById(cardId);
+    // Функция инициализации интерактивного слайдера ДО/ПОСЛЕ
+    function initSlider(containerId) {
+        const container = document.getElementById(containerId);
         if (!container) return;
 
-        const slider = container.querySelector('.compare-slider');
-        const afterImg = container.querySelector('.img-after');
+        const beforeImg = container.querySelector('.before-image');
         const handle = container.querySelector('.slider-handle');
+        let isResizing = false;
 
-        let isDragging = false;
+        function setSliderPosition(x) {
+            const rect = container.getBoundingClientRect();
+            let position = ((x - rect.left) / rect.width) * 100;
+            
+            if (position < 0) position = 0;
+            if (position > 100) position = 100;
 
-        function setPosition(x) {
-            const rect = slider.getBoundingClientRect();
-            let offsetX = x - rect.left;
-            offsetX = Math.max(0, Math.min(offsetX, rect.width));
-            afterImg.style.clip = `rect(0, ${offsetX}px, ${rect.height}px, 0)`;
-            handle.style.left = `${offsetX}px`;
+            beforeImg.style.clipPath = `polygon(0 0, ${position}% 0, ${position}% 100%, 0 100%)`;
+            handle.style.left = `${position}%`;
         }
 
-        function onMove(e) {
-            if (!isDragging) return;
-            let clientX = e.clientX;
-            if (!clientX && e.touches) clientX = e.touches[0].clientX;
-            setPosition(clientX);
-        }
+        // События мыши
+        handle.addEventListener('mousedown', () => isResizing = true);
+        window.addEventListener('mouseup', () => isResizing = false);
+        window.addEventListener('mousemove', (e) => {
+            if (!isResizing) return;
+            setSliderPosition(e.clientX);
+        });
 
-        function onStart(e) {
-            isDragging = true;
-            e.preventDefault();
-        }
-
-        function onEnd() {
-            isDragging = false;
-        }
-
-        slider.addEventListener('mousedown', onStart);
-        window.addEventListener('mousemove', onMove);
-        window.addEventListener('mouseup', onEnd);
-        slider.addEventListener('touchstart', onStart);
-        window.addEventListener('touchmove', onMove);
-        window.addEventListener('touchend', onEnd);
-
-        setTimeout(() => {
-            const rect = slider.getBoundingClientRect();
-            if (rect.width) {
-                const initX = rect.left + rect.width * 0.5;
-                setPosition(initX);
+        // События тач-скринов (мобильные)
+        handle.addEventListener('touchstart', () => isResizing = true);
+        window.addEventListener('touchend', () => isResizing = false);
+        window.addEventListener('touchmove', (e) => {
+            if (!isResizing) return;
+            if (e.touches.length > 0) {
+                setSliderPosition(e.touches[0].clientX);
             }
-        }, 100);
-    }
-
-    function renderPortfolio() {
-        portfolioGrid.innerHTML = "";
-        portfolioData.forEach((item, idx) => {
-            const cardId = `slider-${item.id}-${idx}`;
-            const cardHTML = `
-                <div class="portfolio-card">
-                    <div class="slider-container" id="${cardId}">
-                        <div class="compare-slider" style="position: relative; width: 100%; height: 100%;">
-                            <img class="compare-img img-before" src="${item.beforeImg}" alt="До ремонта">
-                            <img class="compare-img img-after" src="${item.afterImg}" alt="После ремонта" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; clip: rect(0, 50%, auto, 0);">
-                            <div class="slider-handle" style="position: absolute; top: 0; bottom: 0; width: 3px; background: white; left: 50%;"></div>
-                            <div class="slider-badge">ДО</div>
-                            <div class="slider-badge right">ПОСЛЕ</div>
-                        </div>
-                    </div>
-                    <div class="work-info">
-                        <div class="work-title">
-                            <h3>${item.title}</h3>
-                        </div>
-                        <div class="work-details">
-                            <span>🕒 ${item.hours}</span>
-                            <span>💰 ${item.price}</span>
-                        </div>
-                        <div class="work-description">
-                            ${item.description}
-                        </div>
-                        <div class="work-guarantee">
-                            ✅ Результат гарантирован
-                        </div>
-                    </div>
-                </div>
-            `;
-            portfolioGrid.insertAdjacentHTML('beforeend', cardHTML);
-        });
-
-        portfolioData.forEach((item, idx) => {
-            const cardId = `slider-${item.id}-${idx}`;
-            initSlider(cardId, item.beforeImg, item.afterImg);
         });
     }
 
+    // АСИНХРОННАЯ ФУНКЦИЯ ПОЛУЧЕНИЯ ПОРТФОЛИО ИЗ SUPABASE
+    async function renderPortfolio() {
+        const portfolioGrid = document.getElementById('portfolioGrid');
+        portfolioGrid.innerHTML = '<div style="grid-column: 1/-1; text-align: center; padding: 40px; font-weight: 600; color: #5a6e7c;">Загрузка галереи выполненных работ...</div>';
+
+        try {
+            // Запрашиваем все данные из таблицы 'portfolio'
+            const { data: works, error } = await supabaseClient
+                .from('portfolio')
+                .select('*')
+                .order('created_at', { ascending: false }); // Свежие работы сверху
+
+            if (error) {
+                console.error("Ошибка Supabase:", error);
+                portfolioGrid.innerHTML = `<div style="grid-column: 1/-1; text-align: center; color: #e63946; padding: 40px;">❌ Ошибка загрузки данных: ${error.message}</div>`;
+                return;
+            }
+
+            if (!works || works.length === 0) {
+                portfolioGrid.innerHTML = '<div style="grid-column: 1/-1; text-align: center; padding: 40px; color: #5a6e7c;">В портфолио пока нет добавленных работ.</div>';
+                return;
+            }
+
+            portfolioGrid.innerHTML = '';
+
+            // Генерируем HTML для каждой карточки
+            works.forEach((item, idx) => {
+                const cardId = `slider-container-${item.id}-${idx}`;
+                const cardHTML = `
+                    <div class="portfolio-card">
+                        <div class="image-slider-container" id="${cardId}">
+                            <div class="image-slider">
+                                <img src="${item.after_img}" alt="После ремонта">
+                                <img src="${item.before_img}" class="before-image" alt="До ремонта" style="clip-path: polygon(0 0, 50% 0, 50% 100%, 0 100%);">
+                                <div class="slider-handle" style="left: 50%;"></div>
+                                <div class="slider-badge left">ДО</div>
+                                <div class="slider-badge right">ПОСЛЕ</div>
+                            </div>
+                        </div>
+                        <div class="work-info">
+                            <div class="work-title">
+                                <h3>${item.title}</h3>
+                            </div>
+                            <div class="work-details">
+                                <span>🕒 ${item.hours}</span>
+                                <span>💰 ${item.price}</span>
+                            </div>
+                            <div class="work-description">
+                                ${item.description}
+                            </div>
+                            <div class="work-guarantee">
+                                ✅ Результат гарантирован и задокументирован
+                            </div>
+                        </div>
+                    </div>
+                `;
+                portfolioGrid.insertAdjacentHTML('beforeend', cardHTML);
+                
+                // Сразу же инициализируем JS-логику движения ползунка для этой карточки
+                initSlider(cardId);
+            });
+
+        } catch (err) {
+            console.error("Критическая ошибка fetch portfolio:", err);
+            portfolioGrid.innerHTML = '<div style="grid-column: 1/-1; text-align: center; color: #e63946; padding: 40px;">❌ Не удалось подключиться к серверу БД.</div>';
+        }
+    }
+
+    // Запуск рендеринга при загрузке страницы
     renderPortfolio();
 </script>
 </body>
