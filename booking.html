@@ -269,12 +269,11 @@
         </div>
         <div class="header-actions">
             <a href="tel:+74951234567" class="phone">+7 (495) 123-45-67</a>
-            <button class="btn-record" onclick="window.location.href='booking.html'">Онлайн-запись</button>
+            <button class="btn-record" onclick="window.location.href='booking.html'">Online-запись</button>
         </div>
     </div>
 </header>
 
-<!-- ФОРМА ЗАПИСИ ПО ЦЕНТРУ -->
 <div class="form-wrapper">
     <div class="form-card">
         <h1>Онлайн-запись на обслуживание автомобиля</h1>
@@ -306,7 +305,7 @@
                 <select id="serviceSelect" required>
                     <option value="" disabled selected>— Выберите услугу СТО —</option>
                     <optgroup label="🔧 Кондиционер">
-                        <option value="Аппаратная заправка автокондиционера">Аппаратная заправка автокондиционера — 2 000 ₽</option>
+                        <option value="Аппаратная заправка автокондиценирования">Аппаратная заправка автокондиционера — 2 000 ₽</option>
                     </optgroup>
                     <optgroup label="🛢️ ТО и фильтры">
                         <option value="Замена моторного масла и фильтра">Замена моторного масла и фильтра — 1 500 ₽</option>
@@ -376,9 +375,9 @@
     </div>
 </footer>
 
-    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
-    <script src="supabase-config.js"></script>
+<script src="supabase-config.js"></script>
 
 <script>
     const timeSlots = [
@@ -412,61 +411,58 @@
     dateInput.setAttribute("min", today);
 
     const form = document.getElementById("bookingForm");
-    form.addEventListener("submit", (e) => {
-        e.preventDefault();
+    
+    // ПЕРЕПИСАННЫЙ АСИНХРОННЫЙ ОБРАБОТЧИК ФОРМЫ
+    form.addEventListener("submit", async (e) => {
+        e.preventDefault(); // Предотвращаем стандартную перезагрузку и отправку браузером
 
-        // Обратите внимание на слово async перед (e)
-reviewForm.addEventListener('submit', async (e) => { 
-    e.preventDefault(); // Это предотвращает стандартную перезагрузку страницы браузером!
+        const name = document.getElementById("name").value.trim();
+        const phone = document.getElementById("phone").value.trim();
+        const email = document.getElementById("email").value.trim();
+        const carModel = document.getElementById("carModel").value.trim();
+        const service = document.getElementById("serviceSelect").value;
+        const date = document.getElementById("date").value;
+        const selectedTime = document.getElementById("selectedTime").value;
+        const consent = document.getElementById("consent").checked;
 
-    // Сбор данных из формы
-    const name = document.getElementById("name").value.trim();
-    const phone = document.getElementById("phone").value.trim();
-    const email = document.getElementById("email").value.trim();
-    const carModel = document.getElementById("carModel").value.trim();
-    const service = document.getElementById("serviceSelect").value;
-    const date = document.getElementById("date").value;
-    const selectedTime = document.getElementById("selectedTime").value;
-    const consent = document.getElementById("consent").checked;
-
-    if (!name || !phone || !carModel || !service || !date || !selectedTime) {
-        alert("❌ Пожалуйста, заполните все обязательные поля.");
-        return;
-    }
-    if (!consent) {
-        alert("✅ Подтвердите согласие на обработку персональных данных.");
-        return;
-    }
-
-    try {
-        // ОТПРАВКА В SUPABASE (Важно: названия полей слева должны ТОЧНО совпадать с колонками в БД)
-        const { data, error } = await supabaseClient
-            .from('bookings')
-            .insert([
-                { 
-                    name: name, 
-                    phone: phone, 
-                    email: email || "не указан", 
-                    car_model: carModel, // Проверьте, чтобы в БД было car_model (через подчеркивание)
-                    service: service, 
-                    booking_date: date,  // В БД: booking_date
-                    booking_time: selectedTime // В БД: booking_time
-                }
-            ]);
-
-        if (error) {
-            console.error("Ошибка Supabase:", error);
-            alert("❌ Ошибка при отправке записи в базу: " + error.message);
-        } else {
-            alert(`🚗 Заявка успешно принята! Администратор свяжется с вами.`);
-            document.getElementById("bookingForm").reset(); // Очищаем форму только при успехе
+        if (!name || !phone || !carModel || !service || !date || !selectedTime) {
+            alert("❌ Пожалуйста, заполните все обязательные поля (отмечены *).");
+            return;
         }
-    } catch (err) {
-        console.error("Критическая ошибка:", err);
-        alert("❌ Не удалось связаться с сервером.");
-    }
-});
-});
+        if (!consent) {
+            alert("✅ Подтвердите согласие на обработку персональных данных.");
+            return;
+        }
+
+        try {
+            // Отправляем данные в Supabase таблицу 'bookings'
+            const { data, error } = await supabaseClient
+                .from('bookings')
+                .insert([
+                    {
+                        name: name,
+                        phone: phone,
+                        email: email || "не указан",
+                        car_model: carModel,   // Соответствует структуре таблицы public.bookings
+                        service: service,
+                        booking_date: date,    // Соответствует структуре таблицы public.bookings
+                        booking_time: selectedTime, // Соответствует структуре таблицы public.bookings
+                        status: 'new'
+                    }
+                ]);
+
+            if (error) {
+                console.error("Ошибка Supabase:", error);
+                alert("❌ Ошибка при отправке записи: " + error.message);
+            } else {
+                alert(`🚗 Заявка успешно принята и занесена в базу!\n\nИмя: ${name}\nАвто: ${carModel}\nУслуга: ${service}\nДата и время: ${date} ${selectedTime}\n\nСкоро администратор свяжется с вами.`);
+                form.reset(); // Очищаем поля формы
+                document.querySelectorAll(".time-btn").forEach(b => b.classList.remove("selected")); // Сбрасываем выбранное время
+            }
+        } catch (err) {
+            console.error("Критическая ошибка отправки:", err);
+            alert("❌ Не удалось связаться с базой данных Supabase. Проверьте консоль браузера.");
+        }
     });
 
     renderTimeButtons();
