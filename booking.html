@@ -27,7 +27,7 @@
             padding: 0 24px;
         }
 
-        /* ========== ШАПКА (ИЗ INDEX.HTML) ========== */
+        /* ========== ШАПКА ========== */
         header {
             background: #0b2b40;
             padding: 16px 0;
@@ -91,9 +91,6 @@
         .record-btn:hover {
             background: #d44d13;
         }
-        .record-btn:active {
-            transform: scale(0.98);
-        }
         .menu-toggle {
             display: none;
             flex-direction: column;
@@ -109,7 +106,7 @@
             background: white;
         }
 
-        /* ========== ЦЕНТРАЛЬНЫЙ БЛОК ЗАПИСИ ========== */
+        /* ========== ФОРМА ЗАПИСИ ========== */
         main {
             flex: 1;
             display: flex;
@@ -194,7 +191,7 @@
             cursor: not-allowed;
         }
 
-        /* ========== ПОДВАЛ (ИЗ INDEX.HTML) ========== */
+        /* ========== ПОДВАЛ ========== */
         footer {
             background: #0f172a;
             color: #94a3b8;
@@ -207,51 +204,18 @@
             gap: 40px;
             margin-bottom: 40px;
         }
-        .footer-logo h2 {
-            color: white;
-            font-size: 24px;
-            margin-bottom: 16px;
-        }
-        .footer-logo span {
-            color: #e25c1d;
-        }
-        .footer-col h3 {
-            color: white;
-            font-size: 16px;
-            font-weight: 600;
-            margin-bottom: 20px;
-        }
-        .footer-col ul {
-            list-style: none;
-        }
-        .footer-col ul li {
-            margin-bottom: 12px;
-        }
-        .footer-col ul li a {
-            color: #94a3b8;
-            text-decoration: none;
-            transition: color 0.2s;
-        }
-        .footer-col ul li a:hover {
-            color: white;
-        }
-        .footer-bottom {
-            border-top: 1px solid #334155;
-            padding-top: 24px;
-            text-align: center;
-            font-size: 14px;
-        }
+        .footer-logo h2 { color: white; font-size: 24px; margin-bottom: 16px; }
+        .footer-logo span { color: #e25c1d; }
+        .footer-col h3 { color: white; font-size: 16px; font-weight: 600; margin-bottom: 20px; }
+        .footer-col ul { list-style: none; }
+        .footer-col ul li { margin-bottom: 12px; }
+        .footer-col ul li a { color: #94a3b8; text-decoration: none; transition: color 0.2s; }
+        .footer-col ul li a:hover { color: white; }
+        .footer-bottom { border-top: 1px solid #334155; padding-top: 24px; text-align: center; font-size: 14px; }
 
-        /* Адаптивность для шапки */
         @media (max-width: 900px) {
             .menu-toggle { display: flex; }
-            nav {
-                display: none;
-                width: 100%;
-                flex-direction: column;
-                gap: 12px;
-                padding-top: 16px;
-            }
+            nav { display: none; width: 100%; flex-direction: column; gap: 12px; padding-top: 16px; }
             nav.open { display: flex; }
             .header-contact { width: 100%; justify-content: space-between; }
         }
@@ -264,13 +228,9 @@
             <div class="logo">
                 <h1>Авто<span>Док</span></h1>
             </div>
-            
             <button class="menu-toggle" id="menuToggle">
-                <span></span>
-                <span></span>
-                <span></span>
+                <span></span><span></span><span></span>
             </button>
-
             <nav id="navMenu">
                 <a href="index.html">Главная</a>
                 <a href="portfolio.html">Наши работы</a>
@@ -278,7 +238,6 @@
                 <a href="contacts.html">Контакты</a>
                 <a href="booking.html" class="active">Онлайн-запись</a>
             </nav>
-
             <div class="header-contact">
                 <a href="tel:+74951234567" class="phone-num">+7 (495) 123-45-67</a>
                 <button class="record-btn" onclick="window.location.href='booking.html'">Записаться</button>
@@ -324,8 +283,7 @@
 
                 <div class="form-group">
                     <label>Желаемое время *</label>
-                    <div class="time-slots" id="timeSlotsContainer">
-                        </div>
+                    <div class="time-slots" id="timeSlotsContainer"></div>
                     <input type="hidden" id="selectedTime" required>
                 </div>
 
@@ -366,4 +324,120 @@
             </div>
         </div>
         <div class="container footer-bottom">
-            <p>&copy; 2026 АвтоДок — Сеть автосервисов. Все права защищены.</
+            <p>&copy; 2026 АвтоДок — Сеть автосервисов. Все права защищены.</p>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="supabase-config.js"></script>
+
+    <script>
+        // 1. Бургер-меню
+        const menuToggle = document.getElementById("menuToggle");
+        const navMenu = document.getElementById("navMenu");
+        menuToggle.addEventListener("click", () => { navMenu.classList.toggle("open"); });
+
+        // 2. Слоты времени
+        const timeSlotsContainer = document.getElementById("timeSlotsContainer");
+        const selectedTimeInput = document.getElementById("selectedTime");
+        const availableTimes = ["09:00", "10:30", "12:00", "13:30", "15:00", "16:30", "18:00", "19:30"];
+
+        availableTimes.forEach(time => {
+            const slot = document.createElement("div");
+            slot.className = "time-slot";
+            slot.textContent = time;
+            slot.addEventListener("click", () => {
+                document.querySelectorAll(".time-slot").forEach(s => s.classList.remove("selected"));
+                slot.classList.add("selected");
+                selectedTimeInput.value = time;
+            });
+            timeSlotsContainer.appendChild(slot);
+        });
+
+        // 3. Загрузка данных из таблицы public.services
+        const serviceSelect = document.getElementById("serviceSelect");
+
+        async function fetchServicesFromDB() {
+            try {
+                const { data: services, error } = await supabaseClient
+                    .from('services')
+                    .select('name')
+                    .order('name', { ascending: true });
+
+                if (error) throw error;
+
+                if (services && services.length > 0) {
+                    serviceSelect.innerHTML = '<option value="" disabled selected>-- Выберите услугу --</option>';
+                    services.forEach(item => {
+                        const option = document.createElement("option");
+                        option.value = item.name;
+                        option.textContent = item.name;
+                        serviceSelect.appendChild(option);
+                    });
+                } else {
+                    serviceSelect.innerHTML = '<option value="" disabled>Услуги не найдены в БД (Добавьте их через админку)</option>';
+                }
+            } catch (err) {
+                console.error("Ошибка загрузки услуг из Supabase:", err);
+                serviceSelect.innerHTML = '<option value="" disabled>Не удалось загрузить список услуг</option>';
+            }
+        }
+
+        document.addEventListener("DOMContentLoaded", fetchServicesFromDB);
+
+        // 4. Отправка записи на Vercel API
+        const bookingForm = document.getElementById("bookingForm");
+        const submitBtn = document.getElementById("submitBtn");
+
+        bookingForm.addEventListener("submit", async (e) => {
+            e.preventDefault();
+
+            if (!selectedTimeInput.value) {
+                alert("Пожалуйста, выберите желаемое время визита!");
+                return;
+            }
+
+            submitBtn.disabled = true;
+            submitBtn.textContent = "Отправка записи...";
+
+            const bookingData = {
+                name: document.getElementById("name").value.trim(),
+                phone: document.getElementById("phone").value.trim(),
+                email: document.getElementById("email").value.trim() || "не указан",
+                carModel: document.getElementById("carModel").value.trim(),
+                service: serviceSelect.value,
+                date: document.getElementById("date").value,
+                time: selectedTimeInput.value
+            };
+
+            try {
+                const response = await fetch('/api/booking', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        action: 'createBooking',
+                        bookingData: bookingData
+                    })
+                });
+
+                const data = await response.json();
+
+                if (response.ok && data.success) {
+                    alert(`🚗 Заявка успешно принята! Оповещение отправлено администратору СТО.`);
+                    bookingForm.reset();
+                    document.querySelectorAll(".time-slot").forEach(s => s.classList.remove("selected"));
+                    selectedTimeInput.value = "";
+                } else {
+                    alert("Ошибка при сохранении: " + (data.message || "Неизвестная ошибка"));
+                }
+            } catch (error) {
+                console.error('Ошибка отправки:', error);
+                alert("❌ Ошибка соединения с сервером бэкенда.");
+            } finally {
+                submitBtn.disabled = false;
+                submitBtn.textContent = "Подтвердить запись";
+            }
+        });
+    </script>
+</body>
+</html>
