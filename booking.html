@@ -28,6 +28,7 @@
         }
 
         /* ========== ШАПКА ========== */
+       /* ========== СИНХРОНИЗИРОВАННАЯ ШАПКА ========== */
         header {
             background: #0b2b40;
             padding: 16px 0;
@@ -42,11 +43,15 @@
             flex-wrap: wrap;
             gap: 16px;
         }
+        .logo-link {
+            text-decoration: none;
+        }
         .logo h1 {
             color: white;
             font-size: 24px;
             font-weight: 700;
             letter-spacing: -0.5px;
+            margin: 0;
         }
         .logo span {
             color: #e25c1d;
@@ -62,8 +67,12 @@
             font-weight: 500;
             transition: color 0.2s ease;
         }
-        nav a:hover, nav a.active {
+        nav a:hover {
             color: white;
+        }
+        nav a.active {
+            color: #e25c1d;
+            font-weight: 600;
         }
         .header-contact {
             display: flex;
@@ -75,6 +84,10 @@
             font-weight: 600;
             text-decoration: none;
             font-size: 16px;
+            transition: color 0.2s;
+        }
+        .phone-num:hover {
+            color: #cbd5e1;
         }
         .record-btn {
             background: #e25c1d;
@@ -91,6 +104,9 @@
         .record-btn:hover {
             background: #d44d13;
         }
+        .record-btn:active {
+            transform: scale(0.98);
+        }
         .menu-toggle {
             display: none;
             flex-direction: column;
@@ -98,12 +114,14 @@
             background: none;
             border: none;
             cursor: pointer;
+            padding: 4px;
         }
         .menu-toggle span {
             display: block;
             width: 24px;
             height: 2px;
             background: white;
+            transition: 0.2s;
         }
 
         /* ========== ФОРМА ЗАПИСИ ========== */
@@ -225,19 +243,27 @@
 
     <header>
         <div class="container header-flex">
-            <div class="logo">
-                <h1>Авто<span>Док</span></h1>
-            </div>
-            <button class="menu-toggle" id="menuToggle">
-                <span></span><span></span><span></span>
+            <a href="index.html" class="logo-link">
+                <div class="logo">
+                    <h1>Авто<span>Док</span></h1>
+                </div>
+            </a>
+            
+            <button class="menu-toggle" id="menuToggle" aria-label="Открыть меню">
+                <span></span>
+                <span></span>
+                <span></span>
             </button>
+
             <nav id="navMenu">
                 <a href="index.html">Главная</a>
-                <a href="portfolio.html">Наши работы</a>
-                <a href="reviews.html">Отзывы</a>
-                <a href="contacts.html">Контакты</a>
+                <a href="index.html#services">Услуги</a>
+                <a href="index.html#portfolio">Наши работы</a>
+                <a href="index.html#reviews">Отзывы</a>
+                <a href="index.html#contacts">Контакты</a>
                 <a href="booking.html" class="active">Онлайн-запись</a>
             </nav>
+
             <div class="header-contact">
                 <a href="tel:+74951234567" class="phone-num">+7 (495) 123-45-67</a>
                 <button class="record-btn" onclick="window.location.href='booking.html'">Записаться</button>
