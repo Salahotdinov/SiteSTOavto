@@ -415,70 +415,57 @@
     form.addEventListener("submit", (e) => {
         e.preventDefault();
 
-        const name = document.getElementById("name").value.trim();
-        const phone = document.getElementById("phone").value.trim();
-        const email = document.getElementById("email").value.trim();
-        const carModel = document.getElementById("carModel").value.trim();
-        const service = document.getElementById("serviceSelect").value;
-        const date = document.getElementById("date").value;
-        const selectedTime = document.getElementById("selectedTime").value;
-        const consent = document.getElementById("consent").checked;
+        // Обратите внимание на слово async перед (e)
+reviewForm.addEventListener('submit', async (e) => { 
+    e.preventDefault(); // Это предотвращает стандартную перезагрузку страницы браузером!
 
-        if (!name || !phone || !carModel || !service || !date || !selectedTime) {
-            alert("❌ Пожалуйста, заполните все обязательные поля (отмечены *).");
-            return;
-        }
-        if (!consent) {
-            alert("✅ Подтвердите согласие на обработку персональных данных.");
-            return;
-        }
-
-        const bookingData = {
-            name,
-            phone,
-            email: email || "не указан",
-            carModel,
-            service,
-            date,
-            time: selectedTime,
-            createdAt: new Date().toISOString()
-        };
-
-        console.log("📝 Заявка на запись:", bookingData);
-        alert(`🚗 Заявка принята!\n\nИмя: ${name}\nАвто: ${carModel}\nУслуга: ${service}\nДата и время: ${date} ${selectedTime}\n\nСкоро администратор свяжется с вами.`);
-
-        // Здесь потом будет fetch на бэкенд
-        // Находим место отправки формы в booking.html и заменяем логику создания bookingData:
-reviewForm.addEventListener('submit', async (e) => { // Добавляем async
-    e.preventDefault();
-    // ... сбор полей из формы ...
+    // Сбор данных из формы
+    const name = document.getElementById("name").value.trim();
+    const phone = document.getElementById("phone").value.trim();
+    const email = document.getElementById("email").value.trim();
+    const carModel = document.getElementById("carModel").value.trim();
+    const service = document.getElementById("serviceSelect").value;
+    const date = document.getElementById("date").value;
+    const selectedTime = document.getElementById("selectedTime").value;
+    const consent = document.getElementById("consent").checked;
 
     if (!name || !phone || !carModel || !service || !date || !selectedTime) {
         alert("❌ Пожалуйста, заполните все обязательные поля.");
         return;
     }
-
-    // Сохранение в Supabase
-    const { data, error } = await supabaseClient
-        .from('bookings')
-        .insert([
-            { 
-                name: name, 
-                phone: phone, 
-                email: email || "не указан", 
-                car_model: carModel, 
-                service: service, 
-                booking_date: date, 
-                booking_time: selectedTime 
-            }
-        ]);
-
-    if (error) {
-        alert("❌ Ошибка при отправке записи: " + error.message);
-    } else {
-        alert(`🚗 Заявка успешно принята! Администратор свяжется с вами в ближайшее время.`);
-        document.getElementById("bookingForm").reset();
+    if (!consent) {
+        alert("✅ Подтвердите согласие на обработку персональных данных.");
+        return;
     }
+
+    try {
+        // ОТПРАВКА В SUPABASE (Важно: названия полей слева должны ТОЧНО совпадать с колонками в БД)
+        const { data, error } = await supabaseClient
+            .from('bookings')
+            .insert([
+                { 
+                    name: name, 
+                    phone: phone, 
+                    email: email || "не указан", 
+                    car_model: carModel, // Проверьте, чтобы в БД было car_model (через подчеркивание)
+                    service: service, 
+                    booking_date: date,  // В БД: booking_date
+                    booking_time: selectedTime // В БД: booking_time
+                }
+            ]);
+
+        if (error) {
+            console.error("Ошибка Supabase:", error);
+            alert("❌ Ошибка при отправке записи в базу: " + error.message);
+        } else {
+            alert(`🚗 Заявка успешно принята! Администратор свяжется с вами.`);
+            document.getElementById("bookingForm").reset(); // Очищаем форму только при успехе
+        }
+    } catch (err) {
+        console.error("Критическая ошибка:", err);
+        alert("❌ Не удалось связаться с сервером.");
+    }
+});
 });
     });
 
