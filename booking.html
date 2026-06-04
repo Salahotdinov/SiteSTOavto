@@ -27,7 +27,7 @@
             padding: 0 24px;
         }
 
-        /* ========== ШАПКА ========== */
+        /* ========== ШАПКА (ТОЧНО КАК НА INDEX.HTML) ========== */
         header {
             background: #0b2b40;
             padding: 16px 0;
@@ -42,59 +42,85 @@
             flex-wrap: wrap;
             gap: 16px;
         }
+        .logo-link {
+            text-decoration: none;
+        }
         .logo h1 {
             color: white;
-            font-size: 1.8rem;
+            font-size: 24px;
             font-weight: 700;
+            letter-spacing: -0.5px;
+            margin: 0;
         }
         .logo span {
-            color: #f4b23e;
+            color: #e25c1d;
         }
-        .logo p {
-            color: #a0c4d4;
-            font-size: 0.8rem;
-            margin-top: 4px;
-        }
-        .nav-links {
+        nav {
             display: flex;
             gap: 24px;
-            flex-wrap: wrap;
         }
-        .nav-links a {
-            color: white;
+        nav a {
+            color: #cbd5e1;
             text-decoration: none;
+            font-size: 15px;
             font-weight: 500;
-            transition: 0.2s;
+            transition: color 0.2s ease;
         }
-        .nav-links a:hover {
-            color: #f4b23e;
+        nav a:hover {
+            color: white;
         }
-        .header-actions {
+        nav a.active {
+            color: #e25c1d;
+            font-weight: 600;
+        }
+        .header-contact {
             display: flex;
             align-items: center;
-            gap: 24px;
-            flex-wrap: wrap;
+            gap: 20px;
         }
-        .phone {
-            font-size: 1.3rem;
-            font-weight: 600;
+        .phone-num {
             color: white;
+            font-weight: 600;
             text-decoration: none;
+            font-size: 16px;
+            transition: color 0.2s;
         }
-        .btn-record {
-            background: #f4b23e;
+        .phone-num:hover {
+            color: #cbd5e1;
+        }
+        .record-btn {
+            background: #e25c1d;
+            color: white;
+            padding: 10px 20px;
+            border-radius: 6px;
+            font-weight: 600;
+            text-decoration: none;
+            font-size: 14px;
+            transition: background 0.2s ease, transform 0.1s ease;
             border: none;
-            padding: 10px 24px;
-            border-radius: 40px;
-            font-weight: bold;
-            font-size: 1rem;
             cursor: pointer;
-            transition: 0.2s;
-            color: #0b2b40;
         }
-        .btn-record:hover {
-            background: #ffcd70;
-            transform: scale(1.02);
+        .record-btn:hover {
+            background: #d44d13;
+        }
+        .record-btn:active {
+            transform: scale(0.98);
+        }
+        .menu-toggle {
+            display: none;
+            flex-direction: column;
+            gap: 6px;
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 4px;
+        }
+        .menu-toggle span {
+            display: block;
+            width: 24px;
+            height: 2px;
+            background: white;
+            transition: 0.2s;
         }
 
         /* ========== КОНТЕНТ СТРАНИЦЫ ЗАПИСИ ========== */
@@ -248,24 +274,34 @@
 <body>
 
     <header>
-    <div class="container header-flex">
-        <div class="logo">
-            <h1>Авто<span>Док</span></h1>
-            <p>Профессиональный регламентный ремонт</p>
+        <div class="container header-flex">
+            <a href="index.html" class="logo-link">
+                <div class="logo">
+                    <h1>Авто<span>Док</span></h1>
+                </div>
+            </a>
+            
+            <button class="menu-toggle" id="menuToggle" aria-label="Открыть меню">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+
+            <nav id="navMenu">
+                <a href="index.html">Главная</a>
+                <a href="index.html#services">Услуги</a>
+                <a href="index.html#portfolio">Наши работы</a>
+                <a href="index.html#reviews">Отзывы</a>
+                <a href="index.html#contacts">Контакты</a>
+                <a href="booking.html" class="active">Онлайн-запись</a>
+            </nav>
+
+            <div class="header-contact">
+                <a href="tel:+74951234567" class="phone-num">+7 (495) 123-45-67</a>
+                <button class="record-btn" onclick="window.location.href='booking.html'">Записаться</button>
+            </div>
         </div>
-        <div class="nav-links">
-            <a href="index.html">Цены и каталог</a>
-            <a href="booking.html">Онлайн-запись</a>
-            <a href="portfolio.html">Портфолио</a>
-            <a href="reviews.html">Отзывы</a>
-            <a href="contacts.html">Контакты</a>
-        </div>
-        <div class="header-actions">
-            <a href="tel:+74951234567" class="phone">+7 (495) 123-45-67</a>
-            <button class="btn-record" id="openRecordAlert">Online-запись</button>
-        </div>
-    </div>
-</header>
+    </header>
 
     <main>
         <div class="booking-box">
@@ -351,15 +387,20 @@
     </footer>
 
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-    <script src="supabase-config.js"></script>
 
     <script>
-        // 1. Мобильное бургер-меню
+        // 1. Прямая конфигурация Supabase (не зависит от внешних файлов)
+        const SUPABASE_URL = 'https://qiqbkwhqxfapiqskycch.supabase.co';
+        const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InFpcWJrd2hxeGZhcGlxc2t5Y2NoIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODA1MTEwMjYsImV4cCI6MjA5NjA4NzAyNn0.yT8EuQIt2CSXyCbe3arAHSvBuj3Eq7FThCf-rYotqvM'; 
+        
+        const localSupabase = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+
+        // 2. Мобильное бургер-меню
         const menuToggle = document.getElementById("menuToggle");
         const navMenu = document.getElementById("navMenu");
         menuToggle.addEventListener("click", () => { navMenu.classList.toggle("open"); });
 
-        // 2. Генерация временных слотов
+        // 3. Генерация временных слотов
         const timeSlotsContainer = document.getElementById("timeSlotsContainer");
         const selectedTimeInput = document.getElementById("selectedTime");
         const availableTimes = ["09:00", "10:30", "12:00", "13:30", "15:00", "16:30", "18:00", "19:30"];
@@ -376,12 +417,12 @@
             timeSlotsContainer.appendChild(slot);
         });
 
-        // 3. Динамическая загрузка услуг из базы данных Supabase
+        // 4. Динамическая загрузка услуг из базы данных Supabase
         const serviceSelect = document.getElementById("serviceSelect");
 
         async function fetchServicesFromDB() {
             try {
-                const { data: services, error } = await supabaseClient
+                const { data: services, error } = await localSupabase
                     .from('services')
                     .select('name')
                     .order('name', { ascending: true });
@@ -407,7 +448,7 @@
 
         document.addEventListener("DOMContentLoaded", fetchServicesFromDB);
 
-        // 4. Отправка заполненной формы записи на API Vercel
+        // 5. Отправка заполненной формы записи на API Vercel
         const bookingForm = document.getElementById("bookingForm");
         const submitBtn = document.getElementById("submitBtn");
 
