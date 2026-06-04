@@ -1,0 +1,422 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>АвтоДок — Контакты и схема проезда</title>
+    <!-- Яндекс.Карты API (замени ключ на свой) -->
+    <script src="https://api-maps.yandex.ru/2.1/?apikey=ваш_ключ&lang=ru_RU" type="text/javascript"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
+            background: #f5f7fc;
+            color: #1a1f2c;
+            line-height: 1.4;
+        }
+
+        .container {
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+
+        /* ========== ШАПКА ========== */
+        header {
+            background: #0b2b40;
+            padding: 16px 0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        .header-flex {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 16px;
+        }
+        .logo h1 {
+            color: white;
+            font-size: 1.8rem;
+            font-weight: 700;
+        }
+        .logo span {
+            color: #f4b23e;
+        }
+        .logo p {
+            color: #a0c4d4;
+            font-size: 0.8rem;
+            margin-top: 4px;
+        }
+        .nav-links {
+            display: flex;
+            gap: 24px;
+            flex-wrap: wrap;
+        }
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            transition: 0.2s;
+        }
+        .nav-links a:hover {
+            color: #f4b23e;
+        }
+        .header-actions {
+            display: flex;
+            align-items: center;
+            gap: 24px;
+            flex-wrap: wrap;
+        }
+        .phone {
+            font-size: 1.3rem;
+            font-weight: 600;
+            color: white;
+            text-decoration: none;
+        }
+        .btn-record {
+            background: #f4b23e;
+            border: none;
+            padding: 10px 24px;
+            border-radius: 40px;
+            font-weight: bold;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: 0.2s;
+            color: #0b2b40;
+        }
+        .btn-record:hover {
+            background: #ffcd70;
+            transform: scale(1.02);
+        }
+
+        /* ========== СТРАНИЦА КОНТАКТЫ ========== */
+        .contacts-header {
+            text-align: center;
+            margin: 48px 0 32px;
+        }
+        .contacts-header h1 {
+            font-size: 2rem;
+            color: #0b2b40;
+            margin-bottom: 12px;
+        }
+        .contacts-header p {
+            color: #5a6e7c;
+            font-size: 1rem;
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        .contacts-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            margin-bottom: 60px;
+            align-items: stretch;
+        }
+
+        /* Левая колонка — информация (тёмный фон как у шапки) */
+        .info-card {
+            background: #0b2b40;
+            border-radius: 28px;
+            padding: 32px;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            color: white;
+        }
+        .info-card h2 {
+            font-size: 1.6rem;
+            color: #f4b23e;
+            margin-bottom: 24px;
+            padding-bottom: 16px;
+            border-bottom: 3px solid #f4b23e;
+            display: inline-block;
+        }
+        .info-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 16px;
+            margin-bottom: 28px;
+        }
+        .info-icon {
+            font-size: 1.5rem;
+            min-width: 40px;
+            text-align: center;
+        }
+        .info-content h3 {
+            font-size: 0.85rem;
+            color: #a0c4d4;
+            font-weight: 500;
+            margin-bottom: 6px;
+            letter-spacing: 0.5px;
+        }
+        .info-content p {
+            font-size: 1.1rem;
+            font-weight: 500;
+            color: white;
+        }
+        .info-content a {
+            color: #f4b23e;
+            text-decoration: none;
+            font-size: 1.1rem;
+            font-weight: 500;
+        }
+        .info-content a:hover {
+            color: #ffcd70;
+            text-decoration: underline;
+        }
+        .work-hours {
+            list-style: none;
+            margin-top: 4px;
+        }
+        .work-hours li {
+            display: flex;
+            justify-content: space-between;
+            padding: 8px 0;
+            font-size: 1rem;
+            border-bottom: 1px dashed rgba(255,255,255,0.2);
+        }
+        .work-hours li span:first-child {
+            color: #a0c4d4;
+        }
+        .work-hours li span:last-child {
+            font-weight: 500;
+            color: white;
+        }
+
+        /* Кнопка построить маршрут */
+        .route-btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            background: #f4b23e;
+            color: #0b2b40;
+            padding: 12px 24px;
+            border-radius: 40px;
+            text-decoration: none;
+            font-weight: bold;
+            margin-top: 20px;
+            transition: 0.2s;
+            align-self: flex-start;
+        }
+        .route-btn:hover {
+            background: #ffcd70;
+            transform: scale(1.02);
+        }
+
+        /* Правая колонка — карта */
+        .map-card {
+            background: white;
+            border-radius: 28px;
+            overflow: hidden;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.05);
+            height: 100%;
+            min-height: 480px;
+        }
+        #map {
+            width: 100%;
+            height: 100%;
+            min-height: 480px;
+        }
+
+        /* ========== ПОДВАЛ ========== */
+        footer {
+            background: #0e293b;
+            color: #cbdae3;
+            padding: 48px 0 24px;
+            margin-top: 20px;
+        }
+        .footer-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+        .footer-col h4 {
+            color: #f4b23e;
+            margin-bottom: 20px;
+            font-size: 1.1rem;
+        }
+        .footer-col a, .footer-col p {
+            display: block;
+            color: #cbdae3;
+            text-decoration: none;
+            margin-bottom: 12px;
+        }
+        .footer-phone {
+            font-size: 1.3rem;
+            font-weight: bold;
+            color: white;
+        }
+        .copyright {
+            text-align: center;
+            padding-top: 24px;
+            border-top: 1px solid #2c4b5e;
+            font-size: 0.8rem;
+        }
+
+        @media (max-width: 900px) {
+            .contacts-grid {
+                grid-template-columns: 1fr;
+                gap: 24px;
+            }
+            .header-flex { flex-direction: column; align-items: flex-start; }
+            .contacts-header h1 { font-size: 1.6rem; }
+            .map-card, #map {
+                min-height: 350px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <div class="container header-flex">
+        <div class="logo">
+            <h1>Авто<span>Док</span></h1>
+            <p>Профессиональный регламентный ремонт</p>
+        </div>
+        <div class="nav-links">
+            <a href="index.html">Цены и каталог</a>
+            <a href="booking.html">Онлайн-запись</a>
+            <a href="portfolio.html">Портфолио</a>
+            <a href="reviews.html">Отзывы</a>
+            <a href="contacts.html">Контакты</a>
+        </div>
+        <div class="header-actions">
+            <a href="tel:+74951234567" class="phone">+7 (495) 123-45-67</a>
+            <button class="btn-record" onclick="window.location.href='booking.html'">Онлайн-запись</button>
+        </div>
+    </div>
+</header>
+
+<div class="container">
+    <div class="contacts-header">
+        <h1>Контакты и Схема проезда</h1>
+        <p>Адрес автосервиса СТО «АвтоДок», телефоны, режим работы и интерактивная карта для прокрутки.</p>
+    </div>
+
+    <div class="contacts-grid">
+        <!-- Левая колонка: информация (тёмный фон) -->
+        <div class="info-card">
+            <h2>АвтоДок</h2>
+            
+            <div class="info-item">
+                <div class="info-icon">📍</div>
+                <div class="info-content">
+                    <h3>АДРЕС</h3>
+                    <p>г. Москва, ул. Космонавтов, д. 18, стр. 2</p>
+                </div>
+            </div>
+
+            <div class="info-item">
+                <div class="info-icon">🕒</div>
+                <div class="info-content">
+                    <h3>РЕЖИМ РАБОТЫ</h3>
+                    <ul class="work-hours">
+                        <li><span>Понедельник — Пятница</span><span>09:00 — 21:00</span></li>
+                        <li><span>Суббота</span><span>10:00 — 18:00</span></li>
+                        <li><span>Воскресенье</span><span>10:00 — 16:00</span></li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="info-item">
+                <div class="info-icon">📞</div>
+                <div class="info-content">
+                    <h3>ТЕЛЕФОН</h3>
+                    <p><a href="tel:+74951234567">+7 (495) 123-45-67</a></p>
+                </div>
+            </div>
+
+            <div class="info-item">
+                <div class="info-icon">✉️</div>
+                <div class="info-content">
+                    <h3>EMAIL</h3>
+                    <p><a href="mailto:info@autodok.ru">info@autodok.ru</a></p>
+                </div>
+            </div>
+
+            <a href="https://yandex.ru/maps/?text=Москва,+ул.+Космонавтов,+18+стр.2" target="_blank" class="route-btn">
+                🗺️ Построить маршрут
+            </a>
+        </div>
+
+        <!-- Правая колонка: карта -->
+        <div class="map-card">
+            <div id="map"></div>
+        </div>
+    </div>
+</div>
+
+<footer>
+    <div class="container">
+        <div class="footer-grid">
+            <div class="footer-col">
+                <h4>БЫСТРЫЕ РАЗДЕЛЫ</h4>
+                <a href="index.html">Цены и каталог</a>
+                <a href="booking.html">Онлайн-запись 24/7</a>
+                <a href="portfolio.html">Примеры до/после</a>
+            </div>
+            <div class="footer-col">
+                <h4>АДРЕС И РЕЖИМ</h4>
+                <p>📍 г. Москва, ул. Космонавтов, д. 18, стр. 2</p>
+                <p>🕒 Ежедневно с 09:00 до 21:00</p>
+            </div>
+            <div class="footer-col">
+                <h4>ПРИЕМНАЯ АВТОДОК</h4>
+                <p class="footer-phone">📞 +7 (495) 123-45-67</p>
+                <p>Потребовалась срочная консультация дежурного механика? Звоните круглосуточно.</p>
+            </div>
+        </div>
+        <div class="copyright">
+            <p>© 2026 СТО «АвтоДок». Все права защищены законом. [ Управление СТО ]</p>
+        </div>
+    </div>
+</footer>
+
+<script>
+    function initMap() {
+        if (typeof ymaps === 'undefined') {
+            console.warn("Яндекс.Карты не загружены. Проверьте API ключ.");
+            document.getElementById('map').innerHTML = '<div style="display:flex; align-items:center; justify-content:center; height:100%; background:#f0f2f5; color:#666;">Карта временно недоступна</div>';
+            return;
+        }
+        
+        ymaps.ready(() => {
+            const stoCoordinates = [55.819, 37.624];
+            
+            const myMap = new ymaps.Map("map", {
+                center: stoCoordinates,
+                zoom: 16,
+                controls: ['zoomControl', 'fullscreenControl']
+            });
+            
+            const placemark = new ymaps.Placemark(stoCoordinates, {
+                balloonContentHeader: "АвтоДок",
+                balloonContentBody: "г. Москва, ул. Космонавтов, д. 18, стр. 2<br>Телефон: +7 (495) 123-45-67",
+                balloonContentFooter: "Режим работы: 09:00–21:00",
+                hintContent: "АвтоДок — СТО"
+            }, {
+                preset: 'islands#circleIcon',
+                iconColor: '#f4b23e'
+            });
+            
+            myMap.geoObjects.add(placemark);
+            placemark.balloon.open();
+        });
+    }
+    
+    window.addEventListener('load', initMap);
+</script>
+</body>
+</html>

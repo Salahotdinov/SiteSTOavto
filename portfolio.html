@@ -1,0 +1,505 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>АвтоДок — Портфолио выполненных работ</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
+            background: #f5f7fc;
+            color: #1a1f2c;
+            line-height: 1.4;
+        }
+
+        .container {
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+
+        /* ========== ШАПКА ========== */
+        header {
+            background: #0b2b40;
+            padding: 16px 0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        .header-flex {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 16px;
+        }
+        .logo h1 {
+            color: white;
+            font-size: 1.8rem;
+            font-weight: 700;
+        }
+        .logo span {
+            color: #f4b23e;
+        }
+        .logo p {
+            color: #a0c4d4;
+            font-size: 0.8rem;
+            margin-top: 4px;
+        }
+        .nav-links {
+            display: flex;
+            gap: 24px;
+            flex-wrap: wrap;
+        }
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            transition: 0.2s;
+        }
+        .nav-links a:hover {
+            color: #f4b23e;
+        }
+        .header-actions {
+            display: flex;
+            align-items: center;
+            gap: 24px;
+            flex-wrap: wrap;
+        }
+        .phone {
+            font-size: 1.3rem;
+            font-weight: 600;
+            color: white;
+            text-decoration: none;
+        }
+        .btn-record {
+            background: #f4b23e;
+            border: none;
+            padding: 10px 24px;
+            border-radius: 40px;
+            font-weight: bold;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: 0.2s;
+            color: #0b2b40;
+        }
+        .btn-record:hover {
+            background: #ffcd70;
+            transform: scale(1.02);
+        }
+
+        /* ========== ПОРТФОЛИО ========== */
+        .portfolio-header {
+            text-align: center;
+            margin: 48px 0 32px;
+        }
+        .portfolio-header h1 {
+            font-size: 2.2rem;
+            color: #0b2b40;
+            margin-bottom: 12px;
+        }
+        .portfolio-header p {
+            color: #5a6e7c;
+            font-size: 1rem;
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        /* Сетка карточек — минимум 2 в ряд */
+        .portfolio-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 30px;
+            margin: 40px 0 60px;
+        }
+
+        /* Карточка портфолио */
+        .portfolio-card {
+            background: white;
+            border-radius: 24px;
+            overflow: hidden;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.06);
+            transition: 0.3s;
+            display: flex;
+            flex-direction: column;
+        }
+        .portfolio-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.1);
+        }
+
+        /* Слайдер */
+        .slider-container {
+            position: relative;
+            width: 100%;
+            background: #e0e4e8;
+            overflow: hidden;
+            aspect-ratio: 16 / 10;
+        }
+        .compare-slider {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            cursor: ew-resize;
+        }
+        .compare-img {
+            display: block;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        .img-before {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        .img-after {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            overflow: hidden;
+        }
+        .slider-handle {
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            width: 3px;
+            background: white;
+            box-shadow: 0 0 6px rgba(0,0,0,0.5);
+            cursor: ew-resize;
+            z-index: 10;
+        }
+        .slider-handle:before {
+            content: "◀ ▶";
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: #f4b23e;
+            color: #0b2b40;
+            padding: 4px 10px;
+            border-radius: 30px;
+            font-size: 11px;
+            font-weight: bold;
+            white-space: nowrap;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+        }
+        .slider-badge {
+            position: absolute;
+            bottom: 12px;
+            left: 12px;
+            background: rgba(0,0,0,0.7);
+            color: white;
+            padding: 3px 10px;
+            border-radius: 20px;
+            font-size: 0.7rem;
+            font-weight: 600;
+            z-index: 5;
+        }
+        .slider-badge.right {
+            left: auto;
+            right: 12px;
+            background: #f4b23e;
+            color: #0b2b40;
+        }
+
+        /* Инфо о работе */
+        .work-info {
+            padding: 18px 20px 20px;
+        }
+        .work-title h3 {
+            font-size: 1.2rem;
+            color: #0b2b40;
+            margin-bottom: 8px;
+            line-height: 1.3;
+        }
+        .work-details {
+            display: flex;
+            gap: 16px;
+            margin-bottom: 12px;
+            font-size: 0.85rem;
+            font-weight: 600;
+        }
+        .work-details span {
+            background: #fef3e0;
+            padding: 3px 12px;
+            border-radius: 30px;
+            color: #b16200;
+        }
+        .work-description {
+            color: #4a5b6e;
+            font-size: 0.85rem;
+            line-height: 1.45;
+            margin-bottom: 10px;
+            display: -webkit-box;
+            -webkit-line-clamp: 3;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+        .work-guarantee {
+            color: #0b2b40;
+            font-weight: 600;
+            font-size: 0.75rem;
+            border-top: 1px solid #eef2f7;
+            padding-top: 10px;
+        }
+
+        /* ========== ПОДВАЛ ========== */
+        footer {
+            background: #0e293b;
+            color: #cbdae3;
+            padding: 48px 0 24px;
+            margin-top: 20px;
+        }
+        .footer-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+        .footer-col h4 {
+            color: #f4b23e;
+            margin-bottom: 20px;
+            font-size: 1.1rem;
+        }
+        .footer-col a, .footer-col p {
+            display: block;
+            color: #cbdae3;
+            text-decoration: none;
+            margin-bottom: 12px;
+        }
+        .footer-phone {
+            font-size: 1.3rem;
+            font-weight: bold;
+            color: white;
+        }
+        .copyright {
+            text-align: center;
+            padding-top: 24px;
+            border-top: 1px solid #2c4b5e;
+            font-size: 0.8rem;
+        }
+
+        @media (max-width: 900px) {
+            .portfolio-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 20px;
+            }
+        }
+        @media (max-width: 640px) {
+            .portfolio-grid {
+                grid-template-columns: 1fr;
+                gap: 24px;
+            }
+            .portfolio-header h1 { font-size: 1.6rem; }
+            .work-info { padding: 14px 16px; }
+            .work-title h3 { font-size: 1.1rem; }
+        }
+        @media (max-width: 768px) {
+            .header-flex { flex-direction: column; align-items: flex-start; }
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <div class="container header-flex">
+        <div class="logo">
+            <h1>Авто<span>Док</span></h1>
+            <p>Профессиональный регламентный ремонт</p>
+        </div>
+        <div class="nav-links">
+            <a href="index.html">Цены и каталог</a>
+            <a href="booking.html">Онлайн-запись</a>
+            <a href="portfolio.html">Портфолио</a>
+            <a href="reviews.html">Отзывы</a>
+            <a href="contacts.html">Контакты</a>
+        </div>
+        <div class="header-actions">
+            <a href="tel:+74951234567" class="phone">+7 (495) 123-45-67</a>
+            <button class="btn-record" onclick="window.location.href='booking.html'">Онлайн-запись</button>
+        </div>
+    </div>
+</header>
+
+<div class="container">
+    <div class="portfolio-header">
+        <h1>Портфолио выполненных работ</h1>
+        <p>Реальные примеры «До» и «После» восстановительного ремонта в Автодок</p>
+    </div>
+
+    <div class="portfolio-grid" id="portfolioGrid"></div>
+</div>
+
+<footer>
+    <div class="container">
+        <div class="footer-grid">
+            <div class="footer-col">
+                <h4>БЫСТРЫЕ РАЗДЕЛЫ</h4>
+                <a href="index.html">Цены и каталог</a>
+                <a href="booking.html">Онлайн-запись 24/7</a>
+                <a href="portfolio.html">Примеры до/после</a>
+            </div>
+            <div class="footer-col">
+                <h4>АДРЕС И РЕЖИМ</h4>
+                <p>📍 г. Москва, ул. Космонавтов, д. 18, стр. 2</p>
+                <p>🕒 Ежедневно с 09:00 до 21:00</p>
+            </div>
+            <div class="footer-col">
+                <h4>ПРИЕМНАЯ АВТОДОК</h4>
+                <p class="footer-phone">📞 +7 (495) 123-45-67</p>
+                <p>Потребовалась срочная консультация дежурного механика? Звоните круглосуточно.</p>
+            </div>
+        </div>
+        <div class="copyright">
+            <p>© 2026 СТО «АвтоДок». Все права защищены законом. [ Управление СТО ]</p>
+        </div>
+    </div>
+</footer>
+
+<script>
+    const portfolioData = [
+        {
+            id: 1,
+            title: "Полировка фар",
+            beforeImg: "https://placehold.co/600x400/2c3e50/white?text=ДО:+Мутные+фары",
+            afterImg: "https://placehold.co/600x400/f39c12/white?text=ПОСЛЕ:+Прозрачные",
+            hours: "2.5 ч",
+            price: "3 500 ₽",
+            description: "Устранили мутность, желтизну и царапины на фарах Kia Rio. Увеличили яркость света на 45%."
+        },
+        {
+            id: 2,
+            title: "Очистка подкапотного",
+            beforeImg: "https://placehold.co/600x400/7f8c8d/white?text=ДО:+Грязь+и+масло",
+            afterImg: "https://placehold.co/600x400/27ae60/white?text=ПОСЛЕ:+Чистота",
+            hours: "4 ч",
+            price: "6 000 ₽",
+            description: "Очистка двигателя Audi Q5 от масляных отложений и грязи. Пар+гель, гидрофобная обработка пластика."
+        },
+        {
+            id: 3,
+            title: "Полировка кузова",
+            beforeImg: "https://placehold.co/600x400/e74c3c/white?text=ДО:+Царапины",
+            afterImg: "https://placehold.co/600x400/3498db/white?text=ПОСЛЕ:+Блеск",
+            hours: "6 ч",
+            price: "8 500 ₽",
+            description: "Полировка BMW X5, удаление глубоких царапин, керамическое покрытие на 12 месяцев."
+        },
+        {
+            id: 4,
+            title: "Ремонт дисков",
+            beforeImg: "https://placehold.co/600x400/95a5a6/white?text=ДО:+Сколы",
+            afterImg: "https://placehold.co/600x400/e67e22/white?text=ПОСЛЕ:+Новый+вид",
+            hours: "2 ч",
+            price: "2 900 ₽",
+            description: "Восстановление литых дисков Mercedes, удаление коррозии и сколов, покраска."
+        }
+    ];
+
+    const portfolioGrid = document.getElementById("portfolioGrid");
+
+    function initSlider(cardId, beforeSrc, afterSrc) {
+        const container = document.getElementById(cardId);
+        if (!container) return;
+
+        const slider = container.querySelector('.compare-slider');
+        const afterImg = container.querySelector('.img-after');
+        const handle = container.querySelector('.slider-handle');
+
+        let isDragging = false;
+
+        function setPosition(x) {
+            const rect = slider.getBoundingClientRect();
+            let offsetX = x - rect.left;
+            offsetX = Math.max(0, Math.min(offsetX, rect.width));
+            afterImg.style.clip = `rect(0, ${offsetX}px, ${rect.height}px, 0)`;
+            handle.style.left = `${offsetX}px`;
+        }
+
+        function onMove(e) {
+            if (!isDragging) return;
+            let clientX = e.clientX;
+            if (!clientX && e.touches) clientX = e.touches[0].clientX;
+            setPosition(clientX);
+        }
+
+        function onStart(e) {
+            isDragging = true;
+            e.preventDefault();
+        }
+
+        function onEnd() {
+            isDragging = false;
+        }
+
+        slider.addEventListener('mousedown', onStart);
+        window.addEventListener('mousemove', onMove);
+        window.addEventListener('mouseup', onEnd);
+        slider.addEventListener('touchstart', onStart);
+        window.addEventListener('touchmove', onMove);
+        window.addEventListener('touchend', onEnd);
+
+        setTimeout(() => {
+            const rect = slider.getBoundingClientRect();
+            if (rect.width) {
+                const initX = rect.left + rect.width * 0.5;
+                setPosition(initX);
+            }
+        }, 100);
+    }
+
+    function renderPortfolio() {
+        portfolioGrid.innerHTML = "";
+        portfolioData.forEach((item, idx) => {
+            const cardId = `slider-${item.id}-${idx}`;
+            const cardHTML = `
+                <div class="portfolio-card">
+                    <div class="slider-container" id="${cardId}">
+                        <div class="compare-slider" style="position: relative; width: 100%; height: 100%;">
+                            <img class="compare-img img-before" src="${item.beforeImg}" alt="До ремонта">
+                            <img class="compare-img img-after" src="${item.afterImg}" alt="После ремонта" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; clip: rect(0, 50%, auto, 0);">
+                            <div class="slider-handle" style="position: absolute; top: 0; bottom: 0; width: 3px; background: white; left: 50%;"></div>
+                            <div class="slider-badge">ДО</div>
+                            <div class="slider-badge right">ПОСЛЕ</div>
+                        </div>
+                    </div>
+                    <div class="work-info">
+                        <div class="work-title">
+                            <h3>${item.title}</h3>
+                        </div>
+                        <div class="work-details">
+                            <span>🕒 ${item.hours}</span>
+                            <span>💰 ${item.price}</span>
+                        </div>
+                        <div class="work-description">
+                            ${item.description}
+                        </div>
+                        <div class="work-guarantee">
+                            ✅ Результат гарантирован
+                        </div>
+                    </div>
+                </div>
+            `;
+            portfolioGrid.insertAdjacentHTML('beforeend', cardHTML);
+        });
+
+        portfolioData.forEach((item, idx) => {
+            const cardId = `slider-${item.id}-${idx}`;
+            initSlider(cardId, item.beforeImg, item.afterImg);
+        });
+    }
+
+    renderPortfolio();
+</script>
+</body>
+</html>
