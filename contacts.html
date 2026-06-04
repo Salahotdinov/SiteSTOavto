@@ -314,7 +314,7 @@
                 <div class="info-icon">📍</div>
                 <div class="info-content">
                     <h3>АДРЕС</h3>
-                    <p>г. Москва, ул. Космонавтов, д. 18, стр. 2</p>
+                    <p>Свердловская обл., п. Сарапулка, ул. Совхозная, д. 8</p>
                 </div>
             </div>
 
@@ -346,7 +346,8 @@
                 </div>
             </div>
 
-            <a href="https://yandex.ru/maps/?text=Москва,+ул.+Космонавтов,+18+стр.2" target="_blank" class="route-btn">
+            <!-- Обновленная ссылка на внешние Яндекс.Карты для построения маршрута -->
+            <a href="https://yandex.ru/maps/?text=Свердловская+обл.,+поселок+Сарапулка,+ул.+Совхозная,+д.+8" target="_blank" class="route-btn">
                 🗺️ Построить маршрут
             </a>
         </div>
@@ -369,7 +370,7 @@
             </div>
             <div class="footer-col">
                 <h4>АДРЕС И РЕЖИМ</h4>
-                <p>📍 г. Москва, ул. Космонавтов, д. 18, стр. 2</p>
+                <p>📍 Свердловская обл., п. Сарапулка, ул. Совхозная, д. 8</p>
                 <p>🕒 Ежедневно с 09:00 до 21:00</p>
             </div>
             <div class="footer-col">
@@ -385,10 +386,10 @@
 </footer>
 
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-
     <script src="supabase-config.js"></script>
 
 <script>
+    // Инициализация карты с точными координатами поселка Сарапулка, ул. Совхозная, д. 8
     function initMap() {
         if (typeof ymaps === 'undefined') {
             console.warn("Яндекс.Карты не загружены. Проверьте API ключ.");
@@ -397,7 +398,8 @@
         }
         
         ymaps.ready(() => {
-            const stoCoordinates = [55.819, 37.624];
+            // Точные координаты для адреса: Свердловская область, поселок Сарапулка, Совхозная улица, 8
+            const stoCoordinates = [56.885827, 60.999677];
             
             const myMap = new ymaps.Map("map", {
                 center: stoCoordinates,
@@ -407,7 +409,7 @@
             
             const placemark = new ymaps.Placemark(stoCoordinates, {
                 balloonContentHeader: "АвтоДок",
-                balloonContentBody: "г. Москва, ул. Космонавтов, д. 18, стр. 2<br>Телефон: +7 (495) 123-45-67",
+                balloonContentBody: "Свердловская обл., п. Сарапулка, ул. Совхозная, д. 8<br>Телефон: +7 (495) 123-45-67",
                 balloonContentFooter: "Режим работы: 09:00–21:00",
                 hintContent: "АвтоДок — СТО"
             }, {
