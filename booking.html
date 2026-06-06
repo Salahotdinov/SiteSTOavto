@@ -5,11 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>АвтоДок — Онлайн-запись на обслуживание</title>
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
 
         body {
             font-family: 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
@@ -21,232 +17,141 @@
             min-height: 100vh;
         }
 
-        .container {
-            max-width: 1280px;
-            margin: 0 auto;
-            padding: 0 24px;
-        }
+        .container { max-width: 1280px; margin: 0 auto; padding: 0 24px; }
 
-       /* ========== ШАПКА ========== */
-        header {
-            background: #0b2b40;
-            padding: 16px 0;
-            position: sticky;
-            top: 0;
-            z-index: 100;
-        }
-        .header-flex {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            flex-wrap: wrap;
-            gap: 16px;
-        }
-        .logo h1 {
-            color: white;
-            font-size: 1.8rem;
-            font-weight: 700;
-        }
-        .logo span {
-            color: #f4b23e;
-        }
-        .logo p {
-            color: #a0c4d4;
-            font-size: 0.8rem;
-            margin-top: 4px;
-        }
-        .nav-links {
-            display: flex;
-            gap: 24px;
-            flex-wrap: wrap;
-        }
-        .nav-links a {
-            color: white;
-            text-decoration: none;
-            font-weight: 500;
-            transition: 0.2s;
-        }
-        .nav-links a:hover {
-            color: #f4b23e;
-        }
-        .header-actions {
-            display: flex;
-            align-items: center;
-            gap: 24px;
-            flex-wrap: wrap;
-        }
-        .phone {
-            font-size: 1.3rem;
-            font-weight: 600;
-            color: white;
-            text-decoration: none;
-        }
+        /* ШАПКА */
+        header { background: #0b2b40; padding: 16px 0; position: sticky; top: 0; z-index: 100; }
+        .header-flex { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 16px; }
+        .logo h1 { color: white; font-size: 1.8rem; font-weight: 700; }
+        .logo span { color: #f4b23e; }
+        .logo p { color: #a0c4d4; font-size: 0.8rem; margin-top: 4px; }
+        .nav-links { display: flex; gap: 24px; flex-wrap: wrap; }
+        .nav-links a { color: white; text-decoration: none; font-weight: 500; transition: 0.2s; }
+        .nav-links a:hover { color: #f4b23e; }
+        .header-actions { display: flex; align-items: center; gap: 24px; flex-wrap: wrap; }
+        .phone { font-size: 1.3rem; font-weight: 600; color: white; text-decoration: none; }
         .btn-record {
-            background: #f4b23e;
-            border: none;
-            padding: 10px 24px;
-            border-radius: 40px;
-            font-weight: bold;
-            font-size: 1rem;
-            cursor: pointer;
-            transition: 0.2s;
-            color: #0b2b40;
+            background: #f4b23e; border: none; padding: 10px 24px; border-radius: 40px;
+            font-weight: bold; font-size: 1rem; cursor: pointer; transition: 0.2s; color: #0b2b40;
         }
-        .btn-record:hover {
-            background: #ffcd70;
-            transform: scale(1.02);
-        }
-        /* ========== КОНТЕНТ СТРАНИЦЫ ЗАПИСИ ========== */
-        main {
-            flex: 1;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            padding: 40px 20px;
-        }
+        .btn-record:hover { background: #ffcd70; transform: scale(1.02); }
+
+        /* КОНТЕНТ */
+        main { flex: 1; display: flex; justify-content: center; align-items: flex-start; padding: 48px 20px; }
+
         .booking-box {
-            max-width: 600px;
-            width: 100%;
-            padding: 30px;
-            background: white;
-            border-radius: 12px;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+            max-width: 620px; width: 100%; padding: 36px;
+            background: white; border-radius: 16px;
+            box-shadow: 0 6px 24px rgba(0,0,0,0.08);
         }
-        .booking-box h2 {
-            color: #0b2b40;
-            margin-bottom: 20px;
-            text-align: center;
-        }
-        .form-group {
-            margin-bottom: 16px;
-        }
-        label {
-            display: block;
-            margin-bottom: 6px;
-            font-weight: 500;
-        }
+        .booking-box h2 { color: #0b2b40; margin-bottom: 8px; text-align: center; font-size: 1.6rem; }
+        .booking-box .subtitle { color: #5a6e7c; text-align: center; margin-bottom: 28px; font-size: 0.95rem; }
+
+        .form-group { margin-bottom: 18px; }
+        label { display: block; margin-bottom: 6px; font-weight: 500; color: #1a1f2c; }
         input, select {
-            width: 100%;
-            padding: 10px;
-            border: 1px solid #cbd5e1;
-            border-radius: 6px;
-            font-size: 1rem;
-            outline: none;
+            width: 100%; padding: 11px 14px; border: 1.5px solid #cbd5e1;
+            border-radius: 8px; font-size: 1rem; outline: none; transition: border-color 0.2s; background: #fff;
         }
-        input:focus, select:focus {
-            border-color: #0b2b40;
-        }
+        input:focus, select:focus { border-color: #0b2b40; }
+        input.error, select.error { border-color: #e25c1d; }
+        .field-error { color: #e25c1d; font-size: 0.82rem; margin-top: 4px; display: none; }
+        .field-error.visible { display: block; }
+
+        /* Временные слоты */
         .time-slots {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(80px, 1fr));
-            gap: 8px;
-            margin-top: 8px;
+            display: grid; grid-template-columns: repeat(auto-fill, minmax(78px, 1fr));
+            gap: 8px; margin-top: 8px;
         }
         .time-slot {
-            padding: 8px;
-            background: #f1f5f9;
-            border: 1px solid #cbd5e1;
-            border-radius: 6px;
-            text-align: center;
-            cursor: pointer;
-            font-weight: 500;
-            transition: all 0.2s;
+            padding: 9px 6px; background: #f1f5f9; border: 1.5px solid #cbd5e1;
+            border-radius: 8px; text-align: center; cursor: pointer;
+            font-weight: 500; font-size: 0.92rem; transition: all 0.15s;
         }
-        .time-slot:hover {
-            background: #cbd5e1;
+        .time-slot:hover { background: #dde6ef; border-color: #0b2b40; }
+        .time-slot.selected { background: #0b2b40; color: white; border-color: #0b2b40; }
+        .time-required-msg { color: #e25c1d; font-size: 0.82rem; margin-top: 6px; display: none; }
+        .time-required-msg.visible { display: block; }
+
+        /* Согласие */
+        .consent-block {
+            background: #f8fafc; border: 1.5px solid #cbd5e1; border-radius: 10px;
+            padding: 16px; margin-bottom: 20px; display: flex; align-items: flex-start; gap: 12px;
         }
-        .time-slot.selected {
-            background: #0b2b40;
-            color: white;
-            border-color: #0b2b40;
+        .consent-check {
+            width: 20px !important; height: 20px; min-width: 20px; margin-top: 2px;
+            cursor: pointer; accent-color: #0b2b40;
         }
+        .consent-label {
+            font-weight: 400; font-size: 0.9rem; color: #374151; cursor: pointer; margin: 0;
+        }
+        .consent-link { color: #0b2b40; text-decoration: underline; font-weight: 500; cursor: pointer; }
+        .consent-link:hover { color: #f4b23e; }
+        .consent-error { color: #e25c1d; font-size: 0.82rem; margin-top: 6px; display: none; }
+        .consent-error.visible { display: block; }
+
+        /* Кнопка */
         .submit-btn {
-            width: 100%;
-            background: #e25c1d;
-            color: white;
-            padding: 12px;
-            border: none;
-            border-radius: 6px;
-            font-size: 1.1rem;
-            font-weight: 600;
-            cursor: pointer;
-            transition: background 0.2s;
-            margin-top: 10px;
+            width: 100%; background: #e25c1d; color: white; padding: 13px; border: none;
+            border-radius: 8px; font-size: 1.1rem; font-weight: 600; cursor: pointer;
+            transition: background 0.2s; margin-top: 4px;
         }
-        .submit-btn:hover {
-            background: #d44d13;
-        }
-        .submit-btn:disabled {
-            background: #cbd5e1;
-            cursor: not-allowed;
-        }
+        .submit-btn:hover { background: #d44d13; }
+        .submit-btn:disabled { background: #cbd5e1; cursor: not-allowed; }
 
-        /* ========== ПОДВАЛ (ТОЧНО КАК НА INDEX.HTML) ========== */
-        footer {
-            background: #0f172a;
-            color: #94a3b8;
-            padding: 48px 0 24px 0;
-            margin-top: auto;
+        /* МОДАЛЬНОЕ ОКНО */
+        .modal-overlay {
+            display: none; position: fixed; inset: 0;
+            background: rgba(0,0,0,0.55); z-index: 999;
+            justify-content: center; align-items: center; padding: 20px;
         }
+        .modal-overlay.open { display: flex; }
+        .modal-box {
+            background: white; border-radius: 16px; max-width: 640px; width: 100%;
+            max-height: 80vh; overflow-y: auto; padding: 36px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.25); position: relative;
+        }
+        .modal-box h2 { color: #0b2b40; margin-bottom: 20px; font-size: 1.4rem; }
+        .modal-box p { color: #374151; font-size: 0.95rem; line-height: 1.7; margin-bottom: 14px; }
+        .modal-box h3 { color: #0b2b40; margin: 20px 0 10px; font-size: 1rem; }
+        .modal-close {
+            position: absolute; top: 16px; right: 20px; background: none; border: none;
+            font-size: 1.6rem; cursor: pointer; color: #64748b; line-height: 1;
+        }
+        .modal-close:hover { color: #0b2b40; }
+        .modal-footer { margin-top: 24px; text-align: center; }
+        .modal-footer button {
+            background: #0b2b40; color: white; border: none; padding: 10px 32px;
+            border-radius: 8px; font-size: 1rem; font-weight: 600; cursor: pointer;
+        }
+        .modal-footer button:hover { background: #1a4a65; }
+
+        /* ПОДВАЛ — как на index.html */
+        footer { background: #0e293b; color: #cbdae3; padding: 60px 0 30px; }
         .footer-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 40px;
-            margin-bottom: 40px;
+            display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 40px; margin-bottom: 40px;
         }
-        .footer-col h3 {
-            color: white;
-            font-size: 16px;
-            font-weight: 600;
-            margin-bottom: 20px;
+        .footer-col h4 { color: #f4b23e; margin-bottom: 24px; font-size: 1.1rem; font-weight: 700; }
+        .footer-col a, .footer-col p {
+            display: block; color: #cbdae3; text-decoration: none; margin-bottom: 14px; font-size: 0.95rem;
         }
-        .footer-col ul {
-            list-style: none;
-        }
-        .footer-col ul li {
-            margin-bottom: 12px;
-        }
-        .footer-col ul li a {
-            color: #94a3b8;
-            text-decoration: none;
-            transition: color 0.2s;
-            font-size: 15px;
-        }
-        .footer-col ul li a:hover {
-            color: white;
-        }
-        .footer-logo h2 {
-            color: white;
-            font-size: 24px;
-            margin-bottom: 16px;
-            font-weight: 700;
-        }
-        .footer-logo span {
-            color: #e25c1d;
-        }
-        .footer-logo p {
-            font-size: 14px;
-            line-height: 1.6;
-        }
-        .footer-bottom {
-            border-top: 1px solid #334155;
-            padding-top: 24px;
-            text-align: center;
-            font-size: 14px;
+        .footer-col a:hover { color: white; }
+        .footer-phone { font-size: 1.4rem; font-weight: 700; color: white !important; }
+        .copyright {
+            text-align: center; padding-top: 30px; border-top: 1px solid #2c4b5e;
+            font-size: 0.85rem; color: #8aa4b5;
         }
 
-        /* Адаптивность для мобильных устройств */
-        @media (max-width: 900px) {
-            .menu-toggle { display: flex; }
-            nav { display: none; width: 100%; flex-direction: column; gap: 12px; padding-top: 16px; }
-            nav.open { display: flex; }
-            .header-contact { width: 100%; justify-content: space-between; }
+        @media (max-width: 768px) {
+            .header-flex { flex-direction: column; align-items: flex-start; }
+            .booking-box { padding: 24px 18px; }
         }
     </style>
 </head>
 <body>
 
-    <header>
+<header>
     <div class="container header-flex">
         <div class="logo">
             <h1>Авто<span>Док</span></h1>
@@ -261,208 +166,289 @@
         </div>
         <div class="header-actions">
             <a href="tel:+74951234567" class="phone">+7 (495) 123-45-67</a>
-            <button class="btn-record" id="openRecordAlert">Online-запись</button>
+            <button class="btn-record" onclick="window.location.href='booking.html'">Онлайн-запись</button>
         </div>
     </div>
 </header>
-    <main>
-        <div class="booking-box">
-            <h2>Онлайн-запись</h2>
-            <form id="bookingForm">
-                <div class="form-group">
-                    <label for="name">Ваше имя *</label>
-                    <input type="text" id="name" required placeholder="Иван Иванов">
-                </div>
 
-                <div class="form-group">
-                    <label for="phone">Номер телефона *</label>
-                    <input type="tel" id="phone" required placeholder="+7 (999) 123-45-67">
-                </div>
+<main>
+    <div class="booking-box">
+        <h2>Онлайн-запись</h2>
+        <p class="subtitle">Заполните форму — мы перезвоним для подтверждения</p>
 
-                <div class="form-group">
-                    <label for="email">E-mail</label>
-                    <input type="email" id="email" placeholder="example@mail.ru">
-                </div>
+        <form id="bookingForm" novalidate>
 
-                <div class="form-group">
-                    <label for="carModel">Марка и модель автомобиля *</label>
-                    <input type="text" id="carModel" required placeholder="Toyota Camry 2020">
-                </div>
+            <div class="form-group">
+                <label for="name">Ваше имя *</label>
+                <input type="text" id="name" required placeholder="Иван Иванов">
+                <div class="field-error" id="nameErr">Пожалуйста, введите ваше имя</div>
+            </div>
 
-                <div class="form-group">
-                    <label for="serviceSelect">Выберите услугу *</label>
-                    <select id="serviceSelect" required>
-                        <option value="" disabled selected>Загрузка доступных услуг...</option>
-                    </select>
-                </div>
+            <div class="form-group">
+                <label for="phone">Номер телефона *</label>
+                <input type="tel" id="phone" required placeholder="+7 (999) 123-45-67">
+                <div class="field-error" id="phoneErr">Введите корректный номер: +7 (XXX) XXX-XX-XX</div>
+            </div>
 
-                <div class="form-group">
-                    <label for="date">Дата визита *</label>
-                    <input type="date" id="date" required>
-                </div>
+            <div class="form-group">
+                <label for="email">E-mail <span style="color:#5a6e7c; font-weight:400;">(необязательно)</span></label>
+                <input type="email" id="email" placeholder="example@mail.ru">
+                <div class="field-error" id="emailErr">Введите корректный адрес электронной почты</div>
+            </div>
 
-                <div class="form-group">
-                    <label>Желаемое время *</label>
-                    <div class="time-slots" id="timeSlotsContainer"></div>
-                    <input type="hidden" id="selectedTime" required>
-                </div>
+            <div class="form-group">
+                <label for="carModel">Марка и модель автомобиля *</label>
+                <input type="text" id="carModel" required placeholder="Toyota Camry 2020">
+                <div class="field-error" id="carErr">Пожалуйста, укажите автомобиль</div>
+            </div>
 
-                <button type="submit" class="submit-btn" id="submitBtn">Подтвердить запись</button>
-            </form>
+            <div class="form-group">
+                <label for="serviceSelect">Выберите услугу *</label>
+                <select id="serviceSelect" required>
+                    <option value="" disabled selected>Загрузка услуг...</option>
+                </select>
+                <div class="field-error" id="serviceErr">Пожалуйста, выберите услугу</div>
+            </div>
+
+            <div class="form-group">
+                <label for="date">Дата визита *</label>
+                <input type="date" id="date" required>
+                <div class="field-error" id="dateErr">Выберите дату (не ранее сегодняшнего дня)</div>
+            </div>
+
+            <div class="form-group">
+                <label>Желаемое время *</label>
+                <div class="time-slots" id="timeSlotsContainer"></div>
+                <input type="hidden" id="selectedTime">
+                <div class="time-required-msg" id="timeErr">Пожалуйста, выберите время</div>
+            </div>
+
+            <div class="consent-block">
+                <input type="checkbox" id="consentCheck" class="consent-check">
+                <div>
+                    <label for="consentCheck" class="consent-label">
+                        Я ознакомлен(а) и даю согласие на
+                        <span class="consent-link" id="openPrivacyModal">обработку персональных данных</span>
+                        в соответствии с Политикой конфиденциальности СТО «АвтоДок»
+                    </label>
+                    <div class="consent-error" id="consentErr">Необходимо дать согласие на обработку данных</div>
+                </div>
+            </div>
+
+            <button type="submit" class="submit-btn" id="submitBtn">Подтвердить запись</button>
+        </form>
+    </div>
+</main>
+
+<!-- Модальное окно Политики конфиденциальности -->
+<div class="modal-overlay" id="privacyModal">
+    <div class="modal-box">
+        <button class="modal-close" id="closeModal">&times;</button>
+        <h2>Политика конфиденциальности</h2>
+        <p>Настоящая Политика конфиденциальности определяет порядок обработки и защиты персональных данных клиентов СТО «АвтоДок» (далее — Оператор).</p>
+        <h3>1. Собираемые данные</h3>
+        <p>При онлайн-записи на обслуживание мы собираем: имя, номер телефона, адрес электронной почты (при указании), марку и модель автомобиля, выбранную услугу, дату и время визита.</p>
+        <h3>2. Цели обработки</h3>
+        <p>Персональные данные обрабатываются исключительно для подтверждения и организации записи на обслуживание, а также для связи с вами по вопросам, связанным с вашим визитом.</p>
+        <h3>3. Передача третьим лицам</h3>
+        <p>Оператор не передаёт персональные данные третьим лицам без согласия субъекта, за исключением случаев, предусмотренных действующим законодательством Российской Федерации.</p>
+        <h3>4. Хранение данных</h3>
+        <p>Данные хранятся в защищённой базе данных (Supabase) и используются только сотрудниками автосервиса. Срок хранения — не более 3 лет с момента последнего обращения.</p>
+        <h3>5. Права субъекта</h3>
+        <p>Вы вправе в любой момент запросить удаление, изменение или уточнение ваших персональных данных, направив запрос на адрес: <strong>info@autodok.ru</strong></p>
+        <h3>6. Контактные данные</h3>
+        <p>СТО «АвтоДок», Свердловская обл., п. Сарапулка, ул. Совхозная, д. 8<br>
+        Телефон: +7 (495) 123-45-67 | Email: info@autodok.ru</p>
+        <div class="modal-footer">
+            <button id="acceptPrivacy">Понятно, закрыть</button>
         </div>
-    </main>
+    </div>
+</div>
 
-    <footer>
-        <div class="container footer-grid">
-            <div class="footer-col footer-logo">
-                <h2>Авто<span>Док</span></h2>
-                <p>Профессиональное обслуживание и ремонт автомобилей любой сложности в вашем городе. Гарантия на все виды работ.</p>
+<footer>
+    <div class="container">
+        <div class="footer-grid">
+            <div class="footer-col">
+                <h4>БЫСТРЫЕ РАЗДЕЛЫ</h4>
+                <a href="index.html">Цены и каталог</a>
+                <a href="booking.html">Онлайн-запись 24/7</a>
+                <a href="portfolio.html">Примеры до/после</a>
+                <a href="reviews.html">Отзывы клиентов</a>
             </div>
             <div class="footer-col">
-                <h3>Услуги</h3>
-                <ul>
-                    <li><a href="index.html#services">Техническое обслуживание</a></li>
-                    <li><a href="index.html#services">Ремонт ходовой части</a></li>
-                    <li><a href="index.html#services">Диагностика электрики</a></li>
-                    <li><a href="index.html#services">Ремонт двигателей</a></li>
-                </ul>
+                <h4>АДРЕС И РЕЖИМ</h4>
+                <p>📍 Свердловская обл., п. Сарапулка, ул. Совхозная, д. 8</p>
+                <p>🕒 Ежедневно с 09:00 до 21:00</p>
+                <a href="contacts.html" style="color: #f4b23e; font-weight: 600;">Посмотреть на карте →</a>
             </div>
             <div class="footer-col">
-                <h3>Навигация</h3>
-                <ul>
-                    <li><a href="index.html#portfolio">Наши работы</a></li>
-                    <li><a href="index.html#reviews">Отзывы клиентов</a></li>
-                    <li><a href="index.html#contacts">Контакты и карта</a></li>
-                    <li><a href="booking.html">Онлайн-запись</a></li>
-                </ul>
-            </div>
-            <div class="footer-col">
-                <h3>Контакты</h3>
-                <p style="margin-bottom: 12px; font-size: 15px;">📍 Свердловская обл., п. Сарапулка, ул. Совхозная, д. 8</p>
-                <p style="margin-bottom: 12px; font-size: 15px;">📞 +7 (495) 123-45-67</p>
-                <p style="font-size: 15px;">✉️ info@autodok.ru</p>
+                <h4>ПРИЕМНАЯ АВТОДОК</h4>
+                <a href="tel:+74951234567" class="footer-phone">📞 +7 (495) 123-45-67</a>
+                <p>Потребовалась срочная консультация дежурного механика? Звоните в рабочее время без стеснения.</p>
             </div>
         </div>
-        <div class="container footer-bottom">
-            <p>&copy; 2026 АвтоДок — Сеть автосервисов. Все права защищены.</p>
+        <div class="copyright">
+            <p>© 2026 СТО «АвтоДок». Все права защищены законом. <a href="admin.html" style="display:inline; color:#8aa4b5; text-decoration:underline;">[ Управление СТО ]</a></p>
         </div>
-    </footer>
+    </div>
+</footer>
 
-    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script>
+    const SUPABASE_URL = 'https://qiqbkwhqxfapiqskycch.supabase.co';
+    const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InFpcWJrd2hxeGZhcGlxc2t5Y2NoIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODA1MTEwMjYsImV4cCI6MjA5NjA4NzAyNn0.yT8EuQIt2CSXyCbe3arAHSvBuj3Eq7FThCf-rYotqvM';
+    const localSupabase = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
 
-    <script>
-        // 1. Прямая конфигурация Supabase (не зависит от внешних файлов)
-        const SUPABASE_URL = 'https://qiqbkwhqxfapiqskycch.supabase.co';
-        const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InFpcWJrd2hxeGZhcGlxc2t5Y2NoIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODA1MTEwMjYsImV4cCI6MjA5NjA4NzAyNn0.yT8EuQIt2CSXyCbe3arAHSvBuj3Eq7FThCf-rYotqvM'; 
-        
-        const localSupabase = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+    // Минимальная дата
+    const dateInput = document.getElementById("date");
+    const today = new Date().toISOString().split("T")[0];
+    dateInput.setAttribute("min", today);
 
-        // 2. Мобильное бургер-меню
-        const menuToggle = document.getElementById("menuToggle");
-        const navMenu = document.getElementById("navMenu");
-        menuToggle.addEventListener("click", () => { navMenu.classList.toggle("open"); });
+    // Временные слоты
+    const timeSlotsContainer = document.getElementById("timeSlotsContainer");
+    const selectedTimeInput = document.getElementById("selectedTime");
+    const availableTimes = ["09:00","10:00","11:00","12:00","13:00","14:00","15:00","16:00","17:00","18:00","19:00","20:00"];
 
-        // 3. Генерация временных слотов
-        const timeSlotsContainer = document.getElementById("timeSlotsContainer");
-        const selectedTimeInput = document.getElementById("selectedTime");
-        const availableTimes = ["09:00", "10:30", "12:00", "13:30", "15:00", "16:30", "18:00", "19:30"];
-
-        availableTimes.forEach(time => {
-            const slot = document.createElement("div");
-            slot.className = "time-slot";
-            slot.textContent = time;
-            slot.addEventListener("click", () => {
-                document.querySelectorAll(".time-slot").forEach(s => s.classList.remove("selected"));
-                slot.classList.add("selected");
-                selectedTimeInput.value = time;
-            });
-            timeSlotsContainer.appendChild(slot);
+    availableTimes.forEach(time => {
+        const slot = document.createElement("div");
+        slot.className = "time-slot";
+        slot.textContent = time;
+        slot.addEventListener("click", () => {
+            document.querySelectorAll(".time-slot").forEach(s => s.classList.remove("selected"));
+            slot.classList.add("selected");
+            selectedTimeInput.value = time;
+            document.getElementById("timeErr").classList.remove("visible");
         });
+        timeSlotsContainer.appendChild(slot);
+    });
 
-        // 4. Динамическая загрузка услуг из базы данных Supabase
-        const serviceSelect = document.getElementById("serviceSelect");
+    // Загрузка услуг
+    const serviceSelect = document.getElementById("serviceSelect");
+    const FALLBACK_SERVICES = [
+        "Техническое обслуживание (ТО)",
+        "Замена масла и фильтров",
+        "Диагностика двигателя",
+        "Ремонт ходовой части",
+        "Замена тормозных колодок",
+        "Диагностика электрики",
+        "Шиномонтаж",
+        "Другая услуга"
+    ];
 
-        async function fetchServicesFromDB() {
-            try {
-                const { data: services, error } = await localSupabase
-                    .from('services')
-                    .select('name')
-                    .order('name', { ascending: true });
+    function populateServices(names) {
+        serviceSelect.innerHTML = '<option value="" disabled selected>— Выберите услугу —</option>';
+        names.forEach(n => {
+            const opt = document.createElement("option");
+            opt.value = n;
+            opt.textContent = n;
+            serviceSelect.appendChild(opt);
+        });
+    }
 
-                if (error) throw error;
-
-                if (services && services.length > 0) {
-                    serviceSelect.innerHTML = '<option value="" disabled selected>-- Выберите услугу --</option>';
-                    services.forEach(item => {
-                        const option = document.createElement("option");
-                        option.value = item.name;
-                        option.textContent = item.name;
-                        serviceSelect.appendChild(option);
-                    });
-                } else {
-                    serviceSelect.innerHTML = '<option value="" disabled>Услуги не найдены в БД (Добавьте их через админку)</option>';
-                }
-            } catch (err) {
-                console.error("Ошибка загрузки услуг из Supabase:", err);
-                serviceSelect.innerHTML = '<option value="" disabled>Не удалось загрузить список услуг</option>';
-            }
+    async function fetchServicesFromDB() {
+        try {
+            const { data: services, error } = await localSupabase
+                .from('services').select('name').order('name', { ascending: true });
+            if (error) throw error;
+            populateServices(services && services.length > 0 ? services.map(s => s.name) : FALLBACK_SERVICES);
+        } catch (err) {
+            console.error("Ошибка загрузки услуг:", err);
+            populateServices(FALLBACK_SERVICES);
         }
+    }
 
-        document.addEventListener("DOMContentLoaded", fetchServicesFromDB);
+    document.addEventListener("DOMContentLoaded", fetchServicesFromDB);
 
-        // 5. Отправка заполненной формы записи на API Vercel
-        const bookingForm = document.getElementById("bookingForm");
-        const submitBtn = document.getElementById("submitBtn");
+    // Валидация
+    function validatePhone(phone) {
+        const c = phone.replace(/[\s\-\(\)]/g, '');
+        return /^(\+7|7|8)\d{10}$/.test(c);
+    }
+    function validateEmail(email) {
+        if (!email) return true;
+        return /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(email);
+    }
+    function showErr(fieldId, errId, hasError) {
+        document.getElementById(fieldId).classList.toggle('error', hasError);
+        document.getElementById(errId).classList.toggle('visible', hasError);
+        return !hasError;
+    }
 
-        bookingForm.addEventListener("submit", async (e) => {
-            e.preventDefault();
-
-            if (!selectedTimeInput.value) {
-                alert("Пожалуйста, выберите желаемое время визита!");
-                return;
-            }
-
-            submitBtn.disabled = true;
-            submitBtn.textContent = "Отправка записи...";
-
-            const bookingData = {
-                name: document.getElementById("name").value.trim(),
-                phone: document.getElementById("phone").value.trim(),
-                email: document.getElementById("email").value.trim() || "не указан",
-                carModel: document.getElementById("carModel").value.trim(),
-                service: serviceSelect.value,
-                date: document.getElementById("date").value,
-                time: selectedTimeInput.value
-            };
-
-            try {
-                const response = await fetch('/api/booking', {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({
-                        action: 'createBooking',
-                        bookingData: bookingData
-                    })
-                });
-
-                const data = await response.json();
-
-                if (response.ok && data.success) {
-                    alert(`🚗 Заявка успешно принята! Оповещение отправлено администратору СТО.`);
-                    bookingForm.reset();
-                    document.querySelectorAll(".time-slot").forEach(s => s.classList.remove("selected"));
-                    selectedTimeInput.value = "";
-                } else {
-                    alert("Ошибка при сохранении: " + (data.message || "Неизвестная ошибка"));
-                }
-            } catch (error) {
-                console.error('Ошибка отправки:', error);
-                alert("❌ Ошибка соединения с сервером бэкенда.");
-            } finally {
-                submitBtn.disabled = false;
-                submitBtn.textContent = "Подтвердить запись";
-            }
+    ['name','phone','email','carModel','date'].forEach(id => {
+        const errMap = {name:'nameErr',phone:'phoneErr',email:'emailErr',carModel:'carErr',date:'dateErr'};
+        document.getElementById(id).addEventListener('input', () => {
+            document.getElementById(id).classList.remove('error');
+            document.getElementById(errMap[id]).classList.remove('visible');
         });
-    </script>
+    });
+    serviceSelect.addEventListener('change', () => {
+        serviceSelect.classList.remove('error');
+        document.getElementById('serviceErr').classList.remove('visible');
+    });
+
+    // Модальное окно
+    const modal = document.getElementById('privacyModal');
+    document.getElementById('openPrivacyModal').addEventListener('click', () => modal.classList.add('open'));
+    document.getElementById('closeModal').addEventListener('click', () => modal.classList.remove('open'));
+    document.getElementById('acceptPrivacy').addEventListener('click', () => {
+        modal.classList.remove('open');
+        document.getElementById('consentCheck').checked = true;
+        document.getElementById('consentErr').classList.remove('visible');
+    });
+    modal.addEventListener('click', e => { if (e.target === modal) modal.classList.remove('open'); });
+
+    // Отправка
+    document.getElementById("bookingForm").addEventListener("submit", async (e) => {
+        e.preventDefault();
+        const name = document.getElementById("name").value.trim();
+        const phone = document.getElementById("phone").value.trim();
+        const email = document.getElementById("email").value.trim();
+        const carModel = document.getElementById("carModel").value.trim();
+        const service = serviceSelect.value;
+        const date = dateInput.value;
+        const time = selectedTimeInput.value;
+        const consent = document.getElementById("consentCheck").checked;
+
+        let valid = true;
+        valid = showErr('name', 'nameErr', !name) && valid;
+        valid = showErr('phone', 'phoneErr', !validatePhone(phone)) && valid;
+        if (email && !validateEmail(email)) { showErr('email', 'emailErr', true); valid = false; }
+        valid = showErr('carModel', 'carErr', !carModel) && valid;
+        valid = showErr('serviceSelect', 'serviceErr', !service) && valid;
+        valid = showErr('date', 'dateErr', !date || date < today) && valid;
+
+        if (!time) { document.getElementById('timeErr').classList.add('visible'); valid = false; }
+        if (!consent) { document.getElementById('consentErr').classList.add('visible'); valid = false; }
+        if (!valid) return;
+
+        const submitBtn = document.getElementById("submitBtn");
+        submitBtn.disabled = true;
+        submitBtn.textContent = "Отправка...";
+
+        try {
+            const resp = await fetch('/api/booking', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ action: 'createBooking', bookingData: {
+                    name, phone, email: email || "не указан", carModel, service, date, time
+                }})
+            });
+            const data = await resp.json();
+            if (resp.ok && data.success) {
+                alert("Заявка успешно принята! Мы свяжемся с вами для подтверждения.");
+                e.target.reset();
+                document.querySelectorAll(".time-slot").forEach(s => s.classList.remove("selected"));
+                selectedTimeInput.value = "";
+            } else {
+                alert("Ошибка: " + (data.message || "Неизвестная ошибка"));
+            }
+        } catch (err) {
+            alert("Ошибка соединения с сервером.");
+        } finally {
+            submitBtn.disabled = false;
+            submitBtn.textContent = "Подтвердить запись";
+        }
+    });
+</script>
 </body>
 </html>
