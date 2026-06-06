@@ -406,10 +406,44 @@
             </div>
         </div>
         <div class="copyright">
-            <p>© 2026 СТО «АвтоДок». Все права защищены законом. <a href="admin.html" style="display:inline; color:#8aa4b5; text-decoration:underline;">[ Управление СТО ]</a></p>
+            <p>© 2026 СТО «АвтоДок». Все права защищены законом. <a href="#" onclick="openAdminLogin(event)" style="display:inline; color:#8aa4b5; text-decoration:underline;">[ Управление СТО ]</a></p>
         </div>
     </div>
 </footer>
+
+<!-- Модальное окно входа в админку -->
+<div id="adminLoginOverlay" style="
+    display:none; position:fixed; inset:0;
+    background:rgba(0,0,0,0.6); z-index:9999;
+    justify-content:center; align-items:center; padding:20px;">
+    <div style="
+        background:white; border-radius:16px; padding:36px 32px;
+        max-width:380px; width:100%; box-shadow:0 20px 60px rgba(0,0,0,0.3);
+        position:relative; text-align:center;">
+        <button onclick="closeAdminLogin()" style="
+            position:absolute; top:14px; right:18px; background:none; border:none;
+            font-size:1.5rem; cursor:pointer; color:#64748b; line-height:1;">&times;</button>
+        <div style="font-size:2.5rem; margin-bottom:12px;">&#128272;</div>
+        <h2 style="color:#0b2b40; font-size:1.3rem; margin-bottom:6px;">Вход в панель управления</h2>
+        <p style="color:#5a6e7c; font-size:0.88rem; margin-bottom:24px;">Введите пароль администратора СТО</p>
+        <input type="password" id="adminPasswordInput"
+            placeholder="Пароль"
+            onkeydown="if(event.key==='Enter') checkAdminPassword()"
+            style="width:100%; padding:11px 14px; border:1.5px solid #cbd5e1;
+                border-radius:8px; font-size:1rem; outline:none;
+                text-align:center; letter-spacing:3px; margin-bottom:10px;" />
+        <div id="adminLoginError" style="
+            color:#e25c1d; font-size:0.83rem; margin-bottom:10px; display:none;">
+            Неверный пароль. Попробуйте ещё раз.
+        </div>
+        <button onclick="checkAdminPassword()" style="
+            width:100%; background:#0b2b40; color:white; border:none;
+            padding:12px; border-radius:8px; font-size:1rem; font-weight:600;
+            cursor:pointer;">
+            Войти
+        </button>
+    </div>
+</div>
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
@@ -508,6 +542,33 @@
 
     // Первичный вызов при загрузке страницы
     renderServices();
+
+    // ===== ВХОД В АДМИНКУ =====
+    function openAdminLogin(e) {
+        e.preventDefault();
+        document.getElementById('adminLoginOverlay').style.display = 'flex';
+        document.getElementById('adminPasswordInput').value = '';
+        document.getElementById('adminLoginError').style.display = 'none';
+        setTimeout(() => document.getElementById('adminPasswordInput').focus(), 50);
+    }
+    function closeAdminLogin() {
+        document.getElementById('adminLoginOverlay').style.display = 'none';
+    }
+    function checkAdminPassword() {
+        const pwd = document.getElementById('adminPasswordInput').value;
+        if (pwd === 'Admin') {
+            closeAdminLogin();
+            window.location.href = 'admin.html';
+        } else {
+            document.getElementById('adminLoginError').style.display = 'block';
+            document.getElementById('adminPasswordInput').value = '';
+            document.getElementById('adminPasswordInput').focus();
+        }
+    }
+    document.getElementById('adminLoginOverlay').addEventListener('click', function(e) {
+        if (e.target === this) closeAdminLogin();
+    });
+
 </script>
 </body>
 </html>
